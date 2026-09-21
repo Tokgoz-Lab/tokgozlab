@@ -61,7 +61,7 @@ const personSchema = {
   <header class="relative overflow-hidden bg-[#061a2b] text-white">
     <div class="signal-grid absolute inset-0 opacity-50"></div>
     <div class="section-shell relative py-12 sm:py-18">
-      <a href={withBase('/team')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7bdedb] hover:text-white">
+      <a href={withBase('/team/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7bdedb] hover:text-white">
         <ArrowLeft className="h-4 w-4" /> Back to people
       </a>
 
@@ -119,7 +119,7 @@ const personSchema = {
           </dl>
         </>
       )}
-      <a href={withBase('/publications')} class={member.id === 'korkut-kaan-tokgoz' ? 'mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#002776]' : 'inline-flex items-center gap-2 text-sm font-bold text-[#002776]'}>Selected publications <ArrowUpRight className="h-4 w-4" /></a>
+      <a href={withBase('/publications/')} class={member.id === 'korkut-kaan-tokgoz' ? 'mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#002776]' : 'inline-flex items-center gap-2 text-sm font-bold text-[#002776]'}>Selected publications <ArrowUpRight className="h-4 w-4" /></a>
     </aside>
   </article>
 </Layout>

@@ -4,10 +4,10 @@ import { SITE, withBase } from '../config';
 
 const pathname = Astro.url.pathname;
 const homeLink = withBase('/');
-const searchLink = withBase('/search');
-const joinLink = withBase('/join');
+const searchLink = withBase('/search/');
+const joinLink = withBase('/join/');
 const regularNav = SITE.nav.filter((item) => !['search', 'join'].includes(item.key));
-const isActive = (link: string) => pathname === link || (link !== homeLink && pathname.startsWith(`${link}/`));
+const isActive = (link: string) => pathname === link || (link !== homeLink && pathname.startsWith(link));
 ---
 
 <header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">

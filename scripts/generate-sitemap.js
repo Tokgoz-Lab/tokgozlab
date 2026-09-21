@@ -39,8 +39,11 @@ const publicationRoutes = paperSlugsIn(PUBLICATIONS_DIR).map((slug) => `publicat
 
 const routes = [...staticRoutes, ...researchRoutes, ...teamRoutes, ...publicationRoutes];
 
+// Every generated page is a directory route (e.g. `/team/index.html`), so its
+// canonical URL — and thus its sitemap entry — always carries a trailing
+// slash; omitting it here would point Google at a URL that just 301s.
 const urlEntries = routes
-  .map((route) => `  <url><loc>${SITE_URL}/${route}</loc></url>`)
+  .map((route) => `  <url><loc>${SITE_URL}/${route ? `${route}/` : ''}</loc></url>`)
   .join('\n');
 
 const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlEntries}\n</urlset>\n`;

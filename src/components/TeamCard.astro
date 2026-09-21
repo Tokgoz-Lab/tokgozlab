@@ -10,7 +10,7 @@ interface Props {
 const { member } = Astro.props;
 const { name, role, title, avatar, bio, email, website, personalWebsite, linkedin, googleScholar, orcid } = member.data;
 const slug = member.id.replace(/\.[^/.]+$/, '');
-const profileLink = withBase(`/team/${slug}`);
+const profileLink = withBase(`/team/${slug}/`);
 ---
 
 <article class="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">

@@ -9,7 +9,7 @@ interface Props {
 
 const { entry } = Astro.props;
 const { title, authors, year, venue, links, doi, award, badges } = entry.data;
-const detailLink = withBase(`/publications/${entry.id}`);
+const detailLink = withBase(`/publications/${entry.id}/`);
 
 const iconMap: Record<string, any> = {
   pdf: FileText,
