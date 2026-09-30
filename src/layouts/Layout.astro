@@ -148,7 +148,15 @@ const organizationSchema = {
   </head>
   <body class="min-h-screen">
     <Header />
-    <main id="main-content" class="min-h-[60vh]" data-pagefind-body>
+    {/* Explicit bg, not inherited from body: the surface-sync script below
+       recolors body/--page-chrome-bg once the footer nears the viewport
+       center, which would otherwise show through any content section that
+       doesn't paint its own background (most pages besides the homepage). */}
+    <main
+      id="main-content"
+      class:list={['min-h-[60vh]', theme === 'dark' ? 'bg-[#031522]' : 'bg-white']}
+      data-pagefind-body
+    >
       <slot />
     </main>
 
