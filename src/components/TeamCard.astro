@@ -11,6 +11,8 @@ const { member } = Astro.props;
 const { name, role, title, avatar, bio, email, website, personalWebsite, linkedin, github, twitter, googleScholar, orcid } = member.data;
 const slug = member.id.replace(/\.[^/.]+$/, '');
 const profileLink = withBase(`/team/${slug}/`);
+// The title line already states the position for these roles, so the eyebrow would repeat it.
+const showRole = role === 'Principal Investigator' || role === 'Alumni';
 ---
 
 <article class="group overflow-hidden rounded-3xl border border-slate-200 bg-white shadow-sm">
@@ -18,8 +20,8 @@ const profileLink = withBase(`/team/${slug}/`);
     <img src={avatar.src} alt={name} class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" loading="lazy" />
   </a>
   <div class="p-6">
-    <p class="text-xs font-bold uppercase tracking-[0.14em] text-[#007f80]">{role}</p>
-    <a href={profileLink} class="mt-2 block">
+    {showRole && <p class="text-xs font-bold uppercase tracking-[0.14em] text-[#007f80]">{role}</p>}
+    <a href={profileLink} class:list={['block', showRole && 'mt-2']}>
       <h3 class="text-xl font-bold tracking-[-0.02em] text-[#071b26] transition group-hover:text-[#006f72]">{name}</h3>
     </a>
     {title?.[0] && <p class="mt-2 text-sm font-semibold text-slate-500">{title[0]}</p>}
