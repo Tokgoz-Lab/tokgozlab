@@ -1,6 +1,6 @@
 ---
 name: "Didem Aydoğan"
-role: "Postgraduate"
+role: "Postdoctorate Researcher"
 title: ["Post-Doctoral Researcher · Wireless Communication/Signal Design"]
 avatar: "../../assets/didem-aydogan.jpeg"
 bio: "Didem Aydoğan is a postdoctoral researcher in Tokgöz Lab working on integrated sensing and communication (ISAC), sub-THz systems, and hardware-aware waveform design. Her research focuses on bridging signal processing and RF hardware constraints to develop robust and efficient next-generation wireless communication and sensing technologies."

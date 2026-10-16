@@ -41,10 +41,9 @@ const team = defineCollection({
       name: z.string(),
       role: z.enum([
         'Principal Investigator',
-        'Postgraduate',
-        'Doctorate',
-        'Graduate',
-        'Undergraduate',
+        'Postdoctorate Researcher',
+        'PhD Candidate',
+        "Master's Student",
         'Alumni',
       ]),
       title: z.array(z.string()).optional(),

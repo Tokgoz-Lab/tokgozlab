@@ -1,6 +1,6 @@
 ---
 name: "Hasan Bartu Orhun"
-role: "Graduate"
+role: "Master's Student"
 title: ["Master's Degree · Electronics Engineering"]
 avatar: "../../assets/hasan-bartu-orhun.jpeg"
 bio: "Hasan Bartu Orhun received his BSc in Electrical and Electronics Engineering from Bilkent University in 2024. He is currently pursuing an MSc in Sabanci University."

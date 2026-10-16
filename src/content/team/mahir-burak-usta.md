@@ -1,6 +1,6 @@
 ---
 name: "Mahir Burak Usta"
-role: "Doctorate"
+role: "PhD Candidate"
 title: ["PhD Candidate · Electronics Engineering"]
 avatar: "../../assets/mahir-burak-usta.png"
 bio: "Ph.D. candidate in Electronics Engineering at Sabancı University, working on noise modeling in millimeter-wave and sub-terahertz systems. His other interests include UAV-to-UAV communications and reconfigurable antenna arrays."

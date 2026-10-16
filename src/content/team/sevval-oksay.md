@@ -1,6 +1,6 @@
 ---
 name: "Şevval Oksay"
-role: "Doctorate"
+role: "PhD Candidate"
 title: ["PhD Candidate · Electronics Engineering"]
 avatar: "../../assets/sevval-oksay.png"
 bio: "She is a Ph.D. student in Electronics Engineering at Sabancı University, Istanbul, Türkiye. Her research focuses on electromagnetics, RF/microwave and integrated circuit technologies, including amplifiers and antennas for advanced communication systems at sub-terahertz and terahertz frequencies."

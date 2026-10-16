@@ -1,6 +1,6 @@
 ---
 name: "Arda Özgün"
-role: "Graduate"
+role: "Master's Student"
 title: ["Master's Degree · Electronics Engineering"]
 avatar: "../../assets/arda-ozgun.jpg"
 bio: "Arda Özgün is an M.Sc. student in Electronics Engineering at Sabancı University, specializing in integrated circuit design and SRAM-based processing-near-memory architectures. His research focuses on developing an energy-efficient SRAM macro with integrated multiply–accumulate computation for edge AI applications."

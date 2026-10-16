@@ -63,7 +63,7 @@ Her iki yöntem de aynı şekilde biter: değişikliğin `main` dalına ulaştı
 ## Yeni bir takım üyesi ekleme
 
 1. **Kişinin rolüne karar ver.** Aşağıdaki değerlerden tam olarak biri olmalı (yazım ve büyük/küçük harf önemli):
-   `Principal Investigator`, `Professor`, `Associate Professor`, `Assistant Professor`, `Postdoc`, `Research Assistant`, `PhD Student`, `Master Student`, `Undergraduate`, `Alumni`.
+   `Principal Investigator`, `Postdoctorate Researcher`, `PhD Candidate`, `Master's Student`, `Alumni`.
    Takım sayfası kişileri bu değerlere göre otomatik olarak gruplar, o yüzden doğru olanı seçmek kişinin hangi bölümde görüneceğini belirler.
 
 2. **Bir fotoğraf hazırla.** Kare (1:1 en-boy oranı, örn. 800×800px), `.jpg` veya `.png`. Kişinin adına göre isimlendirip `src/assets/` içine kaydet, örn. `src/assets/jane-doe.jpg`. (`public/` içine koyma — nedenini [Fotoğraf ve görsel kuralları](#fotoğraf-ve-görsel-kuralları) bölümünde açıklıyorum.)
@@ -75,7 +75,7 @@ Her iki yöntem de aynı şekilde biter: değişikliğin `main` dalına ulaştı
    ```markdown
    ---
    name: "Jane Doe"
-   role: "PhD Student"
+   role: "PhD Candidate"
    title: ["Electronics Engineering"]
    avatar: "../../assets/jane-doe.jpg"
    bio: "Takım kartında gösterilen, araştırma odağının bir-iki cümlelik özeti."

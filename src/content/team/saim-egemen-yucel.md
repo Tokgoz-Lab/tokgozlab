@@ -1,6 +1,6 @@
 ---
 name: "Saim Egemen Yücel"
-role: "Graduate"
+role: "Master's Student"
 title: ["Master's Degree · Material Science and Nano Technology"]
 avatar: "../../assets/saim-egemen-yucel.jpeg"
 bio: "Saim Egemen Yücel is a physics engineering graduate from Ankara University, currently exploring quantum materials for Edge AI hardware. His work spans the design and fabrication of emerging materials for more efficient on-device computing."
