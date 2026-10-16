@@ -63,7 +63,7 @@ Both options end the same way: once your change lands on the `main` branch, GitH
 ## Adding a new team member
 
 1. **Decide the person's role.** It must be exactly one of these values (spelling and capitalization matter):
-   `Principal Investigator`, `Postdoctorate Researcher`, `PhD Candidate`, `Master's Student`, `Alumni`.
+   `Principal Investigator`, `Postdoctoral Researcher`, `PhD Candidate`, `Master's Student`, `Alumni`.
    Each role has its own section on `/team`, in this order — a section only appears once someone with that role exists, so empty ones stay hidden.
 
 2. **Prepare a photo.** Square (1:1 aspect ratio, e.g. 800×800px), `.jpg` or `.png`. Save it into `src/assets/`, named after the person, e.g. `src/assets/jane-doe.jpg`. (Don't put it in `public/` — see [Photo and image guidelines](#photo-and-image-guidelines) for why.)
