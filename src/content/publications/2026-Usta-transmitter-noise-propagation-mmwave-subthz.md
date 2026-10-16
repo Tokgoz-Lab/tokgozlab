@@ -2,15 +2,16 @@
 title: "Transmitter Noise Propagation in Millimeter-Wave and Sub-Terahertz: From Limits to Design Guidelines"
 authors: ["Mahir Burak Usta", "Didem Aydoğan", "Evgenii Vinogradov", "Mohammad Shahmoradi", "Eduard Alarcón", "Sergi Abadal", "Korkut Kaan Tokgöz"]
 year: 2026
-venue: "arXiv preprint arXiv:2604.16020"
+venue: "IEEE Open Journal of the Communications Society"
 type: "paper"
 links:
   pdf: "https://arxiv.org/pdf/2604.16020"
   code: ""
-  website: ""
+  website: "https://doi.org/10.1109/OJCOMS.2026.3730694"
   demo: ""
   slides: ""
   video: ""
+doi: "10.1109/OJCOMS.2026.3730694"
 description: "A framework for identifying when transmitter noise dominates system performance in mmWave and sub-THz links, showing SNR degradation of 15–25 dB at short range and design guidelines for minimizing its impact."
 featured: false
 ---
