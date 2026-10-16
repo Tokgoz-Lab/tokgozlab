@@ -1,7 +1,7 @@
 ---
 name: "Saman Mokhtabadamri"
 role: "PhD Candidate"
-title: ["PhD Candidate · Electronics Engineering"]
+title: ["PhD Candidate in Electronics Engineering"]
 avatar: "../../assets/saman-mokhtabadamri.jpg"
 bio: "Saman Mokhtabadamri is an Electronics Engineering researcher specializing in RF, mm-wave, and sub-THz CMOS circuits. He is pursuing a dual-degree PhD at Sabancı University, Türkiye, and NYCU, Taiwan, focusing on mm-wave/sub-THz transceivers and PLLs for ultra-broadband wireless communications."
 email: "saman.mokhtabadamri@sabanciuniv.edu"
