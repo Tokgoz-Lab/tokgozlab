@@ -1,7 +1,7 @@
 ---
 name: "Fatih Arda Zengin"
 role: "Master's Student"
-title: ["Master's Degree · Manufacturing Engineering"]
+title: ["M.Sc. in Manufacturing Engineering"]
 avatar: "../../assets/fatih-arda-zengin.jpeg"
 bio: "Fatih Arda Zengin is an M.Sc. candidate in Manufacturing Engineering at Sabancı University with a background in Industrial Engineering. His research interests lie at the intersection of artificial intelligence, energy technologies, and advanced manufacturing."
 email: "fatihzengin@sabanciuniv.edu"

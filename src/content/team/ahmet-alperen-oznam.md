@@ -1,7 +1,7 @@
 ---
 name: "Ahmet Alperen Öznam"
 role: "Master's Student"
-title: ["Master's Degree · Electronics Engineering"]
+title: ["M.Sc. in Electronics Engineering"]
 avatar: "../../assets/ahmet-alperen-oznam.jpeg"
 bio: "Ahmet Alperen Öznam completed a double major in EE and CS during his undergraduate studies and is currently working on mm-wave systems."
 email: "aoznam@sabanciuniv.edu"

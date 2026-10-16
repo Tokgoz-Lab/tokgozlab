@@ -1,7 +1,7 @@
 ---
 name: "Mervegül Gökçimen"
 role: "Master's Student"
-title: ["Master's Degree · Electronics Engineering"]
+title: ["M.Sc. in Electronics Engineering"]
 avatar: "../../assets/mervegul-gokcimen.png"
 bio: "M.Sc. student in Electronics Engineering at Sabancı University, with research interests in RF and mm-wave integrated circuit design."
 email: "mervegulg@sabanciuniv.edu"

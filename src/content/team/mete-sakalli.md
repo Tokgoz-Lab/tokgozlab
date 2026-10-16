@@ -1,7 +1,7 @@
 ---
 name: "Mete Sakallı"
 role: "Master's Student"
-title: ["Master's Degree · Electronics Engineering"]
+title: ["M.Sc. in Electronics Engineering"]
 avatar: "../../assets/mete-sakalli.jpeg"
 bio: "Mete Sakallı is currently pursuing a master's degree in Electronics Engineering at Sabancı University, working on digital IC design with a focus on RISC-V processor architectures, FPGA implementation, and hardware accelerators for machine learning. His research spans multi-ISA reconfigurable fabrics and low-power neural network accelerators for embedded systems."
 email: "mete.sakalli@sabanciuniv.edu"
