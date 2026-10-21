@@ -51,7 +51,7 @@ Four collections, defined in `src/content.config.ts`:
 | `publications` | `src/content/publications/*.md` | `title`, `authors[]`, `year`, `venue`, `type` (paper/book/patent/software), `description`, `doi`, `award`, `links.{pdf,code,website,demo,slides,video}`, `badges[]`, `featured` | by `year` desc |
 | `team` | `src/content/team/*.md` | `name`, `role` (enum, see schema), `title[]`, `avatar`, `bio`, `email`, social links, `weight` | by `weight` asc |
 | `research` | `src/content/research/*.md` | `title`, `description`, `order` | by `order` asc |
-| `news` | `src/content/news/*.md` | `title`, `date`, `summary`, `image` (optional, `image()` helper), `imageAlt`, `link`, `linkText`, `draft` | by `date` desc |
+| `news` | `src/content/news/*.md` | `title`, `date`, `summary`, `image` (optional, `image()` helper), `imageAlt`, `imageFit` (`cover`/`contain`, thumbnails only), `link`, `linkText`, `draft` | by `date` desc |
 
 (There is no `cover` field on any collection — it existed in both schemas plus matching import-bibtex.js validation/fallback logic, but was never rendered anywhere in the UI, so it was removed in full, commit `07d8757`. Don't reintroduce a `cover:` field without also wiring it into the templates that would display it.)
 

@@ -79,6 +79,7 @@ const news = defineCollection({
       summary: z.string(),
       image: image().optional(),
       imageAlt: z.string().optional(),
+      imageFit: z.enum(['cover', 'contain']).default('cover'),
       link: z.string().url().optional(),
       linkText: z.string().optional(),
       draft: z.boolean().default(false),

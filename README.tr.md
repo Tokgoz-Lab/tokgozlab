@@ -234,7 +234,7 @@ Metnin içine başka fotoğraflar da ekleyebilirsin:
 ```
 
 - **Zorunlu:** `title`, `date` (`YYYY-MM-DD` şeklinde) ve `summary`.
-- **İsteğe bağlı:** `image` (önce `src/assets/` içine eklediğin bir kapak fotoğrafı), `imageAlt` (ekran okuyucular için fotoğrafın kısa açıklaması), `link` + `linkText` (üniversite veya konferans duyurusu gibi harici bir sayfaya giden buton) ve `draft: true`. `draft: true` haberi, sen o satırı silene ya da `false` yapana kadar canlı sitede göstermez.
+- **İsteğe bağlı:** `image` (önce `src/assets/` içine eklediğin bir kapak fotoğrafı), `imageAlt` (ekran okuyucular için fotoğrafın kısa açıklaması), `imageFit: "contain"` (diyagram/şekiller için: küçük önizlemelerde görseli kırpmak yerine tamamını gösterir), `link` + `linkText` (üniversite veya konferans duyurusu gibi harici bir sayfaya giden buton) ve `draft: true`. `draft: true` haberi, sen o satırı silene ya da `false` yapana kadar canlı sitede göstermez.
 - Dosya adı haberin adresi olur, örn. `/news/2026-10-21-paper-accepted-at-rfic`. Sadece küçük harf, rakam ve tire kullan.
 - Haberler en yeniden eskiye sıralanır. En son üç haber ana sayfadaki "Latest from the lab" bölümünde de görünür. Bu bölüm ilk haber eklenene kadar gizli kalır.
 

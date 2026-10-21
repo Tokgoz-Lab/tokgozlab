@@ -249,7 +249,7 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
           {latestNews.map((post) => (
             <a href={withBase(`/news/${post.id}/`)} class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
               {post.data.image && (
-                <Image src={post.data.image} alt="" class="aspect-[16/9] w-full object-cover" widths={[480, 720]} sizes="(max-width: 1024px) 100vw, 30vw" quality={82} />
+                <Image src={post.data.image} alt="" class:list={['aspect-[16/9] w-full', post.data.imageFit === 'contain' ? 'border-b border-slate-100 bg-white object-contain p-3' : 'object-cover']} widths={[480, 720]} sizes="(max-width: 1024px) 100vw, 30vw" quality={82} />
               )}
               <div class="flex flex-1 flex-col p-7">
                 <time datetime={post.data.date.toISOString().slice(0, 10)} class="text-xs font-bold uppercase tracking-[0.14em] text-[#007f80]">{formatNewsDate(post.data.date)}</time>

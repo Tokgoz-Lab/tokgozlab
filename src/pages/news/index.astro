@@ -51,7 +51,7 @@ const posts = await getPublishedNews();
               </div>
               {post.data.image && (
                 <a href={withBase(`/news/${post.id}/`)} class="hidden overflow-hidden rounded-2xl border border-slate-200 lg:block" tabindex="-1" aria-hidden="true">
-                  <Image src={post.data.image} alt="" class="aspect-[4/3] w-full object-cover transition duration-500 group-hover:scale-[1.03]" widths={[320, 640]} sizes="18rem" quality={82} />
+                  <Image src={post.data.image} alt="" class:list={['aspect-[4/3] w-full transition duration-500 group-hover:scale-[1.03]', post.data.imageFit === 'contain' ? 'bg-white object-contain p-2' : 'object-cover']} widths={[320, 640]} sizes="18rem" quality={82} />
                 </a>
               )}
             </article>

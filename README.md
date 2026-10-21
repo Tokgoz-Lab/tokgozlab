@@ -238,7 +238,7 @@ You can also add more photos inside the text:
 ```
 
 - **Required:** `title`, `date` (written as `YYYY-MM-DD`), and `summary`.
-- **Optional:** `image` (a cover photo you first add to `src/assets/`), `imageAlt` (a short description of that photo, for screen readers), `link` + `linkText` (a button pointing to an external page, such as a university or conference announcement), and `draft: true`, which keeps the post off the live site until you remove it or set it to `false`.
+- **Optional:** `image` (a cover photo you first add to `src/assets/`), `imageAlt` (a short description of that photo, for screen readers), `imageFit: "contain"` (for diagrams/figures: shows the whole image in thumbnails instead of cropping it to fill the frame), `link` + `linkText` (a button pointing to an external page, such as a university or conference announcement), and `draft: true`, which keeps the post off the live site until you remove it or set it to `false`.
 - The filename becomes the post's address, e.g. `/news/2026-10-21-paper-accepted-at-rfic`. Use lowercase letters, numbers, and hyphens only.
 - Posts are sorted newest first. The three latest also appear in a "Latest from the lab" section on the homepage. That section stays hidden until the first post exists.
 
