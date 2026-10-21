@@ -195,6 +195,12 @@ button {
   text-underline-offset: 3px;
 }
 
+.prose img {
+  width: 100%;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+}
+
 .signal-grid {
   background-image:
     linear-gradient(rgb(255 255 255 / 0.035) 1px, transparent 1px),

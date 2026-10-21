@@ -17,6 +17,7 @@ import profileImage from '../assets/korkut-kaan-tokgoz.jpg';
 import tubitakLogo from '../assets/tubitak-logo.png';
 import turkishAerospaceLogo from '../assets/turkish-aerospace-logo.png';
 import { activeProjects } from '../data/projects';
+import { formatNewsDate, getPublishedNews } from '../data/news';
 
 const SHOW_RESEARCH_NETWORK = false; // hidden for now, re-enable when ready
 
@@ -41,6 +42,7 @@ const focusStyles = [
 ];
 
 const projects = activeProjects.slice(0, 3);
+const latestNews = (await getPublishedNews()).slice(0, 3);
 ---
 
 <Layout title="Home" theme="dark">
@@ -229,6 +231,43 @@ const projects = activeProjects.slice(0, 3);
       </a>
     </div>
   </section>
+
+  {latestNews.length > 0 && (
+    <section data-surface="light" class="bg-[#f3f7fa] py-20 sm:py-28">
+      <div class="section-shell">
+        <div class="flex items-end justify-between gap-6">
+          <div>
+            <span class="eyebrow">Lab news</span>
+            <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-[#071b26]">Latest from the lab.</h2>
+          </div>
+          <a href={withBase('/news/')} class="hidden items-center gap-2 text-sm font-bold text-[#007f80] sm:inline-flex">
+            All news <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
+
+        <div class="mt-12 grid gap-5 lg:grid-cols-3">
+          {latestNews.map((post) => (
+            <a href={withBase(`/news/${post.id}/`)} class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
+              {post.data.image && (
+                <Image src={post.data.image} alt="" class="aspect-[16/9] w-full object-cover" widths={[480, 720]} sizes="(max-width: 1024px) 100vw, 30vw" quality={82} />
+              )}
+              <div class="flex flex-1 flex-col p-7">
+                <time datetime={post.data.date.toISOString().slice(0, 10)} class="text-xs font-bold uppercase tracking-[0.14em] text-[#007f80]">{formatNewsDate(post.data.date)}</time>
+                <h3 class="mt-4 text-xl font-bold leading-snug text-[#071b26] group-hover:text-[#006f72]">{post.data.title}</h3>
+                <p class="mt-3 line-clamp-3 text-sm leading-6 text-slate-600">{post.data.summary}</p>
+                <span class="mt-auto inline-flex items-center gap-1 pt-5 text-xs font-bold uppercase tracking-[0.1em] text-[#007f80]">
+                  Read more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                </span>
+              </div>
+            </a>
+          ))}
+        </div>
+        <a href={withBase('/news/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#007f80] sm:hidden">
+          All news <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
+    </section>
+  )}
 
   <section data-surface="dark" class="bg-[#061a2b] py-20 text-white sm:py-28">
     <div class="section-shell grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">

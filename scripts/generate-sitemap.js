@@ -8,6 +8,7 @@ const DIST_DIR = path.join(process.cwd(), 'dist');
 const RESEARCH_DIR = path.join(process.cwd(), 'src', 'content', 'research');
 const TEAM_DIR = path.join(process.cwd(), 'src', 'content', 'team');
 const PUBLICATIONS_DIR = path.join(process.cwd(), 'src', 'content', 'publications');
+const NEWS_DIR = path.join(process.cwd(), 'src', 'content', 'news');
 
 // Astro's content-collection glob loader lowercases the filename to derive
 // each entry's `id` (e.g. "2016-Tokgöz-..." -> "2016-tokgöz-..."), so the
@@ -30,14 +31,23 @@ const paperSlugsIn = (dir) =>
     })
     .map((file) => file.replace(/\.mdx?$/, '').toLowerCase());
 
+// Mirrors the `!data.draft` filter in src/data/news.ts.
+const publishedNewsSlugsIn = (dir) =>
+  fs
+    .readdirSync(dir)
+    .filter((file) => /\.mdx?$/.test(file))
+    .filter((file) => !/^draft:\s*true\s*$/m.test(fs.readFileSync(path.join(dir, file), 'utf8')))
+    .map((file) => file.replace(/\.mdx?$/, '').toLowerCase());
+
 // 'search' is deliberately excluded — it's noindex'd (see src/pages/search.astro)
 // and has no unique indexable content of its own.
-const staticRoutes = ['', 'research', 'projects', 'publications', 'team', 'join'];
+const staticRoutes = ['', 'research', 'projects', 'publications', 'team', 'news', 'join'];
 const researchRoutes = slugsIn(RESEARCH_DIR).map((slug) => `research/${slug}`);
 const teamRoutes = slugsIn(TEAM_DIR).map((slug) => `team/${slug}`);
 const publicationRoutes = paperSlugsIn(PUBLICATIONS_DIR).map((slug) => `publications/${slug}`);
+const newsRoutes = publishedNewsSlugsIn(NEWS_DIR).map((slug) => `news/${slug}`);
 
-const routes = [...staticRoutes, ...researchRoutes, ...teamRoutes, ...publicationRoutes];
+const routes = [...staticRoutes, ...researchRoutes, ...teamRoutes, ...publicationRoutes, ...newsRoutes];
 
 // Every generated page is a directory route (e.g. `/team/index.html`), so its
 // canonical URL — and thus its sitemap entry — always carries a trailing

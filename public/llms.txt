@@ -11,6 +11,7 @@ Korkut Kaan Tokgöz is a faculty member at Sabancı University. He received his 
 - [Projects](https://tokgozlab.com/projects): active and completed research projects.
 - [Publications](https://tokgozlab.com/publications): peer-reviewed papers, conference proceedings, and other lab output.
 - [People](https://tokgozlab.com/team): the Principal Investigator, postdocs, PhD and Master's students, and alumni.
+- [News](https://tokgozlab.com/news): lab announcements — new papers, awards, talks, events, and new members.
 - [Team profile: Korkut Kaan Tokgöz](https://tokgozlab.com/team/korkut-kaan-tokgoz): full biography, education, and research focus of the lab's Principal Investigator.
 - [Opportunities](https://tokgozlab.com/join): how to join the lab as a graduate or undergraduate researcher, or collaborate as an industry partner.
 

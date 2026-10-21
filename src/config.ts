@@ -58,6 +58,7 @@ export const SITE = {
     { text: 'Projects', link: withBase('/projects/'), key: 'projects' },
     { text: 'Publications', link: withBase('/publications/'), key: 'publications' },
     { text: 'People', link: withBase('/team/'), key: 'team' },
+    { text: 'News', link: withBase('/news/'), key: 'news' },
     { text: 'Opportunities', link: withBase('/join/'), key: 'join' },
     { text: 'Search', link: withBase('/search/'), key: 'search' },
   ],

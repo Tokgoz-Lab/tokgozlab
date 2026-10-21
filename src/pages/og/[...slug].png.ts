@@ -9,6 +9,7 @@ export async function getStaticPaths() {
   const publications = await getCollection('publications');
   const team = await getCollection('team');
   const research = await getCollection('research');
+  const news = await getCollection('news', ({ data }) => !data.draft);
   
   // Define static pages
   const pages = [
@@ -17,6 +18,7 @@ export async function getStaticPaths() {
     { slug: 'projects', title: 'Projects', subtitle: 'Research programs in motion' },
     { slug: 'team', title: 'People', subtitle: 'The people behind the circuits' },
     { slug: 'publications', title: 'Publications', subtitle: 'Ideas tested in silicon and systems' },
+    { slug: 'news', title: 'News', subtitle: "What's happening in the lab" },
     { slug: 'join', title: 'Opportunities', subtitle: 'Do ambitious hardware research with us' },
   ];
 
@@ -60,11 +62,17 @@ export async function getStaticPaths() {
     };
   });
 
+  const newsPaths = news.map(post => ({
+    params: { slug: `news/${post.id}` },
+    props: { title: post.data.title, subtitle: post.data.summary },
+  }));
+
   return [
     ...staticPaths, 
     ...pubPaths, 
     ...teamPaths, 
-    ...researchPaths
+    ...researchPaths,
+    ...newsPaths
   ];
 }
 
