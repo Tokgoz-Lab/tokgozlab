@@ -17,6 +17,7 @@ This README is written for anyone updating the site's content — including peop
 - [Adding a new team member](#adding-a-new-team-member)
 - [Adding a new publication / paper](#adding-a-new-publication--paper)
 - [Adding a new research area](#adding-a-new-research-area)
+- [Posting news](#posting-news)
 - [Updating the Projects page](#updating-the-projects-page)
 - [Updating contact info, social links, and navigation](#updating-contact-info-social-links-and-navigation)
 - [Photo and image guidelines](#photo-and-image-guidelines)
@@ -37,6 +38,7 @@ The things you'll actually edit day-to-day are plain text files:
 | Publications (papers) | `citations.bib` (repo root) | BibTeX |
 | Team members | `src/content/team/*.md` | Markdown file per person |
 | Research areas | `src/content/research/*.md` | Markdown file per area |
+| News posts | `src/content/news/*.md` | Markdown file per post |
 | Active/completed projects | `src/data/projects.ts` | A short list in a code file |
 | Contact info, social links, navigation menu | `src/config.ts` | A short list of settings in a code file |
 
@@ -212,6 +214,34 @@ biography page.
 
 `order` controls where it appears among the other research areas (lower number = earlier); leave it out to default to last (100). The filename becomes the page address, e.g. `/research/new-research-direction`.
 
+## Posting news
+
+Each news post is one Markdown file in `src/content/news/`. Name it with the date first so posts stay in order in the folder, e.g. `src/content/news/2026-10-21-paper-accepted-at-rfic.md`:
+
+```markdown
+---
+title: "Our paper was accepted at RFIC 2027"
+date: 2026-10-21
+summary: "One or two sentences shown on the News page, the homepage, and link previews."
+image: "../../assets/news-rfic-2027.jpg"
+imageAlt: "Team photo at the RFIC poster session"
+link: "https://example.org/announcement"
+linkText: "Official announcement"
+---
+
+The full post goes here, in Markdown. Use `## Heading` for subsections,
+`**bold**`, `[links](https://...)`, and lists as usual.
+
+You can also add more photos inside the text:
+
+![Measurement setup](../../assets/news-rfic-setup.jpg)
+```
+
+- **Required:** `title`, `date` (written as `YYYY-MM-DD`), and `summary`.
+- **Optional:** `image` (a cover photo you first add to `src/assets/`), `imageAlt` (a short description of that photo, for screen readers), `link` + `linkText` (a button pointing to an external page, such as a university or conference announcement), and `draft: true`, which keeps the post off the live site until you remove it or set it to `false`.
+- The filename becomes the post's address, e.g. `/news/2026-10-21-paper-accepted-at-rfic`. Use lowercase letters, numbers, and hyphens only.
+- Posts are sorted newest first. The three latest also appear in a "Latest from the lab" section on the homepage. That section stays hidden until the first post exists.
+
 ## Updating the Projects page
 
 Active and completed projects are **not** a content collection — they're a short list inside a code file: `src/data/projects.ts`. Open it and you'll see two lists:
@@ -297,6 +327,7 @@ You can watch this happen under the **Actions** tab of the GitHub repository; a 
 - **The site build failed after I edited `citations.bib`.** Almost always a syntax mistake — a missing comma, or a curly brace `{`/`}` that isn't closed. Check the entry you just added against the examples above; every field needs `field={value}` and entries are separated by commas between fields, not after the last one.
 - **A new team member doesn't show up.** Check that `role` in their file is spelled *exactly* like one of the allowed values listed in [Adding a new team member](#adding-a-new-team-member) — even a small typo (extra space, wrong capitalization) will cause the whole file to fail validation, and the whole build to fail with it.
 - **A new publication doesn't appear on `/publications`.** Confirm its `type` is `"paper"` (BibTeX-imported entries default to this automatically unless the BibTeX entry type was `@book`).
+- **A news post doesn't show up.** Check that it doesn't still say `draft: true`, and that `date` is written as `YYYY-MM-DD` (e.g. `2026-10-21`).
 - **A photo looks broken or missing.** Check that the file actually exists at the path you wrote (case-sensitive!) and that it's under `src/assets/`, not `public/`.
 - **I don't see my change on the live site yet.** Check the **Actions** tab on GitHub — the build takes a minute or two, and if it failed, nothing gets published.
 
@@ -308,12 +339,13 @@ A quick map, for anyone who wants the fuller picture:
 citations.bib                  ← source of truth for all publications (BibTeX)
 src/
   config.ts                    ← site-wide settings: contact info, social links, nav menu
-  content.config.ts            ← the data "shape" (schema) for publications/team/research
+  content.config.ts            ← the data "shape" (schema) for publications/team/research/news
   data/projects.ts             ← active & completed project lists
   content/
     publications/*.md          ← generated from citations.bib — don't hand-edit, see above
     team/*.md                  ← one file per person
     research/*.md              ← one file per research area
+    news/*.md                  ← one file per news post
   assets/                      ← optimized images (photos, covers) — reference these from content
   pages/                       ← page templates (edit only to change layout/behavior, not content)
   components/, layouts/        ← reusable UI pieces

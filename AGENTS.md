@@ -14,7 +14,7 @@ The public website for **Tokgöz Lab**, a research group led by **Korkut Kaan To
 
 This started from the open-source **"Scholar-Lite"** Astro template (`fjd2004711/scholar-lite`), then was heavily customized. Consequences of that origin worth knowing:
 
-- Some directories under `src/content/` (`books`, `patents`, `softwares`, `honors`, `activities`, `news`) exist from the template's scaffolding but are **empty and not registered** in `src/content.config.ts` — only `publications`, `team`, and `research` are real, working collections. Don't build features assuming the others work; either register them properly first or ignore them.
+- Some directories under `src/content/` (`books`, `patents`, `softwares`, `honors`, `activities`) came from the template's scaffolding but are **empty and not registered** in `src/content.config.ts` — only `publications`, `team`, `research`, and `news` (added 2026-10) are real, working collections. Don't build features assuming the others work; either register them properly first or ignore them.
 - `scripts/import-bibtex.js` still writes `@book` BibTeX entries into `src/content/books/` — **this is currently a dead end** since `books` isn't a registered collection, so book entries silently never render anywhere. If book support is ever needed, either add `books` to `src/content.config.ts` and give it pages, or change the importer to fold books into the `publications` collection using its existing `type: "book"` enum value (which the schema already supports and the rest of the codebase does not yet consume).
 - The two READMEs (`README.md`, `README.tr.md`) previously described generic template features (fake Netlify/Vercel deploy buttons, an "8-language i18n" claim, a Hugo Academic comparison table). Those were rewritten in 2026-09 to describe only what this fork actually does. `SITE.i18n.enabled` in `src/config.ts` is `false` — there is no working i18n; don't trust old commit messages or stale docs that imply otherwise.
 
@@ -44,13 +44,14 @@ If the site ever moves again (different domain, or back under a subpath), update
 
 ## Content model
 
-Three collections, defined in `src/content.config.ts`:
+Four collections, defined in `src/content.config.ts`:
 
 | Collection | Source | Key fields | Sort |
 |---|---|---|---|
 | `publications` | `src/content/publications/*.md` | `title`, `authors[]`, `year`, `venue`, `type` (paper/book/patent/software), `description`, `doi`, `award`, `links.{pdf,code,website,demo,slides,video}`, `badges[]`, `featured` | by `year` desc |
 | `team` | `src/content/team/*.md` | `name`, `role` (enum, see schema), `title[]`, `avatar`, `bio`, `email`, social links, `weight` | by `weight` asc |
 | `research` | `src/content/research/*.md` | `title`, `description`, `order` | by `order` asc |
+| `news` | `src/content/news/*.md` | `title`, `date`, `summary`, `image` (optional, `image()` helper), `imageAlt`, `link`, `linkText`, `draft` | by `date` desc |
 
 (There is no `cover` field on any collection — it existed in both schemas plus matching import-bibtex.js validation/fallback logic, but was never rendered anywhere in the UI, so it was removed in full, commit `07d8757`. Don't reintroduce a `cover:` field without also wiring it into the templates that would display it.)
 
@@ -70,17 +71,20 @@ Images referenced in frontmatter (e.g. `avatar: "../../assets/x.jpg"`) must live
 
 **Add a research area**: create `src/content/research/<slug>.md` with `title`, `description` (required), `order` (optional, default 100, lower sorts first). Body is the Markdown page content.
 
+**Add a news post**: create `src/content/news/<YYYY-MM-DD>-<slug>.md` (filename = route, `/news/<filename>`). Required: `title`, `date` (`YYYY-MM-DD`), `summary`. Optional: `image` + `imageAlt` (cover photo under `src/assets/`), `link` + `linkText` (external button, must be a full URL), `draft: true` (excluded from every page, OG image, and the sitemap). Always read posts through `getPublishedNews()` in `src/data/news.ts`, not `getCollection('news')` directly, so the draft filter and date sort stay consistent; `generate-sitemap.js` mirrors the draft filter with a regex on `draft: true`. Dates parse as UTC midnight, so `formatNewsDate()` formats in UTC. The homepage "Latest from the lab" section shows the 3 newest posts and is hidden while there are none. `src/content/news/.gitkeep` keeps the folder in git while it's empty (the glob loader only warns on an empty folder).
+
 **Add/edit a project**: edit the `activeProjects`/`completedProjects` arrays in `src/data/projects.ts` directly — plain object literals, no schema/build step involved. The first 3 entries of `activeProjects` also feed the homepage teaser (`index.astro`), so reordering here changes both pages.
 
 **Change site-wide settings** (contact email, phone/address, PI's external profile links, nav menu items, social icons): edit the `SITE`/`SOCIALS` objects in `src/config.ts`. Don't rename the `key` values inside `SITE.nav` entries — components filter on them (`Header.astro`, `Layout.astro` footer).
 
 ## Pages (`src/pages/`)
 
-- `index.astro` — homepage: hero, featured research areas, top 3 of `activeProjects` (see below), featured publications.
+- `index.astro` — homepage: hero, featured research areas, top 3 of `activeProjects` (see below), featured publications, latest 3 news posts (only when any exist).
 - `research/index.astro`, `research/[slug].astro` — research area listing + detail (Markdown body rendered via `render()`).
 - `projects.astro` — full active/completed project lists. Imports `activeProjects`/`completedProjects` from `src/data/projects.ts` — a plain TS array, **not** a content collection. Edit that data file, not this page, to change project status/dates.
 - `publications.astro` — full publication list, filtered to `type === 'paper'`, grouped/sorted by year. Each title links to that paper's own detail page (below); the DOI/Publisher button stays a separate external link.
 - `publications/[...slug].astro` (added 2026-09) — one static detail page per publication (`type === 'paper'` only), slug = `entry.id`. Shows title/authors/venue/abstract/links, plus **Google Scholar / Highwire Press citation meta tags** (`citation_title`, one `citation_author` per author, `citation_publication_date`, `citation_doi`, and `citation_journal_title` *or* `citation_conference_title` — only emitted when the venue string safely matches a journal/conference keyword heuristic, otherwise omitted rather than guessed) and a `ScholarlyArticle` JSON-LD block. Never invents `citation_pdf_url` from a DOI/publisher link — only ever from a link actually hosted on this site.
+- `news/index.astro`, `news/[...slug].astro` (added 2026-10) — news listing (newest first, empty state when there are no posts) + one page per published post, with a `NewsArticle` JSON-LD block in the `head` slot whose `author`/`publisher` reference the lab `@id` from `Layout.astro`'s graph.
 - `team.astro`, `team/[...slug].astro` — team listing (grouped by role) + individual profile pages. Each profile page also auto-lists that person's own publications via a plain-string match of `name` against every publication's `authors[]` (see the "Add a team member" recipe below for the gotcha).
 - `join.astro` — "Opportunities" page, static content describing how to apply (mailto link + external university links).
 - `search.astro` — Pagefind UI mount point. Sends `robots="noindex, follow"` to `Layout` (see SEO section) and is deliberately excluded from `sitemap.xml` — it has no unique indexable content of its own.
@@ -90,7 +94,7 @@ Images referenced in frontmatter (e.g. `avatar: "../../assets/x.jpg"`) must live
 ## Build-time scripts (`scripts/`, plain Node/ESM, no Astro runtime)
 
 - `import-bibtex.js` — see above.
-- `generate-sitemap.js` (added 2026-09) — hand-written, dependency-free sitemap generator. Lists the static routes plus every slug under `src/content/research/`, `src/content/team/`, and every `type: "paper"` slug under `src/content/publications/` (excluding `search`), writes `dist/sitemap.xml`. Chosen over the `@astrojs/sitemap` integration to avoid adding a dependency/lockfile change for a small site. Its `SITE_URL` constant must be kept in sync with `astro.config.mjs`'s `site`. **Gotcha already hit once:** this script reads raw filenames off disk, but Astro's content-collection glob loader lowercases the filename to derive each entry's real `id`/route (e.g. `2016-Tokgöz-....md` → route `2016-tokgöz-...`). The slug helpers here `.toLowerCase()` the filename-derived slug to match — if you add a new slug-deriving helper to this file, do the same, or mixed-case source filenames will produce sitemap URLs that 404.
+- `generate-sitemap.js` (added 2026-09) — hand-written, dependency-free sitemap generator. Lists the static routes plus every slug under `src/content/research/`, `src/content/team/`, every non-draft slug under `src/content/news/`, and every `type: "paper"` slug under `src/content/publications/` (excluding `search`), writes `dist/sitemap.xml`. Chosen over the `@astrojs/sitemap` integration to avoid adding a dependency/lockfile change for a small site. Its `SITE_URL` constant must be kept in sync with `astro.config.mjs`'s `site`. **Gotcha already hit once:** this script reads raw filenames off disk, but Astro's content-collection glob loader lowercases the filename to derive each entry's real `id`/route (e.g. `2016-Tokgöz-....md` → route `2016-tokgöz-...`). The slug helpers here `.toLowerCase()` the filename-derived slug to match — if you add a new slug-deriving helper to this file, do the same, or mixed-case source filenames will produce sitemap URLs that 404.
 
 `package.json`'s `build` script chains these: `import-bibtex → astro build → generate-sitemap → pagefind index`.
 

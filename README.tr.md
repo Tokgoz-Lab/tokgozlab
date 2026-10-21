@@ -17,6 +17,7 @@ Bu README, siteye içerik ekleyecek/güncelleyecek herkes için yazıldı — no
 - [Yeni bir takım üyesi ekleme](#yeni-bir-takım-üyesi-ekleme)
 - [Yeni bir yayın / makale ekleme](#yeni-bir-yayın--makale-ekleme)
 - [Yeni bir araştırma alanı ekleme](#yeni-bir-araştırma-alanı-ekleme)
+- [Haber yayınlama](#haber-yayınlama)
 - [Projects sayfasını güncelleme](#projects-sayfasını-güncelleme)
 - [İletişim bilgisi, sosyal linkler ve navigasyonu güncelleme](#i̇letişim-bilgisi-sosyal-linkler-ve-navigasyonu-güncelleme)
 - [Fotoğraf ve görsel kuralları](#fotoğraf-ve-görsel-kuralları)
@@ -37,6 +38,7 @@ Günlük olarak düzenleyeceğin şeyler düz metin dosyaları:
 | Yayınlar (makaleler) | `citations.bib` (repo kökü) | BibTeX |
 | Takım üyeleri | `src/content/team/*.md` | Kişi başına bir Markdown dosyası |
 | Araştırma alanları | `src/content/research/*.md` | Alan başına bir Markdown dosyası |
+| Haberler | `src/content/news/*.md` | Haber başına bir Markdown dosyası |
 | Devam eden/tamamlanan projeler | `src/data/projects.ts` | Bir kod dosyası içinde kısa bir liste |
 | İletişim bilgisi, sosyal linkler, navigasyon menüsü | `src/config.ts` | Bir kod dosyası içinde kısa bir ayar listesi |
 
@@ -208,6 +210,34 @@ stille render edilir.
 
 `order`, bu alanın diğer araştırma alanları arasında nerede görüneceğini belirler (küçük sayı = önce); boş bırakılırsa varsayılan olarak en sona (100) gider. Dosya adı sayfanın adresi olur, örn. `/research/new-research-direction`.
 
+## Haber yayınlama
+
+Her haber, `src/content/news/` içinde bir Markdown dosyası. Klasörde sıralı dursun diye dosya adına tarihle başla, örn. `src/content/news/2026-10-21-paper-accepted-at-rfic.md`:
+
+```markdown
+---
+title: "Our paper was accepted at RFIC 2027"
+date: 2026-10-21
+summary: "News sayfasında, ana sayfada ve link önizlemelerinde gösterilen bir-iki cümlelik özet."
+image: "../../assets/news-rfic-2027.jpg"
+imageAlt: "Team photo at the RFIC poster session"
+link: "https://example.org/announcement"
+linkText: "Official announcement"
+---
+
+Haberin tam metni buraya, Markdown olarak yazılır. Alt bölümler için
+`## Başlık`, `**kalın**`, `[linkler](https://...)` ve listeler her zamanki gibi kullanılır.
+
+Metnin içine başka fotoğraflar da ekleyebilirsin:
+
+![Measurement setup](../../assets/news-rfic-setup.jpg)
+```
+
+- **Zorunlu:** `title`, `date` (`YYYY-MM-DD` şeklinde) ve `summary`.
+- **İsteğe bağlı:** `image` (önce `src/assets/` içine eklediğin bir kapak fotoğrafı), `imageAlt` (ekran okuyucular için fotoğrafın kısa açıklaması), `link` + `linkText` (üniversite veya konferans duyurusu gibi harici bir sayfaya giden buton) ve `draft: true`. `draft: true` haberi, sen o satırı silene ya da `false` yapana kadar canlı sitede göstermez.
+- Dosya adı haberin adresi olur, örn. `/news/2026-10-21-paper-accepted-at-rfic`. Sadece küçük harf, rakam ve tire kullan.
+- Haberler en yeniden eskiye sıralanır. En son üç haber ana sayfadaki "Latest from the lab" bölümünde de görünür. Bu bölüm ilk haber eklenene kadar gizli kalır.
+
 ## Projects sayfasını güncelleme
 
 Devam eden ve tamamlanan projeler bir içerik koleksiyonu **değil** — bunlar bir kod dosyası içindeki kısa bir liste: `src/data/projects.ts`. Dosyayı açtığında iki liste görürsün:
@@ -293,6 +323,7 @@ Bunun gerçekleştiğini GitHub reposunun **Actions** sekmesinden izleyebilirsin
 - **`citations.bib`'i düzenledikten sonra build başarısız oldu.** Neredeyse her zaman bir yazım hatası — eksik bir virgül ya da kapatılmamış bir süslü parantez (`{`/`}`). Az önce eklediğin girdiyi yukarıdaki örneklerle karşılaştır; her alan `alan={değer}` şeklinde olmalı ve alanlar arasına virgül konur, son alandan sonra virgül konmaz.
 - **Yeni bir takım üyesi görünmüyor.** Dosyasındaki `role` değerinin [Yeni bir takım üyesi ekleme](#yeni-bir-takım-üyesi-ekleme) bölümünde listelenen izin verilen değerlerden birine *tam olarak* aynı yazıldığından emin ol — küçük bir yazım hatası (fazladan boşluk, yanlış büyük/küçük harf) bile tüm dosyanın doğrulamadan geçmemesine ve build'in tamamen başarısız olmasına yol açar.
 - **Yeni bir yayın `/publications` sayfasında görünmüyor.** `type` alanının `"paper"` olduğunu doğrula (BibTeX'ten içe aktarılan girdiler, BibTeX türü `@book` olmadığı sürece bunu otomatik olarak varsayılan yapar).
+- **Bir haber görünmüyor.** Dosyada hâlâ `draft: true` yazmadığından ve `date` alanının `YYYY-MM-DD` şeklinde (örn. `2026-10-21`) yazıldığından emin ol.
 - **Bir fotoğraf bozuk görünüyor veya hiç görünmüyor.** Dosyanın gerçekten yazdığın yolda olduğunu (büyük/küçük harf duyarlı!) ve `public/` değil `src/assets/` altında olduğunu kontrol et.
 - **Değişikliğimi canlı sitede henüz göremiyorum.** GitHub'daki **Actions** sekmesini kontrol et — build bir-iki dakika sürer, ve başarısız olduysa hiçbir şey yayınlanmaz.
 
@@ -304,12 +335,13 @@ Daha geniş resmi görmek isteyenler için hızlı bir harita:
 citations.bib                  ← tüm yayınlar için tek doğru kaynak (BibTeX)
 src/
   config.ts                    ← site geneli ayarlar: iletişim bilgisi, sosyal linkler, nav menüsü
-  content.config.ts            ← yayınlar/takım/araştırma için veri "şekli" (şema)
+  content.config.ts            ← yayınlar/takım/araştırma/haberler için veri "şekli" (şema)
   data/projects.ts             ← devam eden ve tamamlanan proje listeleri
   content/
     publications/*.md          ← citations.bib'ten üretilir — elle düzenleme, yukarıya bak
     team/*.md                  ← kişi başına bir dosya
     research/*.md               ← araştırma alanı başına bir dosya
+    news/*.md                  ← haber başına bir dosya
   assets/                      ← optimize edilmiş görseller (fotoğraflar, kapaklar) — içerikten bunlara referans ver
   pages/                       ← sayfa şablonları (sadece düzeni/davranışı değiştirmek için düzenle, içeriği değil)
   components/, layouts/        ← yeniden kullanılabilir arayüz parçaları
