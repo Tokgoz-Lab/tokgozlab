@@ -2,6 +2,9 @@
 title: "When the Transmitter Adds Noise to the Signal"
 date: 2026-10-21
 summary: "A study co-authored by Tokgöz Lab researcher Mahir Burak Usta examines when noise from a transmitter's own electronics can limit wireless link performance—and how engineers can account for it."
+image: "../../assets/news-transmitter-noise-system-model.png"
+imageAlt: "System model of a millimeter-wave link: transmitter noise (1) reaching the receiver alongside atmospheric noise (2) and receiver thermal noise (3)"
+imageFit: "contain"
 link: "https://doi.org/10.1109/OJCOMS.2026.3730694"
 linkText: "Read the paper"
 ---
