@@ -54,8 +54,13 @@ const numbers = ['01', '02', '03', '04'];
 
   <section class="border-y border-slate-200 bg-[#f3f7fa] py-16 sm:py-20">
     <div class="section-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-      <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#022A6C] text-[#74CEF4]">
-        <Gauge className="h-9 w-9" />
+      <div class="relative flex h-40 w-40 items-center justify-center lg:justify-self-center" aria-hidden="true">
+        <div class="absolute inset-0 rounded-full border border-[#02A0E7]/20"></div>
+        <div class="absolute inset-5 rounded-full border border-[#02A0E7]/35"></div>
+        <div class="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-[#022A6C] text-[#74CEF4] shadow-[0_22px_45px_-24px_rgba(2,42,108,0.6)]">
+          <Gauge className="h-11 w-11" strokeWidth={1.6} />
+          <span class="absolute -right-1.5 -top-1.5 h-4 w-4 rounded-full border-[3px] border-[#D01F33] bg-[#f3f7fa]"></span>
+        </div>
       </div>
       <div>
         <h2 class="text-3xl font-bold tracking-[-0.035em] text-[#071b26]">A measurement-driven approach.</h2>
