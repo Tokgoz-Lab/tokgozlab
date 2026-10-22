@@ -16,14 +16,14 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
     <div class="section-shell relative z-10 py-16 sm:py-24">
       <span class="eyebrow">Publications</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-[#071b26] sm:text-6xl">Ideas tested in silicon and systems.</h1>
+        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">Ideas tested in silicon and systems.</h1>
         <div>
-          <p class="text-lg leading-8 text-slate-600">A selected bibliography across integrated circuits, high-frequency communications, sensing, and intelligent hardware.</p>
+          <p class="text-lg leading-8 text-body">A selected bibliography across integrated circuits, high-frequency communications, sensing, and intelligent hardware.</p>
           <div class="mt-5 flex flex-wrap gap-4">
-            <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#0270AD]">
+            <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-link">
               <GraduationCap className="h-4 w-4" /> Google Scholar <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
-            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#0270AD]">
+            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-link">
               Official publication list <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -35,12 +35,12 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
   <section class="py-16 sm:py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[11rem_1fr] lg:gap-14">
       <aside class="h-fit lg:sticky lg:top-28">
-        <div class="flex items-center gap-2 text-sm font-bold text-[#071b26]">
-          <BookOpen className="h-4 w-4 text-[#0270AD]" /> Browse by year
+        <div class="flex items-center gap-2 text-sm font-bold text-ink">
+          <BookOpen className="h-4 w-4 text-link" /> Browse by year
         </div>
         <nav class="mt-5 flex flex-wrap gap-2 lg:flex-col" aria-label="Publication years">
           {years.map((year) => (
-            <a href={`#year-${year}`} class="w-fit rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs font-bold text-slate-600 transition hover:border-[#02A0E7] hover:bg-[#E6F4FC] hover:text-[#03659C]">{year}</a>
+            <a href={`#year-${year}`} class="w-fit rounded-full border border-line px-3 py-1.5 font-mono text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover">{year}</a>
           ))}
         </nav>
       </aside>
@@ -48,9 +48,9 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
       <div class="space-y-16">
         {years.map((year) => (
           <section id={`year-${year}`} class="scroll-mt-28">
-            <div class="mb-6 flex items-end gap-4 border-b border-slate-200 pb-4">
-              <h2 class="font-mono text-3xl font-bold text-[#022A6C]">{year}</h2>
-              <span class="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-slate-400">
+            <div class="mb-6 flex items-end gap-4 border-b border-line pb-4">
+              <h2 class="font-mono text-3xl font-bold text-brand-navy">{year}</h2>
+              <span class="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-muted">
                 {allPapers.filter((paper) => paper.data.year === year).length} {allPapers.filter((paper) => paper.data.year === year).length === 1 ? 'publication' : 'publications'}
               </span>
             </div>
@@ -61,7 +61,7 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
         ))}
 
         {allPapers.length === 0 && (
-          <div class="rounded-2xl border border-dashed border-slate-300 bg-slate-50 p-10 text-center text-slate-500">Publication records are being prepared.</div>
+          <div class="rounded-2xl border border-dashed border-line-strong bg-subtle p-10 text-center text-muted">Publication records are being prepared.</div>
         )}
       </div>
     </div>

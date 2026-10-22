@@ -14,6 +14,7 @@ interface Props {
 }
 
 const { title, description = SITE.description, robots = 'index, follow', theme = 'light' } = Astro.props;
+// <meta name="theme-color"> needs literals: these are the `darker` and `canvas` tokens (docs/color-system.md).
 const chromeColor = theme === 'dark' ? '#031522' : '#ffffff';
 const pageTitle = title && title !== 'Home' ? `${title} · ${SITE.labName}` : `${SITE.labName} · ${SITE.university}`;
 const siteBase = Astro.site ?? new URL(Astro.url.origin);
@@ -154,24 +155,24 @@ const organizationSchema = {
        doesn't paint its own background (most pages besides the homepage). */}
     <main
       id="main-content"
-      class:list={['min-h-[60vh]', theme === 'dark' ? 'bg-[#031522]' : 'bg-white']}
+      class:list={['min-h-[60vh]', theme === 'dark' ? 'bg-darker' : 'bg-white']}
       data-pagefind-body
     >
       <slot />
     </main>
 
-    <footer data-surface="dark" class="relative overflow-hidden bg-[#061a2b] text-slate-300">
-      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5CC6F2] to-transparent opacity-60"></div>
+    <footer data-surface="dark" class="relative overflow-hidden bg-dark text-on-dark-body">
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-on-dark-glow to-transparent opacity-60"></div>
       <div class="mx-auto grid max-w-[90rem] gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_0.7fr_1fr] lg:px-10 lg:py-18">
         <div class="max-w-md">
           <a href={homeLink} class="inline-flex items-center gap-3 text-white">
             <img src={SITE.logoOnDark} width="39" height="44" alt="" class="h-11 w-auto" />
             <span>
               <span class="block text-lg font-bold">{SITE.labName}</span>
-              <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[#7DD1F5]">Integrated Circuits & Systems</span>
+              <span class="text-xs font-semibold uppercase tracking-[0.14em] text-on-dark-accent">Integrated Circuits & Systems</span>
             </span>
           </a>
-          <p class="mt-5 text-sm leading-7 text-slate-400">
+          <p class="mt-5 text-sm leading-7 text-on-dark-muted">
             Energy-efficient integrated circuits and intelligent hardware for future wireless communication and sensing.
           </p>
         </div>
@@ -180,7 +181,7 @@ const organizationSchema = {
           <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-white">Explore</h2>
           <nav class="mt-5 grid gap-3 text-sm" aria-label="Footer navigation">
             {SITE.nav.filter((item) => item.key !== 'search').map((item) => (
-              <a href={item.link} class="w-fit transition-colors hover:text-[#7DD1F5]">{item.text}</a>
+              <a href={item.link} class="w-fit transition-colors hover:text-on-dark-accent">{item.text}</a>
             ))}
           </nav>
         </div>
@@ -188,15 +189,15 @@ const organizationSchema = {
         <div>
           <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-white">Contact</h2>
           <div class="mt-5 space-y-4 text-sm">
-            <a href={`mailto:${SITE.email}`} class="flex items-start gap-3 transition-colors hover:text-[#7DD1F5]">
+            <a href={`mailto:${SITE.email}`} class="flex items-start gap-3 transition-colors hover:text-on-dark-accent">
               <Mail className="mt-0.5 h-4 w-4 shrink-0" />
               <span>{SITE.email}</span>
             </a>
-            <p class="flex items-start gap-3 leading-6 text-slate-400">
+            <p class="flex items-start gap-3 leading-6 text-on-dark-muted">
               <MapPin className="mt-1 h-4 w-4 shrink-0" />
               <span>Sabancı University FENS<br />Tuzla, İstanbul, Türkiye</span>
             </p>
-            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-[#7DD1F5]">
+            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-on-dark-accent">
               Official university profile <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -204,7 +205,7 @@ const organizationSchema = {
       </div>
 
       <div class="border-t border-white/10">
-        <div class="mx-auto flex max-w-[90rem] flex-col gap-2 px-4 py-5 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-10">
+        <div class="mx-auto flex max-w-[90rem] flex-col gap-2 px-4 py-5 text-xs text-on-dark-muted sm:flex-row sm:items-center sm:justify-between sm:px-6 lg:px-10">
           <p>© {new Date().getFullYear()} {SITE.labName}. All rights reserved.</p>
           <p>Sabancı University · Faculty of Engineering and Natural Sciences</p>
         </div>

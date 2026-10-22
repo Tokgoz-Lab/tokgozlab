@@ -26,32 +26,32 @@ const paths = [
 ---
 
 <Layout title="Opportunities" description="Research opportunities for prospective PhD, master's, and undergraduate students at Tokgöz Lab, Sabancı University.">
-  <header class="relative overflow-hidden bg-[#061a2b] text-white">
+  <header class="relative overflow-hidden bg-dark text-white">
     <div class="signal-grid absolute inset-0 opacity-55"></div>
-    <div class="absolute -right-32 -top-36 h-[34rem] w-[34rem] rounded-full border border-[#5CC6F2]/15"></div>
+    <div class="absolute -right-32 -top-36 h-[34rem] w-[34rem] rounded-full border border-on-dark-glow/15"></div>
     <div class="section-shell relative py-18 sm:py-28">
-      <p class="text-xs font-bold uppercase tracking-[0.17em] text-[#7DD1F5]">Opportunities</p>
+      <p class="text-xs font-bold uppercase tracking-[0.17em] text-on-dark-accent">Opportunities</p>
       <h1 class="mt-5 max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] sm:text-7xl">Do ambitious hardware research with us.</h1>
-      <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-300">We welcome thoughtful inquiries from students who want to work across circuits, measurement, communication systems, sensing, and intelligent hardware.</p>
-      <a href={`mailto:${SITE.email}?subject=Prospective%20researcher%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-9 inline-flex items-center gap-2 rounded-full bg-[#D01F33] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#B51A2C]">
+      <p class="mt-7 max-w-2xl text-lg leading-8 text-on-dark-body">We welcome thoughtful inquiries from students who want to work across circuits, measurement, communication systems, sensing, and intelligent hardware.</p>
+      <a href={`mailto:${SITE.email}?subject=Prospective%20researcher%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-9 inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover">
         <Mail className="h-4 w-4" /> Introduce yourself
       </a>
     </div>
   </header>
 
   <section class="py-16 sm:py-20">
-    <div class="section-shell overflow-hidden rounded-[2rem] bg-[#061a2b] px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
+    <div class="section-shell overflow-hidden rounded-[2rem] bg-dark px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
       <div class="max-w-xl">
-        <span class="eyebrow !text-[#7DD1F5]">Industry & partnerships</span>
+        <span class="eyebrow !text-on-dark-accent">Industry & partnerships</span>
         <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Looking to collaborate as a company?</h2>
-        <p class="mt-4 leading-7 text-slate-300">We work with industry partners on sponsored research, joint testbeds, and technology transfer across mmWave/sub-terahertz ICs, 6G systems, and Edge-AI hardware.</p>
-        <ul class="mt-6 space-y-2.5 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> Sponsored research & joint projects</li>
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> Technology licensing & transfer</li>
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> Recruiting talent from the lab</li>
+        <p class="mt-4 leading-7 text-on-dark-body">We work with industry partners on sponsored research, joint testbeds, and technology transfer across mmWave/sub-terahertz ICs, 6G systems, and Edge-AI hardware.</p>
+        <ul class="mt-6 space-y-2.5 text-sm text-on-dark-body">
+          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> Sponsored research & joint projects</li>
+          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> Technology licensing & transfer</li>
+          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> Recruiting talent from the lab</li>
         </ul>
       </div>
-      <a href={`mailto:${SITE.email}?subject=Industry%20collaboration%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-[#D01F33] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#B51A2C] lg:mt-0">
+      <a href={`mailto:${SITE.email}?subject=Industry%20collaboration%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover lg:mt-0">
         <Building2 className="h-4 w-4" /> Contact the lab
       </a>
     </div>
@@ -61,18 +61,18 @@ const paths = [
     <div class="section-shell">
       <div class="max-w-3xl">
         <span class="eyebrow">Ways to contribute</span>
-        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-[#071b26]">Find the research path that fits your stage.</h2>
-        <p class="mt-4 leading-7 text-slate-600">Openings and funded positions vary by semester. These paths describe the kinds of research participation the lab supports.</p>
+        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Find the research path that fits your stage.</h2>
+        <p class="mt-4 leading-7 text-body">Openings and funded positions vary by semester. These paths describe the kinds of research participation the lab supports.</p>
       </div>
 
       <div class="mt-12 grid gap-6 lg:grid-cols-3">
         {paths.map((path) => (
-          <article class="card-lift rounded-3xl border border-slate-200 bg-white p-7">
-            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E6F4FC] text-[#0270AD]"><path.icon className="h-6 w-6" /></div>
-            <h3 class="mt-6 text-xl font-bold text-[#071b26]">{path.label}</h3>
-            <p class="mt-3 min-h-24 text-sm leading-6 text-slate-600">{path.description}</p>
-            <ul class="mt-5 space-y-3 border-t border-slate-100 pt-5 text-sm text-slate-600">
-              {path.points.map((point) => <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> {point}</li>)}
+          <article class="card-lift rounded-3xl border border-line bg-white p-7">
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-brand-azure-tint text-link"><path.icon className="h-6 w-6" /></div>
+            <h3 class="mt-6 text-xl font-bold text-ink">{path.label}</h3>
+            <p class="mt-3 min-h-24 text-sm leading-6 text-body">{path.description}</p>
+            <ul class="mt-5 space-y-3 border-t border-line-subtle pt-5 text-sm text-body">
+              {path.points.map((point) => <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> {point}</li>)}
             </ul>
           </article>
         ))}
@@ -80,15 +80,15 @@ const paths = [
     </div>
   </section>
 
-  <section class="bg-[#f3f7fa] py-16 sm:py-24">
+  <section class="bg-subtle py-16 sm:py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
       <div>
         <span class="eyebrow">Before you write</span>
-        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-[#071b26]">Make your first message useful.</h2>
-        <p class="mt-5 leading-7 text-slate-600">A concise, specific introduction helps us understand where your interests overlap with the lab’s current work.</p>
+        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Make your first message useful.</h2>
+        <p class="mt-5 leading-7 text-body">A concise, specific introduction helps us understand where your interests overlap with the lab’s current work.</p>
       </div>
 
-      <div class="rounded-3xl border border-slate-200 bg-white p-7 shadow-sm sm:p-9">
+      <div class="rounded-3xl border border-line bg-white p-7 shadow-sm sm:p-9">
         <ol class="space-y-7">
           {[
             ['Tell us your context', 'Your current program, institution, expected graduation date, and the research path you are considering.'],
@@ -97,8 +97,8 @@ const paths = [
             ['Keep it specific', 'Describe technical experience with circuits, RF, embedded systems, FPGA, modeling, or measurement.'],
           ].map(([title, text], index) => (
             <li class="grid grid-cols-[2.5rem_1fr] gap-4">
-              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[#022A6C] font-mono text-sm font-bold text-white">{index + 1}</span>
-              <div><h3 class="font-bold text-[#071b26]">{title}</h3><p class="mt-1 text-sm leading-6 text-slate-600">{text}</p></div>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-navy font-mono text-sm font-bold text-white">{index + 1}</span>
+              <div><h3 class="font-bold text-ink">{title}</h3><p class="mt-1 text-sm leading-6 text-body">{text}</p></div>
             </li>
           ))}
         </ol>
@@ -108,15 +108,15 @@ const paths = [
 
   <section class="py-16 sm:py-20">
     <div class="section-shell grid gap-5 md:grid-cols-2">
-      <a href="https://fens.sabanciuniv.edu/en/graduate-application" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-slate-200 p-6">
-        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#022A6C]"><BookOpen className="h-6 w-6" /></span>
-        <span class="flex-grow"><span class="block font-bold text-[#071b26]">Graduate programs</span><span class="mt-1 block text-sm text-slate-500">Requirements, programs, and university information</span></span>
-        <ArrowUpRight className="h-5 w-5 text-slate-400" />
+      <a href="https://fens.sabanciuniv.edu/en/graduate-application" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-line p-6">
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-azure-tint text-brand-navy"><BookOpen className="h-6 w-6" /></span>
+        <span class="flex-grow"><span class="block font-bold text-ink">Graduate programs</span><span class="mt-1 block text-sm text-muted">Requirements, programs, and university information</span></span>
+        <ArrowUpRight className="h-5 w-5 text-muted" />
       </a>
-      <a href="https://www.sabanciuniv.edu/en/faculty-engineering-and-natural-sciences-fens-phd-projects" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-slate-200 p-6">
-        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-emerald-50 text-emerald-700"><Users className="h-6 w-6" /></span>
-        <span class="flex-grow"><span class="block font-bold text-[#071b26]">Current PhD project listings</span><span class="mt-1 block text-sm text-slate-500">Check university-posted topics and availability</span></span>
-        <ArrowUpRight className="h-5 w-5 text-slate-400" />
+      <a href="https://www.sabanciuniv.edu/en/faculty-engineering-and-natural-sciences-fens-phd-projects" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-line p-6">
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-success-tint text-success"><Users className="h-6 w-6" /></span>
+        <span class="flex-grow"><span class="block font-bold text-ink">Current PhD project listings</span><span class="mt-1 block text-sm text-muted">Check university-posted topics and availability</span></span>
+        <ArrowUpRight className="h-5 w-5 text-muted" />
       </a>
     </div>
   </section>

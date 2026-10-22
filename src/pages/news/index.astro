@@ -13,10 +13,10 @@ const posts = await getPublishedNews();
     <div class="section-shell relative z-10 py-16 sm:py-24">
       <span class="eyebrow">News</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-[#071b26] sm:text-6xl">
+        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">
           What's happening in the lab.
         </h1>
-        <p class="max-w-2xl text-lg leading-8 text-slate-600">
+        <p class="max-w-2xl text-lg leading-8 text-body">
           Papers, awards, talks, new members, and milestones from Tokgöz Lab.
         </p>
       </div>
@@ -26,31 +26,31 @@ const posts = await getPublishedNews();
   <section class="py-16 sm:py-24">
     <div class="section-shell">
       {posts.length === 0 ? (
-        <div class="flex flex-col items-center rounded-3xl border border-dashed border-slate-300 bg-[#f5f8fa] px-6 py-20 text-center">
-          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E6F4FC] text-[#022A6C]">
+        <div class="flex flex-col items-center rounded-3xl border border-dashed border-line-strong bg-subtle px-6 py-20 text-center">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-azure-tint text-brand-navy">
             <Newspaper className="h-7 w-7" />
           </div>
-          <p class="mt-6 text-lg font-bold text-[#071b26]">No news yet.</p>
-          <p class="mt-2 text-slate-600">Check back soon for updates from the lab.</p>
+          <p class="mt-6 text-lg font-bold text-ink">No news yet.</p>
+          <p class="mt-2 text-body">Check back soon for updates from the lab.</p>
         </div>
       ) : (
-        <div class="divide-y divide-slate-200 border-y border-slate-200">
+        <div class="divide-y divide-line border-y border-line">
           {posts.map((post) => (
             <article class="group grid gap-6 py-9 md:grid-cols-[11rem_1fr] md:gap-10 lg:grid-cols-[11rem_1fr_18rem]">
-              <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-[#022A6C]">
+              <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-brand-navy">
                 {formatNewsDate(post.data.date)}
               </time>
               <div>
-                <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-[#071b26] transition group-hover:text-[#03659C]">
+                <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-ink transition group-hover:text-link-hover">
                   <a href={withBase(`/news/${post.id}/`)}>{post.data.title}</a>
                 </h2>
-                <p class="mt-3 max-w-3xl leading-7 text-slate-600">{post.data.summary}</p>
-                <a href={withBase(`/news/${post.id}/`)} class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-[#0270AD]" aria-label={`Read more: ${post.data.title}`}>
+                <p class="mt-3 max-w-3xl leading-7 text-body">{post.data.summary}</p>
+                <a href={withBase(`/news/${post.id}/`)} class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-link" aria-label={`Read more: ${post.data.title}`}>
                   Read more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
               {post.data.image && (
-                <a href={withBase(`/news/${post.id}/`)} class="hidden overflow-hidden rounded-2xl border border-slate-200 lg:block" tabindex="-1" aria-hidden="true">
+                <a href={withBase(`/news/${post.id}/`)} class="hidden overflow-hidden rounded-2xl border border-line lg:block" tabindex="-1" aria-hidden="true">
                   <Image src={post.data.image} alt="" class:list={['aspect-[4/3] w-full transition duration-500 group-hover:scale-[1.03]', post.data.imageFit === 'contain' ? 'bg-white object-contain p-2' : 'object-cover']} widths={[320, 640]} sizes="18rem" quality={82} />
                 </a>
               )}

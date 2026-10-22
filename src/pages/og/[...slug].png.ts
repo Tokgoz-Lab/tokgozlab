@@ -101,6 +101,8 @@ export async function GET({ params, props }: { params: any; props: any }) {
 
   const iconPath = icons[section] || icons[slug] || icons.index;
 
+  // Satori can't read CSS variables, so colors here are literal copies of the
+  // tokens in src/styles/global.css (see docs/color-system.md). Keep them in sync.
   const svg = await satori(
     {
       type: 'div',
@@ -209,7 +211,7 @@ export async function GET({ params, props }: { params: any; props: any }) {
                   props: {
                     style: {
                       fontSize: '32px',
-                      color: '#64748b',
+                      color: '#5b6b80',
                       textAlign: 'center',
                       maxWidth: '600px',
                       lineHeight: 1.4,

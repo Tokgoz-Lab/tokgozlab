@@ -345,11 +345,14 @@ src/
   assets/                      ← optimize edilmiş görseller (fotoğraflar, kapaklar) — içerikten bunlara referans ver
   pages/                       ← sayfa şablonları (sadece düzeni/davranışı değiştirmek için düzenle, içeriği değil)
   components/, layouts/        ← yeniden kullanılabilir arayüz parçaları
+  styles/global.css            ← renk token'ları ve genel stiller — bkz. docs/color-system.md
 scripts/
   import-bibtex.js             ← citations.bib'i src/content/publications/*.md'ye dönüştürür
   generate-sitemap.js          ← build sırasında dist/sitemap.xml'i yazar
 .github/workflows/pages.yml    ← main'e her push'ta GitHub Pages'e derler ve yayınlar
 ```
+
+Renkler, logoya dayalı [`docs/color-system.md`](./docs/color-system.md) sistemini izler.
 
 Daha derin teknik/mimari notlar için (AI kodlama asistanlarına ve gelecekteki katkıda bulunanlara yönelik) [`AGENTS.md`](./AGENTS.md) dosyasına bak.
 

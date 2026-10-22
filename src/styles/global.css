@@ -18,11 +18,54 @@
 
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --color-lab-navy: #022A6C;
-  --color-lab-ink: #071b26;
-  --color-lab-blue: #02A0E7;
-  --color-lab-sky: #5CC6F2;
-  --color-lab-red: #D01F33;
+
+  /* Color system — derived from the logo. Rules and contrast checks:
+     docs/color-system.md. Use these tokens; don't add [#hex] classes. */
+
+  /* Brand */
+  --color-brand-navy: #022a6c;
+  --color-brand-navy-hover: #011e52;
+  --color-brand-azure: #02a0e7; /* decorative only: never text on light */
+  --color-brand-azure-tint: #e6f4fc;
+  --color-brand-azure-tint-strong: #ddf0fb;
+  --color-brand-red: #d01f33; /* CTA accent: sparingly */
+  --color-brand-red-hover: #b51a2c;
+  --color-brand-red-tint: #fdecee;
+  --color-brand-amber: #ffb547; /* signal icons on dark surfaces only */
+
+  /* Light surfaces */
+  --color-canvas: #ffffff;
+  --color-surface: #ffffff;
+  --color-subtle: #f3f7fa;
+  --color-line-subtle: #f1f5f9;
+  --color-line: #e2e8f0;
+  --color-line-strong: #cbd5e1;
+
+  /* Text on light */
+  --color-ink: #071b26;
+  --color-body: #475569;
+  --color-muted: #5b6b80;
+  --color-link: #0270ad;
+  --color-link-hover: #035481;
+  --color-focus: #0270ad;
+
+  /* Dark surfaces */
+  --color-dark: #061a2b;
+  --color-darker: #031522;
+  --color-dark-raised: #0b2940;
+  --color-on-dark: #ffffff;
+  --color-on-dark-body: #cbd5e1;
+  --color-on-dark-muted: #94a3b8;
+  --color-on-dark-accent: #7dd1f5;
+  --color-on-dark-glow: #5cc6f2;
+
+  /* Status */
+  --color-success: #15803d;
+  --color-success-tint: #ecfdf3;
+  --color-warning: #b45309;
+  --color-warning-tint: #fff7e6;
+  --color-error: #b42318;
+  --color-error-tint: #fdecee;
 }
 
 :root {
@@ -34,15 +77,15 @@
      and overscroll fallback) and <meta name="theme-color">. Section content
      always sets its own explicit surface + text colors — this pair only
      covers the areas outside actual content. */
-  --page-chrome-bg: #ffffff;
-  --page-chrome-fg: #071b26;
+  --page-chrome-bg: var(--color-canvas);
+  --page-chrome-fg: var(--color-ink);
 }
 
 /* Set server-side via Layout's `theme` prop (html[data-theme]) and kept in
    sync with the active section client-side — see Layout.astro. */
 html[data-theme='dark'] {
-  --page-chrome-bg: #031522; /* same navy as the homepage hero */
-  --page-chrome-fg: #ffffff;
+  --page-chrome-bg: var(--color-darker); /* same navy as the homepage hero */
+  --page-chrome-fg: var(--color-on-dark);
 }
 
 html {
@@ -60,8 +103,8 @@ body {
 }
 
 ::selection {
-  background: #BDE8FA;
-  color: #022A6C;
+  background: var(--color-brand-azure-tint-strong);
+  color: var(--color-brand-navy);
 }
 
 a,
@@ -70,7 +113,7 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid #02A0E7;
+  outline: 3px solid var(--color-focus);
   outline-offset: 3px;
 }
 
@@ -80,8 +123,8 @@ button {
   top: -5rem;
   z-index: 100;
   border-radius: 999px;
-  background: #fff;
-  color: #022A6C;
+  background: var(--color-surface);
+  color: var(--color-brand-navy);
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
   font-weight: 700;
@@ -102,7 +145,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: #0270AD;
+  color: var(--color-link);
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -116,14 +159,14 @@ button {
   width: 1.8rem;
   height: 2px;
   border-radius: 999px;
-  background: #D01F33;
+  background: var(--color-brand-red);
 }
 
 .page-intro {
   position: relative;
   overflow: hidden;
-  background: #f4f8fb;
-  border-bottom: 1px solid #e2e8f0;
+  background: var(--color-subtle);
+  border-bottom: 1px solid var(--color-line);
 }
 
 .page-intro::after {
@@ -134,12 +177,12 @@ button {
   right: -8rem;
   top: -10rem;
   border-radius: 999px;
-  background: radial-gradient(circle, rgb(93 228 223 / 0.22), transparent 68%);
+  background: radial-gradient(circle, color-mix(in srgb, var(--color-brand-azure) 14%, transparent), transparent 68%);
   pointer-events: none;
 }
 
 .prose {
-  color: #475569;
+  color: var(--color-body);
   font-size: 1rem;
   line-height: 1.85;
 }
@@ -150,7 +193,7 @@ button {
 
 .prose h2,
 .prose h3 {
-  color: #071b26;
+  color: var(--color-ink);
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.25;
@@ -184,21 +227,21 @@ button {
 }
 
 .prose strong {
-  color: #0f2940;
+  color: var(--color-ink);
 }
 
 .prose a {
-  color: #03659C;
+  color: var(--color-link);
   font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: #9FDDF8;
+  text-decoration-color: var(--color-on-dark-accent);
   text-underline-offset: 3px;
 }
 
 .prose img {
   width: 100%;
   border-radius: 1rem;
-  border: 1px solid #e2e8f0;
+  border: 1px solid var(--color-line);
 }
 
 .signal-grid {
@@ -214,8 +257,8 @@ button {
 
 .card-lift:hover {
   transform: translateY(-4px);
-  border-color: rgb(0 166 166 / 0.35);
-  box-shadow: 0 22px 45px -28px rgb(0 39 118 / 0.38);
+  border-color: color-mix(in srgb, var(--color-brand-azure) 35%, transparent);
+  box-shadow: 0 22px 45px -28px color-mix(in srgb, var(--color-brand-navy) 38%, transparent);
 }
 
 @keyframes marquee {
@@ -258,13 +301,13 @@ button {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f1f5f9;
+  background: var(--color-line-subtle);
 }
 
 ::-webkit-scrollbar-thumb {
-  border: 2px solid #f1f5f9;
+  border: 2px solid var(--color-line-subtle);
   border-radius: 999px;
-  background: #94a3b8;
+  background: var(--color-on-dark-muted);
 }
 
 @media (min-width: 640px) {

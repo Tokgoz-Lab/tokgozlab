@@ -22,7 +22,7 @@ This started from the open-source **"Scholar-Lite"** Astro template (`fjd2004711
 
 - **Astro 5** (islands architecture, static output). Despite what old README badges said, this is not Astro v6.
 - **React** — only used for `lucide-react` icons inside `.astro` components; there is no client-side React app. Pages ship ~0 KB of JS by default.
-- **Tailwind CSS v4** via `@tailwindcss/vite`, utility classes inline in `.astro` files. No separate design-token file — colors are hardcoded hex values repeated across components (primary navy `#002776`, teal accent `#00a6a6`/`#007f80`, amber `#ffb547`, dark panel `#061a2b`, ink `#071b26`). Match these when adding UI rather than inventing new colors.
+- **Tailwind CSS v4** via `@tailwindcss/vite`, utility classes inline in `.astro` files. Colors are semantic tokens in the `@theme` block of `src/styles/global.css` (`bg-brand-navy`, `text-ink`, `text-muted`, `text-link`, `border-line`, `bg-dark`, `text-on-dark-body`…), derived from the logo. Use those utilities, never `[#hex]` classes; usage rules and contrast checks are in [`docs/color-system.md`](./docs/color-system.md).
 - **Pagefind** for static full-text search, indexed at build time (`pagefind --site dist`), rendered on `/search` via `PagefindUI`.
 - **Satori + resvg** generate per-page OG images at build time (`src/pages/og/[...slug].png.ts`), using the local `Inter` woff fonts in `public/fonts/`.
 - Content is Markdown with typed frontmatter via Astro's content collections (`src/content.config.ts`, Zod schemas).

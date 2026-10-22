@@ -82,22 +82,22 @@ const scholarlyArticleSchema = {
     <script is:inline type="application/ld+json" set:html={JSON.stringify(scholarlyArticleSchema)} />
   </Fragment>
 
-  <header class="relative overflow-hidden bg-[#061a2b] text-white">
+  <header class="relative overflow-hidden bg-dark text-white">
     <div class="signal-grid absolute inset-0 opacity-50"></div>
     <div class="section-shell relative py-12 sm:py-18">
-      <a href={withBase('/publications/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7DD1F5] hover:text-white">
+      <a href={withBase('/publications/')} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent hover:text-white">
         <ArrowLeft className="h-4 w-4" /> Back to publications
       </a>
 
       <div class="mt-10 max-w-3xl">
-        <div class="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-[#7DD1F5]">
+        <div class="flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">
           <span class="rounded-full border border-white/20 px-3 py-1 font-mono">{year}</span>
           {(badges ?? (award ? [{ text: award, type: 'gold' }] : [])).map((badge) => (
-            <span class="rounded-full bg-[#D01F33] px-3 py-1 text-white">{badge.text}</span>
+            <span class="rounded-full bg-brand-red px-3 py-1 text-white">{badge.text}</span>
           ))}
         </div>
         <h1 class="mt-4 text-3xl font-bold leading-[1.1] tracking-[-0.03em] sm:text-5xl">{title}</h1>
-        <p class="mt-4 text-lg font-semibold text-slate-300">{venue}</p>
+        <p class="mt-4 text-lg font-semibold text-on-dark-body">{venue}</p>
 
         <div class="mt-8 flex flex-wrap gap-2">
           {activeLinks.map(([key, url]) => {
@@ -127,35 +127,35 @@ const scholarlyArticleSchema = {
         </>
       )}
     </div>
-    <aside class="h-fit rounded-2xl border border-slate-200 bg-[#f5f8fa] p-6 lg:sticky lg:top-28">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0270AD]">At a glance</p>
+    <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">At a glance</p>
       <dl class="mt-5 space-y-5 text-sm">
         <div>
-          <dt class="font-bold text-[#071b26]">Authors</dt>
-          <dd class="mt-1 leading-6 text-slate-600">
+          <dt class="font-bold text-ink">Authors</dt>
+          <dd class="mt-1 leading-6 text-body">
             {authors.map((author, index) => (
               <>
-                <span class:list={[isLabAuthor(author) && 'font-bold text-[#022A6C]']}>{author}</span>{index < authors.length - 1 ? ', ' : ''}
+                <span class:list={[isLabAuthor(author) && 'font-bold text-brand-navy']}>{author}</span>{index < authors.length - 1 ? ', ' : ''}
               </>
             ))}
           </dd>
         </div>
         <div>
-          <dt class="font-bold text-[#071b26]">Venue</dt>
-          <dd class="mt-1 leading-6 text-slate-600">{venue}</dd>
+          <dt class="font-bold text-ink">Venue</dt>
+          <dd class="mt-1 leading-6 text-body">{venue}</dd>
         </div>
         <div>
-          <dt class="font-bold text-[#071b26]">Year</dt>
-          <dd class="mt-1 leading-6 text-slate-600">{year}</dd>
+          <dt class="font-bold text-ink">Year</dt>
+          <dd class="mt-1 leading-6 text-body">{year}</dd>
         </div>
         {doi && (
           <div>
-            <dt class="font-bold text-[#071b26]">DOI</dt>
-            <dd class="mt-1 leading-6"><a href={doiUrl} target="_blank" rel="noopener noreferrer" class="text-[#03659C] hover:underline">{doi}</a></dd>
+            <dt class="font-bold text-ink">DOI</dt>
+            <dd class="mt-1 leading-6"><a href={doiUrl} target="_blank" rel="noopener noreferrer" class="text-link-hover hover:underline">{doi}</a></dd>
           </div>
         )}
       </dl>
-      <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#022A6C]">Google Scholar <ArrowUpRight className="h-4 w-4" /></a>
+      <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">Google Scholar <ArrowUpRight className="h-4 w-4" /></a>
     </aside>
   </article>
 </Layout>

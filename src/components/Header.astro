@@ -10,16 +10,16 @@ const regularNav = SITE.nav.filter((item) => !['search', 'join'].includes(item.k
 const isActive = (link: string) => pathname === link || (link !== homeLink && pathname.startsWith(link));
 ---
 
-<header class="site-header sticky top-0 z-50 border-b border-slate-200/80 bg-white/90 backdrop-blur-xl">
+<header class="site-header sticky top-0 z-50 border-b border-line/80 bg-white/90 backdrop-blur-xl">
   <a class="skip-link" href="#main-content">Skip to content</a>
-  <div class="h-1 bg-gradient-to-r from-[#022A6C] via-[#02A0E7] to-[#D01F33]"></div>
+  <div class="h-1 bg-gradient-to-r from-brand-navy via-brand-azure to-brand-red"></div>
 
   <div class="mx-auto flex h-[72px] max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-10">
     <a href={homeLink} class="group flex min-w-0 items-center gap-3" aria-label={`${SITE.labName} home`}>
       <img src={SITE.logo} width="39" height="44" alt="" class="h-11 w-auto shrink-0 transition-transform duration-300 group-hover:-rotate-3" />
       <span class="min-w-0">
-        <span class="block text-[1.05rem] font-bold tracking-[-0.02em] text-[#071b26]">{SITE.labName}</span>
-        <span class="hidden truncate text-[0.69rem] font-semibold uppercase tracking-[0.12em] text-slate-500 sm:block">
+        <span class="block text-[1.05rem] font-bold tracking-[-0.02em] text-ink">{SITE.labName}</span>
+        <span class="hidden truncate text-[0.69rem] font-semibold uppercase tracking-[0.12em] text-muted sm:block">
           Sabancı University · Electronics Engineering
         </span>
       </span>
@@ -33,8 +33,8 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
           class:list={[
             'rounded-full px-4 py-2 text-sm font-semibold transition-colors',
             isActive(item.link)
-              ? 'bg-[#E6F4FC] text-[#03659C]'
-              : 'text-slate-600 hover:bg-slate-100 hover:text-[#071b26]',
+              ? 'bg-brand-azure-tint text-link-hover'
+              : 'text-body hover:bg-subtle hover:text-ink',
           ]}
         >
           {item.text}
@@ -43,7 +43,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
 
       <a
         href={searchLink}
-        class="ml-1 rounded-full p-2.5 text-slate-500 transition-colors hover:bg-slate-100 hover:text-[#022A6C]"
+        class="ml-1 rounded-full p-2.5 text-muted transition-colors hover:bg-subtle hover:text-brand-navy"
         aria-label="Search"
       >
         <Search className="h-4.5 w-4.5" />
@@ -51,7 +51,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
 
       <a
         href={joinLink}
-        class="ml-2 inline-flex items-center gap-1.5 rounded-full bg-[#022A6C] px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-[#011E52] hover:shadow-md"
+        class="ml-2 inline-flex items-center gap-1.5 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-navy-hover hover:shadow-md"
       >
         Opportunities <ArrowUpRight className="h-4 w-4" />
       </a>
@@ -59,7 +59,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
 
     <button
       id="mobile-menu-button"
-      class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-slate-200 text-[#071b26] transition hover:border-[#02A0E7] hover:text-[#03659C] lg:hidden"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition hover:border-brand-azure hover:text-link-hover lg:hidden"
       type="button"
       aria-controls="mobile-menu"
       aria-expanded="false"
@@ -70,7 +70,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-slate-200 bg-white lg:hidden" aria-hidden="true">
+  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden" aria-hidden="true">
     <nav class="mx-auto flex max-w-[90rem] flex-col gap-1 px-4 py-5 sm:px-6" aria-label="Mobile navigation">
       {regularNav.map((item) => (
         <a
@@ -78,16 +78,16 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
           aria-current={isActive(item.link) ? 'page' : undefined}
           class:list={[
             'rounded-xl px-4 py-3 text-base font-semibold',
-            isActive(item.link) ? 'bg-[#E6F4FC] text-[#03659C]' : 'text-slate-700 hover:bg-slate-50',
+            isActive(item.link) ? 'bg-brand-azure-tint text-link-hover' : 'text-body hover:bg-subtle',
           ]}
         >
           {item.text}
         </a>
       ))}
-      <a href={searchLink} class="flex items-center gap-2 rounded-xl px-4 py-3 font-semibold text-slate-700 hover:bg-slate-50">
+      <a href={searchLink} class="flex items-center gap-2 rounded-xl px-4 py-3 font-semibold text-body hover:bg-subtle">
         <Search className="h-4 w-4" /> Search
       </a>
-      <a href={joinLink} class="mt-2 flex items-center justify-between rounded-xl bg-[#022A6C] px-4 py-3 font-bold text-white">
+      <a href={joinLink} class="mt-2 flex items-center justify-between rounded-xl bg-brand-navy px-4 py-3 font-bold text-white">
         Opportunities <ArrowUpRight className="h-4 w-4" />
       </a>
     </nav>

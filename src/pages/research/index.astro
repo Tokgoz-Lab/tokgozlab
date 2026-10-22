@@ -14,10 +14,10 @@ const numbers = ['01', '02', '03', '04'];
     <div class="section-shell relative z-10 py-16 sm:py-24">
       <span class="eyebrow">Research</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-[#071b26] sm:text-6xl">
+        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">
           We work across the full hardware stack.
         </h1>
-        <p class="max-w-2xl text-lg leading-8 text-slate-600">
+        <p class="max-w-2xl text-lg leading-8 text-body">
           From accurate device models to complete wireless links, our research joins circuit design, measurement, algorithms, and system-level thinking.
         </p>
       </div>
@@ -29,20 +29,20 @@ const numbers = ['01', '02', '03', '04'];
       {researchAreas.map((area, index) => {
         const Icon = icons[index % icons.length];
         return (
-          <article class="card-lift group grid overflow-hidden rounded-3xl border border-slate-200 bg-white md:grid-cols-[15rem_1fr_auto] md:items-center">
-            <div class="relative flex min-h-48 items-center justify-center overflow-hidden bg-[#061a2b] p-8 text-white md:min-h-full">
+          <article class="card-lift group grid overflow-hidden rounded-3xl border border-line bg-white md:grid-cols-[15rem_1fr_auto] md:items-center">
+            <div class="relative flex min-h-48 items-center justify-center overflow-hidden bg-dark p-8 text-white md:min-h-full">
               <div class="signal-grid absolute inset-0 opacity-60"></div>
-              <span class="absolute left-6 top-5 font-mono text-sm font-bold text-[#74CEF4]">{numbers[index] ?? String(index + 1).padStart(2, '0')}</span>
-              <Icon className="relative h-16 w-16 text-[#ffb547]" strokeWidth={1.4} />
-              <div class="absolute -bottom-20 -right-16 h-44 w-44 rounded-full border border-[#5CC6F2]/20"></div>
-              <div class="absolute -bottom-12 -right-10 h-32 w-32 rounded-full border border-[#5CC6F2]/30"></div>
+              <span class="absolute left-6 top-5 font-mono text-sm font-bold text-on-dark-accent">{numbers[index] ?? String(index + 1).padStart(2, '0')}</span>
+              <Icon className="relative h-16 w-16 text-brand-amber" strokeWidth={1.4} />
+              <div class="absolute -bottom-20 -right-16 h-44 w-44 rounded-full border border-on-dark-glow/20"></div>
+              <div class="absolute -bottom-12 -right-10 h-32 w-32 rounded-full border border-on-dark-glow/30"></div>
             </div>
             <div class="p-7 sm:p-9">
-              <h2 class="text-2xl font-bold tracking-[-0.025em] text-[#071b26] transition group-hover:text-[#03659C]">{area.data.title}</h2>
-              <p class="mt-4 max-w-3xl leading-7 text-slate-600">{area.data.description}</p>
+              <h2 class="text-2xl font-bold tracking-[-0.025em] text-ink transition group-hover:text-link-hover">{area.data.title}</h2>
+              <p class="mt-4 max-w-3xl leading-7 text-body">{area.data.description}</p>
             </div>
             <div class="px-7 pb-8 md:p-8">
-              <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 text-[#022A6C] transition group-hover:border-[#02A0E7] group-hover:bg-[#E6F4FC]" aria-label={`Read about ${area.data.title}`}>
+              <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-brand-navy transition group-hover:border-brand-azure group-hover:bg-brand-azure-tint" aria-label={`Read about ${area.data.title}`}>
                 <ArrowRight className="h-5 w-5" />
               </a>
             </div>
@@ -52,18 +52,18 @@ const numbers = ['01', '02', '03', '04'];
     </div>
   </section>
 
-  <section class="border-y border-slate-200 bg-[#f3f7fa] py-16 sm:py-20">
+  <section class="border-y border-line bg-subtle py-16 sm:py-20">
     <div class="section-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
       <div class="relative flex h-40 w-40 items-center justify-center lg:justify-self-center" aria-hidden="true">
-        <div class="absolute inset-0 rounded-full border border-[#02A0E7]/20"></div>
-        <div class="absolute inset-5 rounded-full border border-[#02A0E7]/35"></div>
-        <div class="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-[#022A6C] text-[#ffb547] shadow-[0_22px_45px_-24px_rgba(2,42,108,0.6)]">
+        <div class="absolute inset-0 rounded-full border border-brand-azure/20"></div>
+        <div class="absolute inset-5 rounded-full border border-brand-azure/35"></div>
+        <div class="relative flex h-24 w-24 items-center justify-center rounded-3xl bg-brand-navy text-brand-amber shadow-[0_22px_45px_-24px_color-mix(in_srgb,var(--color-brand-navy)_60%,transparent)]">
           <Gauge className="h-11 w-11" strokeWidth={1.6} />
         </div>
       </div>
       <div>
-        <h2 class="text-3xl font-bold tracking-[-0.035em] text-[#071b26]">A measurement-driven approach.</h2>
-        <p class="mt-4 max-w-3xl leading-7 text-slate-600">
+        <h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">A measurement-driven approach.</h2>
+        <p class="mt-4 max-w-3xl leading-7 text-body">
           Our questions begin with physical limits and end with experimentally grounded systems. Characterization, calibration, and de-embedding are not afterthoughts—they shape the architecture from day one.
         </p>
       </div>

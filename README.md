@@ -349,11 +349,14 @@ src/
   assets/                      ← optimized images (photos, covers) — reference these from content
   pages/                       ← page templates (edit only to change layout/behavior, not content)
   components/, layouts/        ← reusable UI pieces
+  styles/global.css            ← color tokens and global styles — see docs/color-system.md
 scripts/
   import-bibtex.js             ← turns citations.bib into src/content/publications/*.md
   generate-sitemap.js          ← writes dist/sitemap.xml at build time
 .github/workflows/pages.yml    ← builds and deploys to GitHub Pages on every push to main
 ```
+
+Colors follow the logo-based system in [`docs/color-system.md`](./docs/color-system.md).
 
 For deeper technical/architectural notes (aimed at AI coding assistants and future contributors), see [`AGENTS.md`](./AGENTS.md).
 

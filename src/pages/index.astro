@@ -35,10 +35,10 @@ const papers = (await getCollection('publications'))
 
 const focusIcons = [Waves, Radio, Cpu, BrainCircuit];
 const focusStyles = [
-  'bg-sky-50 text-sky-700',
-  'bg-blue-50 text-[#022A6C]',
-  'bg-red-50 text-red-700',
-  'bg-emerald-50 text-emerald-700',
+  'bg-brand-azure-tint text-link',
+  'bg-subtle text-brand-navy',
+  'bg-brand-red-tint text-brand-red',
+  'bg-success-tint text-success',
 ];
 
 const projects = activeProjects.slice(0, 3);
@@ -46,7 +46,7 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
 ---
 
 <Layout title="Home" theme="dark">
-  <section data-surface="dark" class="relative min-h-[calc(100svh-76px)] overflow-hidden bg-[#031522] text-white">
+  <section data-surface="dark" class="relative min-h-[calc(100svh-76px)] overflow-hidden bg-darker text-white">
     <div class="absolute inset-0">
       <Image
         src={SITE.hero.image}
@@ -59,25 +59,25 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
         loading="eager"
         fetchpriority="high"
       />
-      <div class="absolute inset-0 bg-[linear-gradient(90deg,rgba(3,21,34,0.98)_0%,rgba(3,21,34,0.89)_38%,rgba(3,21,34,0.34)_70%,rgba(3,21,34,0.2)_100%)]"></div>
+      <div class="absolute inset-0 bg-[linear-gradient(90deg,color-mix(in_srgb,var(--color-darker)_98%,transparent)_0%,color-mix(in_srgb,var(--color-darker)_89%,transparent)_38%,color-mix(in_srgb,var(--color-darker)_34%,transparent)_70%,color-mix(in_srgb,var(--color-darker)_20%,transparent)_100%)]"></div>
       <div class="signal-grid absolute inset-0 opacity-35"></div>
-      <div class="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-[#031522] to-transparent"></div>
+      <div class="absolute inset-x-0 bottom-0 h-44 bg-gradient-to-t from-darker to-transparent"></div>
     </div>
 
     <div class="section-shell relative z-10 flex min-h-[calc(100svh-76px)] items-center py-20">
       <div class="max-w-3xl">
-        <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-[#93DAF7] backdrop-blur-sm">
-          <Sparkles className="h-3.5 w-3.5 text-[#D01F33]" />
+        <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent backdrop-blur-sm">
+          <Sparkles className="h-3.5 w-3.5 text-brand-red" />
           {SITE.hero.eyebrow}
         </div>
         <h1 class="max-w-3xl text-5xl font-bold leading-[0.97] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
-          From silicon to <span class="text-[#5CC6F2]">sub-terahertz</span> systems.
+          From silicon to <span class="text-on-dark-glow">sub-terahertz</span> systems.
         </h1>
-        <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-300 sm:text-xl">
+        <p class="mt-7 max-w-2xl text-lg leading-8 text-on-dark-body sm:text-xl">
           {SITE.hero.subtitle}
         </p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <a href={withBase('/research/')} class="inline-flex items-center justify-center gap-2 rounded-full border border-lab-blue/25 bg-sky-50/90 px-6 py-3.5 text-sm font-bold text-[#022A6C] shadow-[0_22px_45px_-28px_rgba(2,42,108,0.55)] backdrop-blur-sm transition hover:border-lab-blue/40 hover:bg-white">
+          <a href={withBase('/research/')} class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-azure/25 bg-brand-azure-tint/90 px-6 py-3.5 text-sm font-bold text-brand-navy shadow-[0_22px_45px_-28px_color-mix(in_srgb,var(--color-brand-navy)_55%,transparent)] backdrop-blur-sm transition hover:border-brand-azure/40 hover:bg-white">
             Explore our research <ArrowRight className="h-4 w-4" />
           </a>
           <a href={withBase('/join/')} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
@@ -93,26 +93,26 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
       </a>
     </div>
 
-    <div class="relative z-10 border-t border-white/10 bg-[#031522]/70 backdrop-blur-md">
+    <div class="relative z-10 border-t border-white/10 bg-darker/70 backdrop-blur-md">
       <div class="section-shell grid divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         <div class="py-5 sm:px-7 sm:first:pl-0">
           <p class="text-2xl font-bold text-white">120 Gb/s</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">CMOS transceiver milestone</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">CMOS transceiver milestone</p>
         </div>
         <div class="py-5 sm:px-7">
           <p class="text-2xl font-bold text-white">300 GHz</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">Sub-THz circuit research</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">Sub-THz circuit research</p>
         </div>
         <div class="py-5 sm:px-7">
           <p class="text-2xl font-bold text-white">Device → System</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-slate-400">End-to-end research scope</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">End-to-end research scope</p>
         </div>
       </div>
     </div>
   </section>
 
   {SHOW_RESEARCH_NETWORK && (
-    <section data-surface="light" class="border-y border-slate-100 bg-white py-10 sm:py-14">
+    <section data-surface="light" class="border-y border-line-subtle bg-white py-10 sm:py-14">
       <div class="section-shell">
         <div class="text-center sm:text-left">
           <span class="eyebrow">Research network</span>
@@ -133,15 +133,15 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
       <div class="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
         <div>
           <span class="eyebrow">Our mission</span>
-          <h2 class="mt-5 text-4xl font-bold leading-tight tracking-[-0.045em] text-[#071b26] sm:text-5xl">
+          <h2 class="mt-5 text-4xl font-bold leading-tight tracking-[-0.045em] text-ink sm:text-5xl">
             Building the hardware foundations of future connectivity.
           </h2>
         </div>
         <div class="self-end">
-          <p class="text-lg leading-8 text-slate-600">
+          <p class="text-lg leading-8 text-body">
             Tokgöz Lab, led by Korkut Kaan Tokgöz, is an integrated-circuits and systems research group at Sabancı University. We connect transistor-level design, high-frequency measurement, communication theory, and intelligent edge systems to solve problems that no single layer can address alone.
           </p>
-          <a href={withBase('/research/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0270AD] hover:text-[#035481]">
+          <a href={withBase('/research/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link hover:text-link-hover">
             See how we work across the stack <ArrowRight className="h-4 w-4" />
           </a>
         </div>
@@ -151,13 +151,13 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
         {researchAreas.map((area, index) => {
           const Icon = focusIcons[index % focusIcons.length];
           return (
-            <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="card-lift group rounded-2xl border border-slate-200 bg-white p-6">
+            <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="card-lift group rounded-2xl border border-line bg-white p-6">
               <div class:list={['flex h-12 w-12 items-center justify-center rounded-xl', focusStyles[index % focusStyles.length]]}>
                 <Icon className="h-6 w-6" />
               </div>
-              <h3 class="mt-6 text-lg font-bold leading-snug text-[#071b26] group-hover:text-[#03659C]">{area.data.title}</h3>
-              <p class="mt-3 text-sm leading-6 text-slate-600">{area.data.description}</p>
-              <span class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-[#0270AD]">
+              <h3 class="mt-6 text-lg font-bold leading-snug text-ink group-hover:text-link-hover">{area.data.title}</h3>
+              <p class="mt-3 text-sm leading-6 text-body">{area.data.description}</p>
+              <span class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-link">
                 Learn more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </span>
             </a>
@@ -167,26 +167,26 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     </div>
   </section>
 
-  <section data-surface="light" class="overflow-hidden bg-[#f3f7fa] py-20 sm:py-28">
+  <section data-surface="light" class="overflow-hidden bg-subtle py-20 sm:py-28">
     <div class="section-shell">
       <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div class="max-w-2xl">
           <span class="eyebrow">Selected active projects</span>
-          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-[#071b26]">Research in motion.</h2>
-          <p class="mt-4 leading-7 text-slate-600">Current directions spanning frequency synthesis, emerging CMOS architectures, and millimeter/terahertz communications.</p>
+          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Research in motion.</h2>
+          <p class="mt-4 leading-7 text-body">Current directions spanning frequency synthesis, emerging CMOS architectures, and millimeter/terahertz communications.</p>
         </div>
-        <a href="https://fens.sabanciuniv.edu/en/en/research-areas/projects" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#0270AD]">
+        <a href="https://fens.sabanciuniv.edu/en/en/research-areas/projects" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-link">
           University project directory <ArrowUpRight className="h-4 w-4" />
         </a>
       </div>
 
       <div class="mt-12 grid gap-5 lg:grid-cols-3">
         {projects.map((project, index) => (
-          <article class="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-7 shadow-sm">
-            <span class="absolute right-6 top-5 font-mono text-5xl font-bold text-slate-100">0{index + 1}</span>
-            <p class="relative text-xs font-bold uppercase tracking-[0.14em] text-[#0270AD]">{project.period}</p>
-            <h3 class="relative mt-8 min-h-24 text-xl font-bold leading-snug text-[#071b26]">{project.title}</h3>
-            <p class="relative mt-5 border-t border-slate-100 pt-4 text-sm text-slate-500">{project.type} research project</p>
+          <article class="relative overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-sm">
+            <span class="absolute right-6 top-5 font-mono text-5xl font-bold text-line-subtle">0{index + 1}</span>
+            <p class="relative text-xs font-bold uppercase tracking-[0.14em] text-link">{project.period}</p>
+            <h3 class="relative mt-8 min-h-24 text-xl font-bold leading-snug text-ink">{project.title}</h3>
+            <p class="relative mt-5 border-t border-line-subtle pt-4 text-sm text-muted">{project.type} research project</p>
           </article>
         ))}
       </div>
@@ -198,96 +198,96 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
       <div class="flex items-end justify-between gap-6">
         <div>
           <span class="eyebrow">Research output</span>
-          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-[#071b26]">Selected publications.</h2>
+          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Selected publications.</h2>
         </div>
-        <a href={withBase('/publications/')} class="hidden items-center gap-2 text-sm font-bold text-[#0270AD] sm:inline-flex">
+        <a href={withBase('/publications/')} class="hidden items-center gap-2 text-sm font-bold text-link sm:inline-flex">
           View all <ArrowRight className="h-4 w-4" />
         </a>
       </div>
 
-      <div class="mt-10 divide-y divide-slate-200 border-y border-slate-200">
+      <div class="mt-10 divide-y divide-line border-y border-line">
         {papers.map((paper, index) => {
           const target = paper.data.links?.website || paper.data.links?.pdf;
           return (
             <article class="group grid gap-4 py-7 md:grid-cols-[4rem_1fr_auto] md:items-center md:gap-7">
-              <span class="font-mono text-sm font-bold text-slate-400">0{index + 1}</span>
+              <span class="font-mono text-sm font-bold text-muted">0{index + 1}</span>
               <div>
-                <h3 class="text-lg font-bold leading-snug text-[#071b26] transition group-hover:text-[#03659C]">
+                <h3 class="text-lg font-bold leading-snug text-ink transition group-hover:text-link-hover">
                   {target ? <a href={target} target="_blank" rel="noopener noreferrer">{paper.data.title}</a> : paper.data.title}
                 </h3>
-                <p class="mt-2 line-clamp-1 text-sm text-slate-500">{paper.data.authors.join(', ')}</p>
+                <p class="mt-2 line-clamp-1 text-sm text-muted">{paper.data.authors.join(', ')}</p>
               </div>
               <div class="flex items-center gap-3 md:justify-end">
-                <span class="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-slate-600">{paper.data.venue}</span>
-                <span class="font-mono text-sm font-bold text-[#022A6C]">{paper.data.year}</span>
-                {target && <ArrowUpRight className="h-4 w-4 text-slate-400 transition group-hover:text-[#0270AD]" />}
+                <span class="rounded-full bg-subtle px-3 py-1 text-xs font-bold text-body">{paper.data.venue}</span>
+                <span class="font-mono text-sm font-bold text-brand-navy">{paper.data.year}</span>
+                {target && <ArrowUpRight className="h-4 w-4 text-muted transition group-hover:text-link" />}
               </div>
             </article>
           );
         })}
       </div>
-      <a href={withBase('/publications/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0270AD] sm:hidden">
+      <a href={withBase('/publications/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link sm:hidden">
         View all publications <ArrowRight className="h-4 w-4" />
       </a>
     </div>
   </section>
 
   {latestNews.length > 0 && (
-    <section data-surface="light" class="bg-[#f3f7fa] py-20 sm:py-28">
+    <section data-surface="light" class="bg-subtle py-20 sm:py-28">
       <div class="section-shell">
         <div class="flex items-end justify-between gap-6">
           <div>
             <span class="eyebrow">Lab news</span>
-            <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-[#071b26]">Latest from the lab.</h2>
+            <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Latest from the lab.</h2>
           </div>
-          <a href={withBase('/news/')} class="hidden items-center gap-2 text-sm font-bold text-[#0270AD] sm:inline-flex">
+          <a href={withBase('/news/')} class="hidden items-center gap-2 text-sm font-bold text-link sm:inline-flex">
             All news <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 
         <div class="mt-12 grid gap-5 lg:grid-cols-3">
           {latestNews.map((post) => (
-            <a href={withBase(`/news/${post.id}/`)} class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-slate-200 bg-white">
+            <a href={withBase(`/news/${post.id}/`)} class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
               {post.data.image && (
-                <Image src={post.data.image} alt="" class:list={['aspect-[16/9] w-full', post.data.imageFit === 'contain' ? 'border-b border-slate-100 bg-white object-contain p-3' : 'object-cover']} widths={[480, 720]} sizes="(max-width: 1024px) 100vw, 30vw" quality={82} />
+                <Image src={post.data.image} alt="" class:list={['aspect-[16/9] w-full', post.data.imageFit === 'contain' ? 'border-b border-line-subtle bg-white object-contain p-3' : 'object-cover']} widths={[480, 720]} sizes="(max-width: 1024px) 100vw, 30vw" quality={82} />
               )}
               <div class="flex flex-1 flex-col p-7">
-                <time datetime={post.data.date.toISOString().slice(0, 10)} class="text-xs font-bold uppercase tracking-[0.14em] text-[#0270AD]">{formatNewsDate(post.data.date)}</time>
-                <h3 class="mt-4 text-xl font-bold leading-snug text-[#071b26] group-hover:text-[#03659C]">{post.data.title}</h3>
-                <p class="mt-3 line-clamp-3 text-sm leading-6 text-slate-600">{post.data.summary}</p>
-                <span class="mt-auto inline-flex items-center gap-1 pt-5 text-xs font-bold uppercase tracking-[0.1em] text-[#0270AD]">
+                <time datetime={post.data.date.toISOString().slice(0, 10)} class="text-xs font-bold uppercase tracking-[0.14em] text-link">{formatNewsDate(post.data.date)}</time>
+                <h3 class="mt-4 text-xl font-bold leading-snug text-ink group-hover:text-link-hover">{post.data.title}</h3>
+                <p class="mt-3 line-clamp-3 text-sm leading-6 text-body">{post.data.summary}</p>
+                <span class="mt-auto inline-flex items-center gap-1 pt-5 text-xs font-bold uppercase tracking-[0.1em] text-link">
                   Read more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
             </a>
           ))}
         </div>
-        <a href={withBase('/news/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#0270AD] sm:hidden">
+        <a href={withBase('/news/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link sm:hidden">
           All news <ArrowRight className="h-4 w-4" />
         </a>
       </div>
     </section>
   )}
 
-  <section data-surface="dark" class="bg-[#061a2b] py-20 text-white sm:py-28">
+  <section data-surface="dark" class="bg-dark py-20 text-white sm:py-28">
     <div class="section-shell grid items-center gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
       <div class="relative mx-auto max-w-sm lg:mx-0">
-        <div class="absolute -inset-4 rounded-[2rem] border border-[#5CC6F2]/20"></div>
+        <div class="absolute -inset-4 rounded-[2rem] border border-on-dark-glow/20"></div>
         <Image src={profileImage} alt="Korkut Kaan Tokgöz" class="relative aspect-square w-full rounded-[1.5rem] object-cover" widths={[320, 480, 640]} sizes="(max-width: 1024px) 80vw, 32vw" quality={88} />
-        <div class="absolute -bottom-6 -right-5 rounded-2xl border border-white/10 bg-[#0b2940] px-5 py-4 shadow-2xl">
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#7DD1F5]">Principal Investigator</p>
+        <div class="absolute -bottom-6 -right-5 rounded-2xl border border-white/10 bg-dark-raised px-5 py-4 shadow-2xl">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-on-dark-accent">Principal Investigator</p>
           <p class="mt-1 font-bold">Sabancı University</p>
         </div>
       </div>
 
       <div>
-        <span class="eyebrow !text-[#7DD1F5]">Lab leadership</span>
+        <span class="eyebrow !text-on-dark-accent">Lab leadership</span>
         <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] sm:text-5xl">Korkut Kaan Tokgöz</h2>
-        <p class="mt-6 text-lg leading-8 text-slate-300">
+        <p class="mt-6 text-lg leading-8 text-on-dark-body">
           Korkut Kaan Tokgöz leads the group at Sabancı University’s Faculty of Engineering and Natural Sciences. His background spans CMOS transceivers, high-frequency device characterization, 5G systems at NEC, and academic research at Tokyo Institute of Technology.
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={withBase('/team/korkut-kaan-tokgoz/')} class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-[#022A6C]">
+          <a href={withBase('/team/korkut-kaan-tokgoz/')} class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-brand-navy">
             PI profile <ArrowRight className="h-4 w-4" />
           </a>
           <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-bold text-white hover:bg-white/10">
@@ -299,13 +299,13 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
   </section>
 
   <section data-surface="light" class="bg-white py-20 sm:py-24">
-    <div class="section-shell overflow-hidden rounded-[2rem] bg-[#022A6C] px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
+    <div class="section-shell overflow-hidden rounded-[2rem] bg-brand-navy px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
       <div class="max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#74CEF4]">Join the lab</p>
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">Join the lab</p>
         <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Curious about circuits beyond today’s limits?</h2>
-        <p class="mt-4 leading-7 text-blue-100">We welcome prospective graduate and undergraduate researchers interested in integrated circuits, high-frequency systems, and intelligent hardware.</p>
+        <p class="mt-4 leading-7 text-on-dark-body">We welcome prospective graduate and undergraduate researchers interested in integrated circuits, high-frequency systems, and intelligent hardware.</p>
       </div>
-      <a href={withBase('/join/')} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-[#D01F33] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#B51A2C] lg:mt-0">
+      <a href={withBase('/join/')} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-brand-navy transition hover:bg-brand-azure-tint-strong lg:mt-0">
         Explore opportunities <ArrowUpRight className="h-4 w-4" />
       </a>
     </div>

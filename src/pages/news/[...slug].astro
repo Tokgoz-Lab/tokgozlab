@@ -42,38 +42,38 @@ const newsArticleSchema = {
   </Fragment>
 
   <article>
-    <header class="relative overflow-hidden bg-[#061a2b] text-white">
+    <header class="relative overflow-hidden bg-dark text-white">
       <div class="signal-grid absolute inset-0 opacity-60"></div>
-      <div class="absolute -right-28 -top-32 h-[30rem] w-[30rem] rounded-full border border-[#5CC6F2]/15"></div>
-      <div class="absolute -right-12 -top-14 h-[20rem] w-[20rem] rounded-full border border-[#5CC6F2]/20"></div>
+      <div class="absolute -right-28 -top-32 h-[30rem] w-[30rem] rounded-full border border-on-dark-glow/15"></div>
+      <div class="absolute -right-12 -top-14 h-[20rem] w-[20rem] rounded-full border border-on-dark-glow/20"></div>
       <div class="section-shell relative py-16 sm:py-24">
-        <a href={withBase('/news/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7DD1F5] transition hover:text-white">
+        <a href={withBase('/news/')} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent transition hover:text-white">
           <ArrowLeft className="h-4 w-4" /> All news
         </a>
-        <time datetime={isoDate} class="mt-10 block font-mono text-sm font-bold uppercase tracking-[0.12em] text-[#7DD1F5]">{formatNewsDate(date)}</time>
+        <time datetime={isoDate} class="mt-10 block font-mono text-sm font-bold uppercase tracking-[0.12em] text-on-dark-accent">{formatNewsDate(date)}</time>
         <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-[-0.045em] sm:text-6xl">{title}</h1>
-        <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">{summary}</p>
+        <p class="mt-7 max-w-3xl text-lg leading-8 text-on-dark-body sm:text-xl">{summary}</p>
       </div>
     </header>
 
     <div class="section-shell grid gap-12 py-16 sm:py-24 lg:grid-cols-[1fr_18rem] lg:gap-20">
       <div class="max-w-3xl">
         {image && (
-          <Image src={image} alt={imageAlt ?? ''} class="mb-10 w-full rounded-2xl border border-slate-200 object-cover" widths={[640, 960, 1280]} sizes="(max-width: 1024px) 100vw, 48rem" quality={85} />
+          <Image src={image} alt={imageAlt ?? ''} class="mb-10 w-full rounded-2xl border border-line object-cover" widths={[640, 960, 1280]} sizes="(max-width: 1024px) 100vw, 48rem" quality={85} />
         )}
         <div class="prose">
           <Content />
         </div>
       </div>
-      <aside class="h-fit rounded-2xl border border-slate-200 bg-[#f5f8fa] p-6 lg:sticky lg:top-28">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0270AD]">{SITE.labName}</p>
-        <p class="mt-4 text-sm leading-6 text-slate-600">Published {formatNewsDate(date)}.</p>
+      <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">
+        <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{SITE.labName}</p>
+        <p class="mt-4 text-sm leading-6 text-body">Published {formatNewsDate(date)}.</p>
         {link && (
-          <a href={link} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#022A6C]">
+          <a href={link} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">
             {linkText ?? 'Read more'} <ArrowUpRight className="h-4 w-4" />
           </a>
         )}
-        <a href={withBase('/news/')} class="mt-6 flex items-center gap-2 border-t border-slate-200 pt-5 text-sm font-bold text-[#0270AD]">
+        <a href={withBase('/news/')} class="mt-6 flex items-center gap-2 border-t border-line pt-5 text-sm font-bold text-link">
           <ArrowLeft className="h-4 w-4" /> All news
         </a>
       </aside>
