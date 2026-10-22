@@ -54,7 +54,7 @@ const organizationSchema = {
       name: SITE.labName,
       alternateName: 'Tokgoz Lab',
       url: siteBase.href,
-      logo: new URL(SITE.logo, siteBase).href,
+      logo: new URL(SITE.logoPng, siteBase).href,
       description: SITE.description,
       knowsAbout,
       parentOrganization: {
@@ -161,14 +161,14 @@ const organizationSchema = {
     </main>
 
     <footer data-surface="dark" class="relative overflow-hidden bg-[#061a2b] text-slate-300">
-      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5de4df] to-transparent opacity-60"></div>
+      <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#5CC6F2] to-transparent opacity-60"></div>
       <div class="mx-auto grid max-w-[90rem] gap-12 px-4 py-14 sm:px-6 md:grid-cols-[1.3fr_0.7fr_1fr] lg:px-10 lg:py-18">
         <div class="max-w-md">
           <a href={homeLink} class="inline-flex items-center gap-3 text-white">
-            <img src={SITE.logo} width="44" height="44" alt="" class="h-11 w-11" />
+            <img src={SITE.logoOnDark} width="39" height="44" alt="" class="h-11 w-auto" />
             <span>
               <span class="block text-lg font-bold">{SITE.labName}</span>
-              <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[#7bdedb]">Integrated Circuits & Systems</span>
+              <span class="text-xs font-semibold uppercase tracking-[0.14em] text-[#7DD1F5]">Integrated Circuits & Systems</span>
             </span>
           </a>
           <p class="mt-5 text-sm leading-7 text-slate-400">
@@ -180,7 +180,7 @@ const organizationSchema = {
           <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-white">Explore</h2>
           <nav class="mt-5 grid gap-3 text-sm" aria-label="Footer navigation">
             {SITE.nav.filter((item) => item.key !== 'search').map((item) => (
-              <a href={item.link} class="w-fit transition-colors hover:text-[#7bdedb]">{item.text}</a>
+              <a href={item.link} class="w-fit transition-colors hover:text-[#7DD1F5]">{item.text}</a>
             ))}
           </nav>
         </div>
@@ -188,7 +188,7 @@ const organizationSchema = {
         <div>
           <h2 class="text-xs font-bold uppercase tracking-[0.18em] text-white">Contact</h2>
           <div class="mt-5 space-y-4 text-sm">
-            <a href={`mailto:${SITE.email}`} class="flex items-start gap-3 transition-colors hover:text-[#7bdedb]">
+            <a href={`mailto:${SITE.email}`} class="flex items-start gap-3 transition-colors hover:text-[#7DD1F5]">
               <Mail className="mt-0.5 h-4 w-4 shrink-0" />
               <span>{SITE.email}</span>
             </a>
@@ -196,7 +196,7 @@ const organizationSchema = {
               <MapPin className="mt-1 h-4 w-4 shrink-0" />
               <span>Sabancı University FENS<br />Tuzla, İstanbul, Türkiye</span>
             </p>
-            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-[#7bdedb]">
+            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 font-semibold text-white hover:text-[#7DD1F5]">
               Official university profile <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>

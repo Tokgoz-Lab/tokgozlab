@@ -18,11 +18,11 @@
 
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-  --color-lab-navy: #002776;
+  --color-lab-navy: #022A6C;
   --color-lab-ink: #071b26;
-  --color-lab-teal: #00a6a6;
-  --color-lab-mint: #5de4df;
-  --color-lab-amber: #ffb547;
+  --color-lab-blue: #02A0E7;
+  --color-lab-sky: #5CC6F2;
+  --color-lab-red: #D01F33;
 }
 
 :root {
@@ -60,8 +60,8 @@ body {
 }
 
 ::selection {
-  background: #b9f3f0;
-  color: #002776;
+  background: #BDE8FA;
+  color: #022A6C;
 }
 
 a,
@@ -70,7 +70,7 @@ button {
 }
 
 :focus-visible {
-  outline: 3px solid #00a6a6;
+  outline: 3px solid #02A0E7;
   outline-offset: 3px;
 }
 
@@ -81,7 +81,7 @@ button {
   z-index: 100;
   border-radius: 999px;
   background: #fff;
-  color: #002776;
+  color: #022A6C;
   padding: 0.75rem 1rem;
   font-size: 0.875rem;
   font-weight: 700;
@@ -102,7 +102,7 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 0.55rem;
-  color: #007f80;
+  color: #0270AD;
   font-size: 0.75rem;
   font-weight: 800;
   letter-spacing: 0.15em;
@@ -116,7 +116,7 @@ button {
   width: 1.8rem;
   height: 2px;
   border-radius: 999px;
-  background: #ffb547;
+  background: #D01F33;
 }
 
 .page-intro {
@@ -188,10 +188,10 @@ button {
 }
 
 .prose a {
-  color: #006f72;
+  color: #03659C;
   font-weight: 700;
   text-decoration: underline;
-  text-decoration-color: #9ee7e4;
+  text-decoration-color: #9FDDF8;
   text-underline-offset: 3px;
 }
 

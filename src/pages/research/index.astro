@@ -32,17 +32,17 @@ const numbers = ['01', '02', '03', '04'];
           <article class="card-lift group grid overflow-hidden rounded-3xl border border-slate-200 bg-white md:grid-cols-[15rem_1fr_auto] md:items-center">
             <div class="relative flex min-h-48 items-center justify-center overflow-hidden bg-[#061a2b] p-8 text-white md:min-h-full">
               <div class="signal-grid absolute inset-0 opacity-60"></div>
-              <span class="absolute left-6 top-5 font-mono text-sm font-bold text-[#75e3de]">{numbers[index] ?? String(index + 1).padStart(2, '0')}</span>
-              <Icon className="relative h-16 w-16 text-[#ffb547]" strokeWidth={1.4} />
-              <div class="absolute -bottom-20 -right-16 h-44 w-44 rounded-full border border-[#5de4df]/20"></div>
-              <div class="absolute -bottom-12 -right-10 h-32 w-32 rounded-full border border-[#5de4df]/30"></div>
+              <span class="absolute left-6 top-5 font-mono text-sm font-bold text-[#74CEF4]">{numbers[index] ?? String(index + 1).padStart(2, '0')}</span>
+              <Icon className="relative h-16 w-16 text-[#D01F33]" strokeWidth={1.4} />
+              <div class="absolute -bottom-20 -right-16 h-44 w-44 rounded-full border border-[#5CC6F2]/20"></div>
+              <div class="absolute -bottom-12 -right-10 h-32 w-32 rounded-full border border-[#5CC6F2]/30"></div>
             </div>
             <div class="p-7 sm:p-9">
-              <h2 class="text-2xl font-bold tracking-[-0.025em] text-[#071b26] transition group-hover:text-[#006f72]">{area.data.title}</h2>
+              <h2 class="text-2xl font-bold tracking-[-0.025em] text-[#071b26] transition group-hover:text-[#03659C]">{area.data.title}</h2>
               <p class="mt-4 max-w-3xl leading-7 text-slate-600">{area.data.description}</p>
             </div>
             <div class="px-7 pb-8 md:p-8">
-              <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 text-[#002776] transition group-hover:border-[#00a6a6] group-hover:bg-[#e7f7f6]" aria-label={`Read about ${area.data.title}`}>
+              <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-slate-200 text-[#022A6C] transition group-hover:border-[#02A0E7] group-hover:bg-[#E6F4FC]" aria-label={`Read about ${area.data.title}`}>
                 <ArrowRight className="h-5 w-5" />
               </a>
             </div>
@@ -54,7 +54,7 @@ const numbers = ['01', '02', '03', '04'];
 
   <section class="border-y border-slate-200 bg-[#f3f7fa] py-16 sm:py-20">
     <div class="section-shell grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-      <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#002776] text-[#75e3de]">
+      <div class="flex h-20 w-20 items-center justify-center rounded-2xl bg-[#022A6C] text-[#74CEF4]">
         <Gauge className="h-9 w-9" />
       </div>
       <div>

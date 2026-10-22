@@ -44,13 +44,13 @@ const newsArticleSchema = {
   <article>
     <header class="relative overflow-hidden bg-[#061a2b] text-white">
       <div class="signal-grid absolute inset-0 opacity-60"></div>
-      <div class="absolute -right-28 -top-32 h-[30rem] w-[30rem] rounded-full border border-[#5de4df]/15"></div>
-      <div class="absolute -right-12 -top-14 h-[20rem] w-[20rem] rounded-full border border-[#5de4df]/20"></div>
+      <div class="absolute -right-28 -top-32 h-[30rem] w-[30rem] rounded-full border border-[#5CC6F2]/15"></div>
+      <div class="absolute -right-12 -top-14 h-[20rem] w-[20rem] rounded-full border border-[#5CC6F2]/20"></div>
       <div class="section-shell relative py-16 sm:py-24">
-        <a href={withBase('/news/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7bdedb] transition hover:text-white">
+        <a href={withBase('/news/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7DD1F5] transition hover:text-white">
           <ArrowLeft className="h-4 w-4" /> All news
         </a>
-        <time datetime={isoDate} class="mt-10 block font-mono text-sm font-bold uppercase tracking-[0.12em] text-[#ffb547]">{formatNewsDate(date)}</time>
+        <time datetime={isoDate} class="mt-10 block font-mono text-sm font-bold uppercase tracking-[0.12em] text-[#7DD1F5]">{formatNewsDate(date)}</time>
         <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-[-0.045em] sm:text-6xl">{title}</h1>
         <p class="mt-7 max-w-3xl text-lg leading-8 text-slate-300 sm:text-xl">{summary}</p>
       </div>
@@ -66,14 +66,14 @@ const newsArticleSchema = {
         </div>
       </div>
       <aside class="h-fit rounded-2xl border border-slate-200 bg-[#f5f8fa] p-6 lg:sticky lg:top-28">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#007f80]">{SITE.labName}</p>
+        <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0270AD]">{SITE.labName}</p>
         <p class="mt-4 text-sm leading-6 text-slate-600">Published {formatNewsDate(date)}.</p>
         {link && (
-          <a href={link} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#002776]">
+          <a href={link} target="_blank" rel="noopener noreferrer" class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-[#022A6C]">
             {linkText ?? 'Read more'} <ArrowUpRight className="h-4 w-4" />
           </a>
         )}
-        <a href={withBase('/news/')} class="mt-6 flex items-center gap-2 border-t border-slate-200 pt-5 text-sm font-bold text-[#007f80]">
+        <a href={withBase('/news/')} class="mt-6 flex items-center gap-2 border-t border-slate-200 pt-5 text-sm font-bold text-[#0270AD]">
           <ArrowLeft className="h-4 w-4" /> All news
         </a>
       </aside>

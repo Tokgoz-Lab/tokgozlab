@@ -63,7 +63,7 @@ const personSchema = {
   <header class="relative overflow-hidden bg-[#061a2b] text-white">
     <div class="signal-grid absolute inset-0 opacity-50"></div>
     <div class="section-shell relative py-12 sm:py-18">
-      <a href={withBase('/team/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7bdedb] hover:text-white">
+      <a href={withBase('/team/')} class="inline-flex items-center gap-2 text-sm font-bold text-[#7DD1F5] hover:text-white">
         <ArrowLeft className="h-4 w-4" /> Back to people
       </a>
 
@@ -72,11 +72,11 @@ const personSchema = {
           <img src={avatar.src} alt={name} class="aspect-square w-full rounded-[1.15rem] object-cover" />
         </div>
         <div>
-          {showRole && <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#7bdedb]">{role}</p>}
+          {showRole && <p class="text-xs font-bold uppercase tracking-[0.16em] text-[#7DD1F5]">{role}</p>}
           <h1 class:list={['text-4xl font-bold tracking-[-0.045em] sm:text-6xl', showRole && 'mt-3']}>{name}</h1>
           {title?.length && <p class="mt-4 text-lg font-semibold text-slate-300">{title.join(' · ')}</p>}
           <div class="mt-8 flex flex-wrap gap-2">
-            {email && <a href={`mailto:${email}`} class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-[#002776]"><Mail className="h-4 w-4" /> Email</a>}
+            {email && <a href={`mailto:${email}`} class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-[#022A6C]"><Mail className="h-4 w-4" /> Email</a>}
             {website && <a href={website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><ExternalLink className="h-4 w-4" /> University profile</a>}
             {personalWebsite && <a href={personalWebsite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><Globe className="h-4 w-4" /> Website</a>}
             {googleScholar && <a href={googleScholar} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><GraduationCap className="h-4 w-4" /> Scholar</a>}
@@ -106,7 +106,7 @@ const personSchema = {
     <aside class="h-fit rounded-2xl border border-slate-200 bg-[#f5f8fa] p-6 lg:sticky lg:top-28">
       {member.id === 'korkut-kaan-tokgoz' && (
         <>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#007f80]">At a glance</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-[#0270AD]">At a glance</p>
           <dl class="mt-5 space-y-5 text-sm">
             <div>
               <dt class="font-bold text-[#071b26]">Affiliation</dt>
@@ -123,7 +123,7 @@ const personSchema = {
           </dl>
         </>
       )}
-      <a href={withBase('/publications/')} class={member.id === 'korkut-kaan-tokgoz' ? 'mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#002776]' : 'inline-flex items-center gap-2 text-sm font-bold text-[#002776]'}>Selected publications <ArrowUpRight className="h-4 w-4" /></a>
+      <a href={withBase('/publications/')} class={member.id === 'korkut-kaan-tokgoz' ? 'mt-7 inline-flex items-center gap-2 text-sm font-bold text-[#022A6C]' : 'inline-flex items-center gap-2 text-sm font-bold text-[#022A6C]'}>Selected publications <ArrowUpRight className="h-4 w-4" /></a>
     </aside>
   </article>
 </Layout>

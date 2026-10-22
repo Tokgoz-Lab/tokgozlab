@@ -20,10 +20,10 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
         <div>
           <p class="text-lg leading-8 text-slate-600">A selected bibliography across integrated circuits, high-frequency communications, sensing, and intelligent hardware.</p>
           <div class="mt-5 flex flex-wrap gap-4">
-            <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#007f80]">
+            <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#0270AD]">
               <GraduationCap className="h-4 w-4" /> Google Scholar <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
-            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#007f80]">
+            <a href={SITE.profile.officialUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-[#0270AD]">
               Official publication list <ArrowUpRight className="h-3.5 w-3.5" />
             </a>
           </div>
@@ -36,11 +36,11 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
     <div class="section-shell grid gap-10 lg:grid-cols-[11rem_1fr] lg:gap-14">
       <aside class="h-fit lg:sticky lg:top-28">
         <div class="flex items-center gap-2 text-sm font-bold text-[#071b26]">
-          <BookOpen className="h-4 w-4 text-[#007f80]" /> Browse by year
+          <BookOpen className="h-4 w-4 text-[#0270AD]" /> Browse by year
         </div>
         <nav class="mt-5 flex flex-wrap gap-2 lg:flex-col" aria-label="Publication years">
           {years.map((year) => (
-            <a href={`#year-${year}`} class="w-fit rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs font-bold text-slate-600 transition hover:border-[#00a6a6] hover:bg-[#e7f7f6] hover:text-[#006f72]">{year}</a>
+            <a href={`#year-${year}`} class="w-fit rounded-full border border-slate-200 px-3 py-1.5 font-mono text-xs font-bold text-slate-600 transition hover:border-[#02A0E7] hover:bg-[#E6F4FC] hover:text-[#03659C]">{year}</a>
           ))}
         </nav>
       </aside>
@@ -49,7 +49,7 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
         {years.map((year) => (
           <section id={`year-${year}`} class="scroll-mt-28">
             <div class="mb-6 flex items-end gap-4 border-b border-slate-200 pb-4">
-              <h2 class="font-mono text-3xl font-bold text-[#002776]">{year}</h2>
+              <h2 class="font-mono text-3xl font-bold text-[#022A6C]">{year}</h2>
               <span class="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-slate-400">
                 {allPapers.filter((paper) => paper.data.year === year).length} {allPapers.filter((paper) => paper.data.year === year).length === 1 ? 'publication' : 'publications'}
               </span>

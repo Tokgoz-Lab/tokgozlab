@@ -28,12 +28,12 @@ const paths = [
 <Layout title="Opportunities" description="Research opportunities for prospective PhD, master's, and undergraduate students at Tokgöz Lab, Sabancı University.">
   <header class="relative overflow-hidden bg-[#061a2b] text-white">
     <div class="signal-grid absolute inset-0 opacity-55"></div>
-    <div class="absolute -right-32 -top-36 h-[34rem] w-[34rem] rounded-full border border-[#5de4df]/15"></div>
+    <div class="absolute -right-32 -top-36 h-[34rem] w-[34rem] rounded-full border border-[#5CC6F2]/15"></div>
     <div class="section-shell relative py-18 sm:py-28">
-      <p class="text-xs font-bold uppercase tracking-[0.17em] text-[#7bdedb]">Opportunities</p>
+      <p class="text-xs font-bold uppercase tracking-[0.17em] text-[#7DD1F5]">Opportunities</p>
       <h1 class="mt-5 max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] sm:text-7xl">Do ambitious hardware research with us.</h1>
       <p class="mt-7 max-w-2xl text-lg leading-8 text-slate-300">We welcome thoughtful inquiries from students who want to work across circuits, measurement, communication systems, sensing, and intelligent hardware.</p>
-      <a href={`mailto:${SITE.email}?subject=Prospective%20researcher%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-9 inline-flex items-center gap-2 rounded-full bg-[#ffb547] px-6 py-3.5 text-sm font-bold text-[#071b26] transition hover:bg-[#ffc66e]">
+      <a href={`mailto:${SITE.email}?subject=Prospective%20researcher%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-9 inline-flex items-center gap-2 rounded-full bg-[#D01F33] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#B51A2C]">
         <Mail className="h-4 w-4" /> Introduce yourself
       </a>
     </div>
@@ -42,16 +42,16 @@ const paths = [
   <section class="py-16 sm:py-20">
     <div class="section-shell overflow-hidden rounded-[2rem] bg-[#061a2b] px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
       <div class="max-w-xl">
-        <span class="eyebrow !text-[#7bdedb]">Industry & partnerships</span>
+        <span class="eyebrow !text-[#7DD1F5]">Industry & partnerships</span>
         <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Looking to collaborate as a company?</h2>
         <p class="mt-4 leading-7 text-slate-300">We work with industry partners on sponsored research, joint testbeds, and technology transfer across mmWave/sub-terahertz ICs, 6G systems, and Edge-AI hardware.</p>
         <ul class="mt-6 space-y-2.5 text-sm text-slate-300">
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#00a6a6]" /> Sponsored research & joint projects</li>
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#00a6a6]" /> Technology licensing & transfer</li>
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#00a6a6]" /> Recruiting talent from the lab</li>
+          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> Sponsored research & joint projects</li>
+          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> Technology licensing & transfer</li>
+          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> Recruiting talent from the lab</li>
         </ul>
       </div>
-      <a href={`mailto:${SITE.email}?subject=Industry%20collaboration%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-[#ffb547] px-6 py-3.5 text-sm font-bold text-[#071b26] transition hover:bg-[#ffc66e] lg:mt-0">
+      <a href={`mailto:${SITE.email}?subject=Industry%20collaboration%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-[#D01F33] px-6 py-3.5 text-sm font-bold text-white transition hover:bg-[#B51A2C] lg:mt-0">
         <Building2 className="h-4 w-4" /> Contact the lab
       </a>
     </div>
@@ -68,11 +68,11 @@ const paths = [
       <div class="mt-12 grid gap-6 lg:grid-cols-3">
         {paths.map((path) => (
           <article class="card-lift rounded-3xl border border-slate-200 bg-white p-7">
-            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#e7f7f6] text-[#007f80]"><path.icon className="h-6 w-6" /></div>
+            <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-[#E6F4FC] text-[#0270AD]"><path.icon className="h-6 w-6" /></div>
             <h3 class="mt-6 text-xl font-bold text-[#071b26]">{path.label}</h3>
             <p class="mt-3 min-h-24 text-sm leading-6 text-slate-600">{path.description}</p>
             <ul class="mt-5 space-y-3 border-t border-slate-100 pt-5 text-sm text-slate-600">
-              {path.points.map((point) => <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#00a6a6]" /> {point}</li>)}
+              {path.points.map((point) => <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-[#02A0E7]" /> {point}</li>)}
             </ul>
           </article>
         ))}
@@ -97,7 +97,7 @@ const paths = [
             ['Keep it specific', 'Describe technical experience with circuits, RF, embedded systems, FPGA, modeling, or measurement.'],
           ].map(([title, text], index) => (
             <li class="grid grid-cols-[2.5rem_1fr] gap-4">
-              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[#002776] font-mono text-sm font-bold text-white">{index + 1}</span>
+              <span class="flex h-10 w-10 items-center justify-center rounded-full bg-[#022A6C] font-mono text-sm font-bold text-white">{index + 1}</span>
               <div><h3 class="font-bold text-[#071b26]">{title}</h3><p class="mt-1 text-sm leading-6 text-slate-600">{text}</p></div>
             </li>
           ))}
@@ -109,7 +109,7 @@ const paths = [
   <section class="py-16 sm:py-20">
     <div class="section-shell grid gap-5 md:grid-cols-2">
       <a href="https://fens.sabanciuniv.edu/en/graduate-application" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-slate-200 p-6">
-        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#002776]"><BookOpen className="h-6 w-6" /></span>
+        <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-blue-50 text-[#022A6C]"><BookOpen className="h-6 w-6" /></span>
         <span class="flex-grow"><span class="block font-bold text-[#071b26]">Graduate programs</span><span class="mt-1 block text-sm text-slate-500">Requirements, programs, and university information</span></span>
         <ArrowUpRight className="h-5 w-5 text-slate-400" />
       </a>

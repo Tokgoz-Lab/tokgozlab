@@ -23,6 +23,8 @@ export const SITE = {
   labName: 'Tokgöz Lab',
   university: 'Sabancı University · Electronics Engineering',
   logo: withBase('/assets/tokgoz-lab-logo.svg'),
+  logoOnDark: withBase('/assets/tokgoz-lab-logo-dark.svg'),
+  logoPng: withBase('/assets/tokgoz-lab-logo.png'),
   avatar: withBase('/assets/tokgoz-lab-logo.svg'),
   email: 'korkut.tokgoz@sabanciuniv.edu',
 

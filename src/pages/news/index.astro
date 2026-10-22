@@ -27,7 +27,7 @@ const posts = await getPublishedNews();
     <div class="section-shell">
       {posts.length === 0 ? (
         <div class="flex flex-col items-center rounded-3xl border border-dashed border-slate-300 bg-[#f5f8fa] px-6 py-20 text-center">
-          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#e7f7f6] text-[#002776]">
+          <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-[#E6F4FC] text-[#022A6C]">
             <Newspaper className="h-7 w-7" />
           </div>
           <p class="mt-6 text-lg font-bold text-[#071b26]">No news yet.</p>
@@ -37,15 +37,15 @@ const posts = await getPublishedNews();
         <div class="divide-y divide-slate-200 border-y border-slate-200">
           {posts.map((post) => (
             <article class="group grid gap-6 py-9 md:grid-cols-[11rem_1fr] md:gap-10 lg:grid-cols-[11rem_1fr_18rem]">
-              <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-[#002776]">
+              <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-[#022A6C]">
                 {formatNewsDate(post.data.date)}
               </time>
               <div>
-                <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-[#071b26] transition group-hover:text-[#006f72]">
+                <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-[#071b26] transition group-hover:text-[#03659C]">
                   <a href={withBase(`/news/${post.id}/`)}>{post.data.title}</a>
                 </h2>
                 <p class="mt-3 max-w-3xl leading-7 text-slate-600">{post.data.summary}</p>
-                <a href={withBase(`/news/${post.id}/`)} class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-[#007f80]" aria-label={`Read more: ${post.data.title}`}>
+                <a href={withBase(`/news/${post.id}/`)} class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-[#0270AD]" aria-label={`Read more: ${post.data.title}`}>
                   Read more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>

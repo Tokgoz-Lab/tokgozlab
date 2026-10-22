@@ -1,9 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <rect width="512" height="512" rx="149" fill="#002776"/>
-  <rect x="136" y="136" width="240" height="240" rx="48" fill="#fff"/>
-  <path fill="#002776" d="M194,186 L318,186 A8,8 0 0 1 326,194 L326,226 L278,226 L278,318 A8,8 0 0 1 270,326 L242,326 A8,8 0 0 1 234,318 L234,226 L186,226 L186,194 A8,8 0 0 1 194,186 Z"/>
-  <g fill="none" stroke="#FFB547" stroke-width="26" stroke-linecap="round">
-    <path d="M383,109 a44,44 0 0 1 27,27"/>
-    <path d="M388,68 a85,85 0 0 1 63,63"/>
-  </g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="163.5 152.25 925 925">
+<polygon points="626,182 1011,404.3 1011,825.2 626,1047.5 241,825.2 241,404.3" fill="#fff" stroke="#022A6C" stroke-width="64" stroke-linejoin="round"/>
+<g transform="translate(616.5 629) scale(1.3) translate(-616.5 -629)"><g id="monogram"><path id="letter-t" d="M450,463.5 H647 C602,501.7 583,523 583,548 V745 C583,790 535,795 520,795 H511.5 V533.5 H406 Z" style="fill:#022A6C"/><path id="letter-c-top" d="M688,463.5 H827 L782,533.5 H616 C623.3,504.4 672.3,472.2 688,463.5 Z" style="fill:#022A6C"/><path id="letter-l" d="M614.5,555 H685.5 V727 H827 L783,795 H614.5 Z" style="fill:#02A0E7"/></g></g>
 </svg>
