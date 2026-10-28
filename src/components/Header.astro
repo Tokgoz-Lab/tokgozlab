@@ -64,7 +64,16 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
         <Search className="h-4.5 w-4.5" />
       </a>
 
-      <div class="ml-1 flex items-center rounded-full border border-line p-0.5 text-xs font-bold" role="group" aria-label={t.header.language}>
+      {/* Fixed width (fits "Opportunities") and the language switcher kept last,
+         so switching languages doesn't shift the switcher under the cursor. */}
+      <a
+        href={joinLink}
+        class="ml-2 inline-flex min-w-[9.75rem] items-center justify-center gap-1.5 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-navy-hover hover:shadow-md"
+      >
+        {t.nav.join} <ArrowUpRight className="h-4 w-4" />
+      </a>
+
+      <div class="ml-3 flex items-center rounded-full border border-line p-0.5 text-xs font-bold" role="group" aria-label={t.header.language}>
         {languages.map(({ code, label }) =>
           code === locale ? (
             <span class="rounded-full bg-brand-navy px-2.5 py-1 text-white" lang={code} title={label} aria-current="true">{code.toUpperCase()}</span>
@@ -73,13 +82,6 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
           ),
         )}
       </div>
-
-      <a
-        href={joinLink}
-        class="ml-2 inline-flex items-center gap-1.5 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-navy-hover hover:shadow-md"
-      >
-        {t.nav.join} <ArrowUpRight className="h-4 w-4" />
-      </a>
     </nav>
 
     <button
