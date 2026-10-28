@@ -2,22 +2,23 @@
 import { Image } from 'astro:assets';
 import { ArrowRight, Newspaper } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
-import { withBase } from '../../config';
+import { getI18n, localizePath } from '../../i18n';
 import { formatNewsDate, getPublishedNews } from '../../data/news';
 
+const { locale, t } = getI18n(Astro);
 const posts = await getPublishedNews();
 ---
 
-<Layout title="News" description="Latest news from Tokgöz Lab at Sabancı University: publications, awards, events, new members, and research milestones.">
+<Layout title={t.news.title} description={t.news.description}>
   <header class="page-intro">
     <div class="section-shell relative z-10 py-16 sm:py-24">
-      <span class="eyebrow">News</span>
+      <span class="eyebrow">{t.news.title}</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
         <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">
-          What's happening in the lab.
+          {t.news.heading}
         </h1>
         <p class="max-w-2xl text-lg leading-8 text-body">
-          Papers, awards, talks, new members, and milestones from Tokgöz Lab.
+          {t.news.intro}
         </p>
       </div>
     </div>
@@ -30,27 +31,27 @@ const posts = await getPublishedNews();
           <div class="flex h-14 w-14 items-center justify-center rounded-2xl bg-brand-azure-tint text-brand-navy">
             <Newspaper className="h-7 w-7" />
           </div>
-          <p class="mt-6 text-lg font-bold text-ink">No news yet.</p>
-          <p class="mt-2 text-body">Check back soon for updates from the lab.</p>
+          <p class="mt-6 text-lg font-bold text-ink">{t.news.emptyTitle}</p>
+          <p class="mt-2 text-body">{t.news.emptyBody}</p>
         </div>
       ) : (
         <div class="divide-y divide-line border-y border-line">
           {posts.map((post) => (
             <article class="group grid gap-6 py-9 md:grid-cols-[11rem_1fr] md:gap-10 lg:grid-cols-[11rem_1fr_18rem]">
               <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-brand-navy">
-                {formatNewsDate(post.data.date)}
+                {formatNewsDate(post.data.date, locale)}
               </time>
               <div>
                 <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-ink transition group-hover:text-link-hover">
-                  <a href={withBase(`/news/${post.id}/`)}>{post.data.title}</a>
+                  <a href={localizePath(`/news/${post.id}/`, locale)}>{post.data.title}</a>
                 </h2>
                 <p class="mt-3 max-w-3xl leading-7 text-body">{post.data.summary}</p>
-                <a href={withBase(`/news/${post.id}/`)} class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-link" aria-label={`Read more: ${post.data.title}`}>
-                  Read more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                <a href={localizePath(`/news/${post.id}/`, locale)} class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-link" aria-label={t.news.readMoreAbout(post.data.title)}>
+                  {t.common.readMore} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </a>
               </div>
               {post.data.image && (
-                <a href={withBase(`/news/${post.id}/`)} class="hidden overflow-hidden rounded-2xl border border-line lg:block" tabindex="-1" aria-hidden="true">
+                <a href={localizePath(`/news/${post.id}/`, locale)} class="hidden overflow-hidden rounded-2xl border border-line lg:block" tabindex="-1" aria-hidden="true">
                   <Image src={post.data.image} alt="" class:list={['aspect-[4/3] w-full transition duration-500 group-hover:scale-[1.03]', post.data.imageFit === 'contain' ? 'bg-white object-contain p-2' : 'object-cover']} widths={[320, 640]} sizes="18rem" quality={82} />
                 </a>
               )}

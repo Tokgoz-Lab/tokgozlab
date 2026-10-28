@@ -2,23 +2,24 @@
 import { getCollection } from 'astro:content';
 import { ArrowRight, BrainCircuit, Cpu, Gauge, Radio, Waves } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
-import { withBase } from '../../config';
+import { getI18n, localizePath } from '../../i18n';
 
+const { locale, t } = getI18n(Astro);
 const researchAreas = (await getCollection('research')).sort((a, b) => a.data.order - b.data.order);
 const icons = [Waves, Radio, Cpu, BrainCircuit];
 const numbers = ['01', '02', '03', '04'];
 ---
 
-<Layout title="Research" description="Tokgöz Lab research in mmWave and sub-terahertz CMOS circuits, 6G wireless systems, Edge AI, IoT, and AI-assisted semiconductor modeling.">
+<Layout title={t.research.title} description={t.research.description}>
   <header class="page-intro">
     <div class="section-shell relative z-10 py-16 sm:py-24">
-      <span class="eyebrow">Research</span>
+      <span class="eyebrow">{t.research.title}</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
         <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">
-          We work across the full hardware stack.
+          {t.research.heading}
         </h1>
         <p class="max-w-2xl text-lg leading-8 text-body">
-          From accurate device models to complete wireless links, our research joins circuit design, measurement, algorithms, and system-level thinking.
+          {t.research.intro}
         </p>
       </div>
     </div>
@@ -42,7 +43,7 @@ const numbers = ['01', '02', '03', '04'];
               <p class="mt-4 max-w-3xl leading-7 text-body">{area.data.description}</p>
             </div>
             <div class="px-7 pb-8 md:p-8">
-              <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-brand-navy transition group-hover:border-brand-azure group-hover:bg-brand-azure-tint" aria-label={`Read about ${area.data.title}`}>
+              <a href={localizePath(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`, locale)} class="inline-flex h-12 w-12 items-center justify-center rounded-full border border-line text-brand-navy transition group-hover:border-brand-azure group-hover:bg-brand-azure-tint" aria-label={t.research.readAbout(area.data.title)}>
                 <ArrowRight className="h-5 w-5" />
               </a>
             </div>
@@ -62,9 +63,9 @@ const numbers = ['01', '02', '03', '04'];
         </div>
       </div>
       <div>
-        <h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">A measurement-driven approach.</h2>
+        <h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">{t.research.approachTitle}</h2>
         <p class="mt-4 max-w-3xl leading-7 text-body">
-          Our questions begin with physical limits and end with experimentally grounded systems. Characterization, calibration, and de-embedding are not afterthoughts—they shape the architecture from day one.
+          {t.research.approachBody}
         </p>
       </div>
     </div>

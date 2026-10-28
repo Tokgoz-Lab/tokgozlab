@@ -3,27 +3,24 @@ import { getCollection } from 'astro:content';
 import { ArrowUpRight, Users } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
 import TeamCard from '../components/TeamCard.astro';
-import { withBase } from '../config';
+import { getI18n, localizePath } from '../i18n';
+import type { Role } from '../i18n/en';
 
+const { locale, t } = getI18n(Astro);
 const allMembers = (await getCollection('team')).sort((a, b) => a.data.weight - b.data.weight);
-const groups = [
-  { title: 'Principal Investigator', roles: ['Principal Investigator'] },
-  { title: 'Postdoctoral Researchers', roles: ['Postdoctoral Researcher'] },
-  { title: 'PhD Candidates', roles: ['PhD Candidate'] },
-  { title: "Master's Students", roles: ["Master's Student"] },
-  { title: 'Alumni', roles: ['Alumni'] },
-]
-  .map((group) => ({ ...group, members: allMembers.filter((member) => group.roles.includes(member.data.role)) }))
+const roleOrder: Role[] = ['Principal Investigator', 'Postdoctoral Researcher', 'PhD Candidate', "Master's Student", 'Alumni'];
+const groups = roleOrder
+  .map((role) => ({ title: t.roles[role].many, members: allMembers.filter((member) => member.data.role === role) }))
   .filter((group) => group.members.length > 0);
 ---
 
-<Layout title="People" description="The researchers and students of Tokgöz Lab at Sabancı University.">
+<Layout title={t.team.title} description={t.team.description}>
   <header class="page-intro">
     <div class="section-shell relative z-10 py-16 sm:py-24">
-      <span class="eyebrow">People</span>
+      <span class="eyebrow">{t.team.title}</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">The people behind the circuits.</h1>
-        <p class="text-lg leading-8 text-body">A research group connecting integrated-circuit design, high-frequency measurement, communication systems, and intelligent edge hardware.</p>
+        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">{t.team.heading}</h1>
+        <p class="text-lg leading-8 text-body">{t.team.intro}</p>
       </div>
     </div>
   </header>
@@ -45,7 +42,7 @@ const groups = [
       {allMembers.length === 0 && (
         <div class="rounded-3xl border border-dashed border-line-strong bg-subtle p-12 text-center">
           <Users className="mx-auto h-8 w-8 text-muted" />
-          <p class="mt-4 text-body">Team profiles are being prepared.</p>
+          <p class="mt-4 text-body">{t.team.empty}</p>
         </div>
       )}
     </div>
@@ -54,12 +51,12 @@ const groups = [
   <section class="pb-20 sm:pb-28">
     <div class="section-shell rounded-3xl bg-dark px-7 py-10 text-white sm:px-12 sm:py-12 lg:flex lg:items-center lg:justify-between lg:gap-10">
       <div class="max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-on-dark-accent">Future lab members</p>
-        <h2 class="mt-3 text-3xl font-bold tracking-[-0.035em]">Interested in joining the team?</h2>
-        <p class="mt-4 leading-7 text-on-dark-body">Explore research paths for PhD, master’s, and undergraduate students.</p>
+        <p class="text-xs font-bold uppercase tracking-[0.15em] text-on-dark-accent">{t.team.ctaEyebrow}</p>
+        <h2 class="mt-3 text-3xl font-bold tracking-[-0.035em]">{t.team.ctaTitle}</h2>
+        <p class="mt-4 leading-7 text-on-dark-body">{t.team.ctaBody}</p>
       </div>
-      <a href={withBase('/join/')} class="mt-7 inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-bold text-white lg:mt-0">
-        View opportunities <ArrowUpRight className="h-4 w-4" />
+      <a href={localizePath('/join/', locale)} class="mt-7 inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-red px-6 py-3 text-sm font-bold text-white lg:mt-0">
+        {t.team.ctaLink} <ArrowUpRight className="h-4 w-4" />
       </a>
     </div>
   </section>

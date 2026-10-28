@@ -1,15 +1,16 @@
 ---
 import { ArrowUpRight, Code2, FileText, Globe2, Play, Presentation, Video } from 'lucide-react';
 import type { CollectionEntry } from 'astro:content';
-import { withBase } from '../config';
+import { getI18n, localizePath } from '../i18n';
 
 interface Props {
   entry: CollectionEntry<'publications'>;
 }
 
+const { locale, t } = getI18n(Astro);
 const { entry } = Astro.props;
 const { title, authors, year, venue, links, doi, award, badges } = entry.data;
-const detailLink = withBase(`/publications/${entry.id}/`);
+const detailLink = localizePath(`/publications/${entry.id}/`, locale);
 
 const iconMap: Record<string, any> = {
   pdf: FileText,
@@ -18,15 +19,6 @@ const iconMap: Record<string, any> = {
   slides: Presentation,
   video: Video,
   website: Globe2,
-};
-
-const labelMap: Record<string, string> = {
-  pdf: 'Paper',
-  code: 'Code',
-  demo: 'Demo',
-  slides: 'Slides',
-  video: 'Video',
-  website: 'Publisher',
 };
 
 const isLabAuthor = (author: string) => /Korkut Kaan Tokg[oö]z/i.test(author);
@@ -69,7 +61,7 @@ const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
           const Icon = iconMap[key] || ArrowUpRight;
           return (
             <a href={url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 rounded-full border border-line px-3 py-1.5 text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover">
-              <Icon className="h-3.5 w-3.5" /> {labelMap[key] ?? key}
+              <Icon className="h-3.5 w-3.5" /> {t.publications.links[key] ?? key}
             </a>
           );
         })}

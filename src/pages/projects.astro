@@ -1,20 +1,22 @@
 ---
 import { ArrowUpRight, CheckCircle2, Clock3, Cpu, Radio, Waves } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
-import { activeProjects, completedProjects } from '../data/projects';
+import { activeProjects, completedProjects, formatPeriod } from '../data/projects';
+import { getI18n } from '../i18n';
 
+const { locale, t } = getI18n(Astro);
 const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
 ---
 
-<Layout title="Projects" description="Selected active and completed research projects led by Tokgöz Lab at Sabancı University.">
+<Layout title={t.projects.title} description={t.projects.description}>
   <header class="page-intro">
     <div class="section-shell relative z-10 py-16 sm:py-24">
-      <span class="eyebrow">Projects</span>
+      <span class="eyebrow">{t.projects.title}</span>
       <div class="mt-5 grid gap-8 lg:grid-cols-[1fr_0.7fr] lg:items-end">
-        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">Research programs with real hardware outcomes.</h1>
+        <h1 class="max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] text-ink sm:text-6xl">{t.projects.heading}</h1>
         <div>
-          <p class="text-lg leading-8 text-body">Selected projects led by Korkut Kaan Tokgöz, spanning advanced CMOS, future wireless links, and resource-efficient intelligent systems.</p>
-          <a href="https://fens.sabanciuniv.edu/en/en/research-areas/projects" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-link">Official FENS project directory <ArrowUpRight className="h-4 w-4" /></a>
+          <p class="text-lg leading-8 text-body">{t.projects.intro}</p>
+          <a href="https://fens.sabanciuniv.edu/en/en/research-areas/projects" target="_blank" rel="noopener noreferrer" class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-link">{t.projects.directory} <ArrowUpRight className="h-4 w-4" /></a>
         </div>
       </div>
     </div>
@@ -24,7 +26,7 @@ const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
     <div class="section-shell">
       <div class="flex items-center gap-3">
         <Clock3 className="h-6 w-6 text-link" />
-        <h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">Active projects</h2>
+        <h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">{t.projects.active}</h2>
       </div>
 
       <div class="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
@@ -34,9 +36,9 @@ const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
             <article class="card-lift relative overflow-hidden rounded-3xl border border-line bg-white p-7">
               <div class="flex items-start justify-between gap-4">
                 <span class="flex h-11 w-11 items-center justify-center rounded-xl bg-brand-azure-tint text-link"><Icon className="h-5 w-5" /></span>
-                <span class="rounded-full bg-subtle px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-muted">{project.type}</span>
+                <span class="rounded-full bg-subtle px-3 py-1 text-[0.68rem] font-bold uppercase tracking-[0.1em] text-muted">{t.projects.types[project.type]}</span>
               </div>
-              <p class="mt-7 font-mono text-xs font-bold text-brand-navy">{project.period}</p>
+              <p class="mt-7 font-mono text-xs font-bold text-brand-navy">{formatPeriod(project, locale)}</p>
               <h3 class="mt-3 min-h-28 text-lg font-bold leading-snug text-ink">{project.title}</h3>
               <p class="mt-5 border-t border-line-subtle pt-4 text-xs font-bold uppercase tracking-[0.11em] text-link">{project.theme}</p>
             </article>
@@ -49,13 +51,13 @@ const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
   <section class="border-t border-line bg-subtle py-16 sm:py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[0.6fr_1.4fr] lg:gap-20">
       <div>
-        <div class="flex items-center gap-3"><CheckCircle2 className="h-6 w-6 text-link" /><h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">Selected completed work</h2></div>
-        <p class="mt-5 leading-7 text-body">Programs that established foundations for the lab’s current circuit and system research.</p>
+        <div class="flex items-center gap-3"><CheckCircle2 className="h-6 w-6 text-link" /><h2 class="text-3xl font-bold tracking-[-0.035em] text-ink">{t.projects.completed}</h2></div>
+        <p class="mt-5 leading-7 text-body">{t.projects.completedIntro}</p>
       </div>
       <div class="divide-y divide-line border-y border-line">
         {completedProjects.map((project) => (
           <article class="grid gap-3 py-7 sm:grid-cols-[7rem_1fr] sm:gap-7">
-            <span class="font-mono text-sm font-bold text-brand-navy">{project.period}</span>
+            <span class="font-mono text-sm font-bold text-brand-navy">{formatPeriod(project, locale)}</span>
             <h3 class="font-bold leading-7 text-ink">{project.title}</h3>
           </article>
         ))}

@@ -3,7 +3,7 @@ import { getCollection, render } from 'astro:content';
 import { ArrowLeft, ArrowUpRight, ExternalLink, GraduationCap, Globe, Mail } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
-import { withBase } from '../../config';
+import { getI18n, localizePath } from '../../i18n';
 
 export async function getStaticPaths() {
   const teamMembers = await getCollection('team');
@@ -13,6 +13,7 @@ export async function getStaticPaths() {
   }));
 }
 
+const { locale, t } = getI18n(Astro);
 const { member } = Astro.props;
 const { Content } = await render(member);
 const { name, role, title, avatar, email, website, personalWebsite, linkedin, googleScholar, github, twitter, orcid, bio } =
@@ -63,8 +64,8 @@ const personSchema = {
   <header class="relative overflow-hidden bg-dark text-white">
     <div class="signal-grid absolute inset-0 opacity-50"></div>
     <div class="section-shell relative py-12 sm:py-18">
-      <a href={withBase('/team/')} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent hover:text-white">
-        <ArrowLeft className="h-4 w-4" /> Back to people
+      <a href={localizePath('/team/', locale)} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent hover:text-white">
+        <ArrowLeft className="h-4 w-4" /> {t.team.back}
       </a>
 
       <div class="mt-10 grid items-center gap-10 md:grid-cols-[16rem_1fr] lg:gap-14">
@@ -72,14 +73,14 @@ const personSchema = {
           <img src={avatar.src} alt={name} class="aspect-square w-full rounded-[1.15rem] object-cover" />
         </div>
         <div>
-          {showRole && <p class="text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">{role}</p>}
+          {showRole && <p class="text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">{t.roles[role].one}</p>}
           <h1 class:list={['text-4xl font-bold tracking-[-0.045em] sm:text-6xl', showRole && 'mt-3']}>{name}</h1>
           {title?.length && <p class="mt-4 text-lg font-semibold text-on-dark-body">{title.join(' · ')}</p>}
           <div class="mt-8 flex flex-wrap gap-2">
-            {email && <a href={`mailto:${email}`} class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-brand-navy"><Mail className="h-4 w-4" /> Email</a>}
-            {website && <a href={website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><ExternalLink className="h-4 w-4" /> University profile</a>}
-            {personalWebsite && <a href={personalWebsite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><Globe className="h-4 w-4" /> Website</a>}
-            {googleScholar && <a href={googleScholar} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><GraduationCap className="h-4 w-4" /> Scholar</a>}
+            {email && <a href={`mailto:${email}`} class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-brand-navy"><Mail className="h-4 w-4" /> {t.team.email}</a>}
+            {website && <a href={website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><ExternalLink className="h-4 w-4" /> {t.team.universityProfile}</a>}
+            {personalWebsite && <a href={personalWebsite} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><Globe className="h-4 w-4" /> {t.team.website}</a>}
+            {googleScholar && <a href={googleScholar} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><GraduationCap className="h-4 w-4" /> {t.team.scholar}</a>}
             {orcid && <a href={orcid} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9.5" /><text x="12" y="15.5" text-anchor="middle" font-size="8.5" font-weight="700" font-family="sans-serif" stroke="none" fill="currentColor">iD</text></svg> ORCID</a>}
             {linkedin && <a href={linkedin} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.5 8.5H3V21h3.5V8.5ZM4.75 3A2.05 2.05 0 1 0 4.8 7.1 2.05 2.05 0 0 0 4.75 3ZM21 14.1c0-3.76-2-5.51-4.68-5.51a4.04 4.04 0 0 0-3.67 2.02V8.5H9.14V21h3.51v-6.19c0-1.63.31-3.21 2.33-3.21 1.99 0 2.02 1.86 2.02 3.32V21h3.5l.5-6.9Z" /></svg> LinkedIn</a>}
             {github && <a href={github} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><svg class="h-4 w-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" /></svg> GitHub</a>}
@@ -96,7 +97,7 @@ const personSchema = {
 
       {memberPublications.length > 0 && (
         <div class="not-prose mt-12">
-          <h2 class="text-2xl font-bold tracking-[-0.025em] text-ink">Publications</h2>
+          <h2 class="text-2xl font-bold tracking-[-0.025em] text-ink">{t.team.publications}</h2>
           <div class="mt-6 space-y-5">
             {memberPublications.map((entry) => <PublicationItem entry={entry} />)}
           </div>
@@ -106,24 +107,18 @@ const personSchema = {
     <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">
       {member.id === 'korkut-kaan-tokgoz' && (
         <>
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">At a glance</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{t.common.atAGlance}</p>
           <dl class="mt-5 space-y-5 text-sm">
-            <div>
-              <dt class="font-bold text-ink">Affiliation</dt>
-              <dd class="mt-1 leading-6 text-body">Electronics Engineering<br />Sabancı University</dd>
-            </div>
-            <div>
-              <dt class="font-bold text-ink">Doctorate</dt>
-              <dd class="mt-1 leading-6 text-body">Physical Electronics<br />Tokyo Institute of Technology, 2018</dd>
-            </div>
-            <div>
-              <dt class="font-bold text-ink">Research span</dt>
-              <dd class="mt-1 leading-6 text-body">CMOS circuits · sub-THz · 6G · Edge AI · IoT</dd>
-            </div>
+            {t.team.piFacts.map((fact) => (
+              <div>
+                <dt class="font-bold text-ink">{fact.term}</dt>
+                <dd class="mt-1 leading-6 text-body">{fact.lines.map((line, index) => <>{index > 0 && <br />}{line}</>)}</dd>
+              </div>
+            ))}
           </dl>
         </>
       )}
-      <a href={withBase('/publications/')} class={member.id === 'korkut-kaan-tokgoz' ? 'mt-7 inline-flex items-center gap-2 text-sm font-bold text-brand-navy' : 'inline-flex items-center gap-2 text-sm font-bold text-brand-navy'}>Selected publications <ArrowUpRight className="h-4 w-4" /></a>
+      <a href={localizePath('/publications/', locale)} class={member.id === 'korkut-kaan-tokgoz' ? 'mt-7 inline-flex items-center gap-2 text-sm font-bold text-brand-navy' : 'inline-flex items-center gap-2 text-sm font-bold text-brand-navy'}>{t.team.selectedPublications} <ArrowUpRight className="h-4 w-4" /></a>
     </aside>
   </article>
 </Layout>

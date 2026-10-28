@@ -1,31 +1,36 @@
 ---
 import { ArrowUpRight, Menu, Search, X } from 'lucide-react';
-import { SITE, withBase } from '../config';
+import { SITE } from '../config';
+import { getI18n, localizePath } from '../i18n';
+import type { NavKey } from '../i18n/en';
 
+const { locale, t } = getI18n(Astro);
 const pathname = Astro.url.pathname;
-const homeLink = withBase('/');
-const searchLink = withBase('/search/');
-const joinLink = withBase('/join/');
-const regularNav = SITE.nav.filter((item) => !['search', 'join'].includes(item.key));
+const homeLink = localizePath('/', locale);
+const searchLink = localizePath('/search/', locale);
+const joinLink = localizePath('/join/', locale);
+const regularNav = SITE.nav
+  .filter((item) => !['search', 'join'].includes(item.key))
+  .map((item) => ({ link: localizePath(item.link, locale), text: t.nav[item.key as NavKey] }));
 const isActive = (link: string) => pathname === link || (link !== homeLink && pathname.startsWith(link));
 ---
 
 <header class="site-header sticky top-0 z-50 border-b border-line/80 bg-white/90 backdrop-blur-xl">
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content">{t.header.skipToContent}</a>
   <div class="h-1 bg-gradient-to-r from-brand-navy via-brand-azure to-brand-red"></div>
 
   <div class="mx-auto flex h-[72px] max-w-[90rem] items-center justify-between px-4 sm:px-6 lg:px-10">
-    <a href={homeLink} class="group flex min-w-0 items-center gap-3" aria-label={`${SITE.labName} home`}>
+    <a href={homeLink} class="group flex min-w-0 items-center gap-3" aria-label={t.header.homeLabel}>
       <img src={SITE.logo} width="39" height="44" alt="" class="h-11 w-auto shrink-0 transition-transform duration-300 group-hover:-rotate-3" />
       <span class="min-w-0">
         <span class="block text-[1.05rem] font-bold tracking-[-0.02em] text-ink">{SITE.labName}</span>
         <span class="hidden truncate text-[0.69rem] font-semibold uppercase tracking-[0.12em] text-muted sm:block">
-          Sabancı University · Electronics Engineering
+          {t.site.university}
         </span>
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 lg:flex" aria-label="Primary navigation">
+    <nav class="hidden items-center gap-1 lg:flex" aria-label={t.header.primaryNavigation}>
       {regularNav.map((item) => (
         <a
           href={item.link}
@@ -44,7 +49,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
       <a
         href={searchLink}
         class="ml-1 rounded-full p-2.5 text-muted transition-colors hover:bg-subtle hover:text-brand-navy"
-        aria-label="Search"
+        aria-label={t.nav.search}
       >
         <Search className="h-4.5 w-4.5" />
       </a>
@@ -53,7 +58,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
         href={joinLink}
         class="ml-2 inline-flex items-center gap-1.5 rounded-full bg-brand-navy px-5 py-2.5 text-sm font-bold text-white shadow-sm transition hover:bg-brand-navy-hover hover:shadow-md"
       >
-        Opportunities <ArrowUpRight className="h-4 w-4" />
+        {t.nav.join} <ArrowUpRight className="h-4 w-4" />
       </a>
     </nav>
 
@@ -63,7 +68,9 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
       type="button"
       aria-controls="mobile-menu"
       aria-expanded="false"
-      aria-label="Open navigation"
+      aria-label={t.header.openNavigation}
+      data-label-open={t.header.openNavigation}
+      data-label-close={t.header.closeNavigation}
     >
       <Menu id="menu-open-icon" className="h-5 w-5" />
       <X id="menu-close-icon" className="hidden h-5 w-5" />
@@ -71,7 +78,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
   </div>
 
   <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden" aria-hidden="true">
-    <nav class="mx-auto flex max-w-[90rem] flex-col gap-1 px-4 py-5 sm:px-6" aria-label="Mobile navigation">
+    <nav class="mx-auto flex max-w-[90rem] flex-col gap-1 px-4 py-5 sm:px-6" aria-label={t.header.mobileNavigation}>
       {regularNav.map((item) => (
         <a
           href={item.link}
@@ -85,10 +92,10 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
         </a>
       ))}
       <a href={searchLink} class="flex items-center gap-2 rounded-xl px-4 py-3 font-semibold text-body hover:bg-subtle">
-        <Search className="h-4 w-4" /> Search
+        <Search className="h-4 w-4" /> {t.nav.search}
       </a>
       <a href={joinLink} class="mt-2 flex items-center justify-between rounded-xl bg-brand-navy px-4 py-3 font-bold text-white">
-        Opportunities <ArrowUpRight className="h-4 w-4" />
+        {t.nav.join} <ArrowUpRight className="h-4 w-4" />
       </a>
     </nav>
   </div>
@@ -105,7 +112,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
 
     const setOpen = (open) => {
       button.setAttribute('aria-expanded', String(open));
-      button.setAttribute('aria-label', open ? 'Close navigation' : 'Open navigation');
+      button.setAttribute('aria-label', open ? button.dataset.labelClose : button.dataset.labelOpen);
       menu.setAttribute('aria-hidden', String(!open));
       menu.classList.toggle('hidden', !open);
       openIcon?.classList.toggle('hidden', open);

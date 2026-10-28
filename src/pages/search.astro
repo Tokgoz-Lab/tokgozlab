@@ -2,33 +2,37 @@
 import { Search as SearchIcon } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
 import { withBase } from '../config';
+import { getI18n } from '../i18n';
 
 export const prerender = true;
+const { t } = getI18n(Astro);
+// One Pagefind bundle serves every language; it picks the index from <html lang>.
 const pagefindBase = withBase('/pagefind/');
+const translations = t.search.pagefind;
 ---
 
-<Layout title="Search" description="Search Tokgöz Lab research areas, publications, and people." robots="noindex, follow">
+<Layout title={t.search.title} description={t.search.description} robots="noindex, follow">
   <header class="page-intro">
     <div class="section-shell relative z-10 py-16 sm:py-20">
-      <span class="eyebrow">Search</span>
-      <h1 class="mt-5 text-5xl font-bold tracking-[-0.05em] text-ink sm:text-6xl">Find research across the lab.</h1>
-      <p class="mt-5 max-w-2xl text-lg leading-8 text-body">Search publications, research themes, and people indexed across this site.</p>
+      <span class="eyebrow">{t.search.title}</span>
+      <h1 class="mt-5 text-5xl font-bold tracking-[-0.05em] text-ink sm:text-6xl">{t.search.heading}</h1>
+      <p class="mt-5 max-w-2xl text-lg leading-8 text-body">{t.search.intro}</p>
     </div>
   </header>
 
   <section class="py-14 sm:py-20">
     <div class="section-shell max-w-5xl">
       <div class="rounded-3xl border border-line bg-white p-5 shadow-sm sm:p-8">
-        <div class="mb-5 flex items-center gap-2 text-sm font-bold text-brand-navy"><SearchIcon className="h-4 w-4" /> Site search</div>
+        <div class="mb-5 flex items-center gap-2 text-sm font-bold text-brand-navy"><SearchIcon className="h-4 w-4" /> {t.search.siteSearch}</div>
         <div id="search" class="w-full"></div>
-        <noscript><p class="rounded-xl bg-subtle p-4 text-sm text-body">Search requires JavaScript.</p></noscript>
+        <noscript><p class="rounded-xl bg-subtle p-4 text-sm text-body">{t.search.noscript}</p></noscript>
       </div>
     </div>
   </section>
 
   <link href={`${pagefindBase}pagefind-ui.css`} rel="stylesheet" />
   <script src={`${pagefindBase}pagefind-ui.js`} is:inline></script>
-  <script define:vars={{ pagefindBase }}>
+  <script define:vars={{ pagefindBase, translations }}>
     window.addEventListener('DOMContentLoaded', () => {
       if (typeof PagefindUI === 'undefined') return;
       new PagefindUI({
@@ -37,17 +41,7 @@ const pagefindBase = withBase('/pagefind/');
         showSubResults: true,
         pageSize: 10,
         showImages: false,
-        translations: {
-          placeholder: 'Search publications, topics, people…',
-          clear_search: 'Clear',
-          load_more: 'Load more results',
-          search_label: 'Search this site',
-          filters_label: 'Filters',
-          zero_results: 'No results found for [SEARCH_TERM]',
-          many_results: '[COUNT] results found for [SEARCH_TERM]',
-          one_result: '[COUNT] result found for [SEARCH_TERM]',
-          searching: 'Searching for [SEARCH_TERM]…',
-        },
+        translations,
       });
     });
   </script>

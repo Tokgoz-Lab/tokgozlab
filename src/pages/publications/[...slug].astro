@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { ArrowLeft, ArrowUpRight, Code2, FileText, Globe2, Play, Presentation, Video } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import { SITE, withBase } from '../../config';
+import { getI18n, localizePath } from '../../i18n';
 
 export async function getStaticPaths() {
   const papers = (await getCollection('publications')).filter((entry) => entry.data.type === 'paper');
@@ -12,6 +13,7 @@ export async function getStaticPaths() {
   }));
 }
 
+const { locale, t } = getI18n(Astro);
 const { entry } = Astro.props;
 const { title, authors, year, venue, description, doi, award, links, badges } = entry.data;
 
@@ -22,14 +24,6 @@ const iconMap: Record<string, any> = {
   slides: Presentation,
   video: Video,
   website: Globe2,
-};
-const labelMap: Record<string, string> = {
-  pdf: 'Paper',
-  code: 'Code',
-  demo: 'Demo',
-  slides: 'Slides',
-  video: 'Video',
-  website: 'Publisher',
 };
 
 const isLabAuthor = (author: string) => /Korkut Kaan Tokg[oö]z/i.test(author);
@@ -70,7 +64,7 @@ const scholarlyArticleSchema = {
 };
 ---
 
-<Layout title={title} description={description ?? `${title} — ${venue}, ${year}. Published by Tokgöz Lab.`}>
+<Layout title={title} description={description ?? t.publications.fallbackDescription(title, venue, year)}>
   <Fragment slot="head">
     <meta name="citation_title" content={title} />
     {authors.map((author) => <meta name="citation_author" content={author} />)}
@@ -85,8 +79,8 @@ const scholarlyArticleSchema = {
   <header class="relative overflow-hidden bg-dark text-white">
     <div class="signal-grid absolute inset-0 opacity-50"></div>
     <div class="section-shell relative py-12 sm:py-18">
-      <a href={withBase('/publications/')} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent hover:text-white">
-        <ArrowLeft className="h-4 w-4" /> Back to publications
+      <a href={localizePath('/publications/', locale)} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent hover:text-white">
+        <ArrowLeft className="h-4 w-4" /> {t.publications.back}
       </a>
 
       <div class="mt-10 max-w-3xl">
@@ -104,7 +98,7 @@ const scholarlyArticleSchema = {
             const Icon = iconMap[key] || ArrowUpRight;
             return (
               <a href={url} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10">
-                <Icon className="h-4 w-4" /> {labelMap[key] ?? key}
+                <Icon className="h-4 w-4" /> {t.publications.links[key] ?? key}
               </a>
             );
           })}
@@ -122,16 +116,16 @@ const scholarlyArticleSchema = {
     <div class="prose max-w-3xl">
       {description && (
         <>
-          <h2>Abstract</h2>
+          <h2>{t.publications.abstract}</h2>
           <p>{description}</p>
         </>
       )}
     </div>
     <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">
-      <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">At a glance</p>
+      <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{t.common.atAGlance}</p>
       <dl class="mt-5 space-y-5 text-sm">
         <div>
-          <dt class="font-bold text-ink">Authors</dt>
+          <dt class="font-bold text-ink">{t.publications.authors}</dt>
           <dd class="mt-1 leading-6 text-body">
             {authors.map((author, index) => (
               <>
@@ -141,11 +135,11 @@ const scholarlyArticleSchema = {
           </dd>
         </div>
         <div>
-          <dt class="font-bold text-ink">Venue</dt>
+          <dt class="font-bold text-ink">{t.publications.venue}</dt>
           <dd class="mt-1 leading-6 text-body">{venue}</dd>
         </div>
         <div>
-          <dt class="font-bold text-ink">Year</dt>
+          <dt class="font-bold text-ink">{t.publications.year}</dt>
           <dd class="mt-1 leading-6 text-body">{year}</dd>
         </div>
         {doi && (
@@ -155,7 +149,7 @@ const scholarlyArticleSchema = {
           </div>
         )}
       </dl>
-      <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">Google Scholar <ArrowUpRight className="h-4 w-4" /></a>
+      <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">{t.common.googleScholar} <ArrowUpRight className="h-4 w-4" /></a>
     </aside>
   </article>
 </Layout>

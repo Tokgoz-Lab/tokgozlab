@@ -2,39 +2,24 @@
 import { ArrowUpRight, BookOpen, Building2, Check, Cpu, GraduationCap, Mail, Radio, Users } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
 import { SITE } from '../config';
+import { getI18n } from '../i18n';
 
-const paths = [
-  {
-    icon: GraduationCap,
-    label: 'PhD research',
-    description: 'Deep, multi-year research on integrated circuits, high-frequency hardware, and future communication systems.',
-    points: ['Strong EE fundamentals', 'Research-oriented mindset', 'Clear technical writing'],
-  },
-  {
-    icon: Radio,
-    label: 'Master’s research',
-    description: 'Thesis-driven work combining circuit or system design with simulation, implementation, and measurement.',
-    points: ['Analog/RF or digital systems', 'Hands-on experimentation', 'Independent problem solving'],
-  },
-  {
-    icon: Cpu,
-    label: 'Undergraduate research',
-    description: 'Focused projects through undergraduate research, graduation projects, and lab-based technical development.',
-    points: ['Curiosity and consistency', 'Willingness to learn tools', 'Commitment to a project'],
-  },
-];
+const { t } = getI18n(Astro);
+const pathIcons = [GraduationCap, Radio, Cpu];
+const paths = t.join.paths.map((path, index) => ({ ...path, icon: pathIcons[index] }));
+const mailto = (subject: string) => `mailto:${SITE.email}?subject=${encodeURIComponent(subject)}`;
 ---
 
-<Layout title="Opportunities" description="Research opportunities for prospective PhD, master's, and undergraduate students at Tokgöz Lab, Sabancı University.">
+<Layout title={t.join.title} description={t.join.description}>
   <header class="relative overflow-hidden bg-dark text-white">
     <div class="signal-grid absolute inset-0 opacity-55"></div>
     <div class="absolute -right-32 -top-36 h-[34rem] w-[34rem] rounded-full border border-on-dark-glow/15"></div>
     <div class="section-shell relative py-18 sm:py-28">
-      <p class="text-xs font-bold uppercase tracking-[0.17em] text-on-dark-accent">Opportunities</p>
-      <h1 class="mt-5 max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] sm:text-7xl">Do ambitious hardware research with us.</h1>
-      <p class="mt-7 max-w-2xl text-lg leading-8 text-on-dark-body">We welcome thoughtful inquiries from students who want to work across circuits, measurement, communication systems, sensing, and intelligent hardware.</p>
-      <a href={`mailto:${SITE.email}?subject=Prospective%20researcher%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-9 inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover">
-        <Mail className="h-4 w-4" /> Introduce yourself
+      <p class="text-xs font-bold uppercase tracking-[0.17em] text-on-dark-accent">{t.join.title}</p>
+      <h1 class="mt-5 max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] sm:text-7xl">{t.join.heading}</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-8 text-on-dark-body">{t.join.intro}</p>
+      <a href={mailto(t.join.prospectiveSubject)} class="mt-9 inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover">
+        <Mail className="h-4 w-4" /> {t.join.introduceYourself}
       </a>
     </div>
   </header>
@@ -42,17 +27,17 @@ const paths = [
   <section class="py-16 sm:py-20">
     <div class="section-shell overflow-hidden rounded-[2rem] bg-dark px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
       <div class="max-w-xl">
-        <span class="eyebrow !text-on-dark-accent">Industry & partnerships</span>
-        <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Looking to collaborate as a company?</h2>
-        <p class="mt-4 leading-7 text-on-dark-body">We work with industry partners on sponsored research, joint testbeds, and technology transfer across mmWave/sub-terahertz ICs, 6G systems, and Edge-AI hardware.</p>
+        <span class="eyebrow !text-on-dark-accent">{t.join.industryEyebrow}</span>
+        <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.join.industryTitle}</h2>
+        <p class="mt-4 leading-7 text-on-dark-body">{t.join.industryBody}</p>
         <ul class="mt-6 space-y-2.5 text-sm text-on-dark-body">
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> Sponsored research & joint projects</li>
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> Technology licensing & transfer</li>
-          <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> Recruiting talent from the lab</li>
+          {t.join.industryPoints.map((point) => (
+            <li class="flex items-center gap-2"><Check className="h-4 w-4 shrink-0 text-brand-azure" /> {point}</li>
+          ))}
         </ul>
       </div>
-      <a href={`mailto:${SITE.email}?subject=Industry%20collaboration%20%E2%80%94%20Tokg%C3%B6z%20Lab`} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover lg:mt-0">
-        <Building2 className="h-4 w-4" /> Contact the lab
+      <a href={mailto(t.join.industrySubject)} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover lg:mt-0">
+        <Building2 className="h-4 w-4" /> {t.join.contactLab}
       </a>
     </div>
   </section>
@@ -60,9 +45,9 @@ const paths = [
   <section class="py-16 sm:py-24">
     <div class="section-shell">
       <div class="max-w-3xl">
-        <span class="eyebrow">Ways to contribute</span>
-        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Find the research path that fits your stage.</h2>
-        <p class="mt-4 leading-7 text-body">Openings and funded positions vary by semester. These paths describe the kinds of research participation the lab supports.</p>
+        <span class="eyebrow">{t.join.pathsEyebrow}</span>
+        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{t.join.pathsTitle}</h2>
+        <p class="mt-4 leading-7 text-body">{t.join.pathsBody}</p>
       </div>
 
       <div class="mt-12 grid gap-6 lg:grid-cols-3">
@@ -83,19 +68,14 @@ const paths = [
   <section class="bg-subtle py-16 sm:py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-20">
       <div>
-        <span class="eyebrow">Before you write</span>
-        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Make your first message useful.</h2>
-        <p class="mt-5 leading-7 text-body">A concise, specific introduction helps us understand where your interests overlap with the lab’s current work.</p>
+        <span class="eyebrow">{t.join.beforeEyebrow}</span>
+        <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{t.join.beforeTitle}</h2>
+        <p class="mt-5 leading-7 text-body">{t.join.beforeBody}</p>
       </div>
 
       <div class="rounded-3xl border border-line bg-white p-7 shadow-sm sm:p-9">
         <ol class="space-y-7">
-          {[
-            ['Tell us your context', 'Your current program, institution, expected graduation date, and the research path you are considering.'],
-            ['Name the overlap', 'Mention one or two Tokgöz Lab research directions that genuinely interest you and why.'],
-            ['Attach the essentials', 'Include a CV and transcript; add a portfolio, paper, or project link only when relevant.'],
-            ['Keep it specific', 'Describe technical experience with circuits, RF, embedded systems, FPGA, modeling, or measurement.'],
-          ].map(([title, text], index) => (
+          {t.join.steps.map(([title, text], index) => (
             <li class="grid grid-cols-[2.5rem_1fr] gap-4">
               <span class="flex h-10 w-10 items-center justify-center rounded-full bg-brand-navy font-mono text-sm font-bold text-white">{index + 1}</span>
               <div><h3 class="font-bold text-ink">{title}</h3><p class="mt-1 text-sm leading-6 text-body">{text}</p></div>
@@ -110,12 +90,12 @@ const paths = [
     <div class="section-shell grid gap-5 md:grid-cols-2">
       <a href="https://fens.sabanciuniv.edu/en/graduate-application" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-line p-6">
         <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-azure-tint text-brand-navy"><BookOpen className="h-6 w-6" /></span>
-        <span class="flex-grow"><span class="block font-bold text-ink">Graduate programs</span><span class="mt-1 block text-sm text-muted">Requirements, programs, and university information</span></span>
+        <span class="flex-grow"><span class="block font-bold text-ink">{t.join.graduateTitle}</span><span class="mt-1 block text-sm text-muted">{t.join.graduateBody}</span></span>
         <ArrowUpRight className="h-5 w-5 text-muted" />
       </a>
       <a href="https://www.sabanciuniv.edu/en/faculty-engineering-and-natural-sciences-fens-phd-projects" target="_blank" rel="noopener noreferrer" class="card-lift flex items-center gap-5 rounded-2xl border border-line p-6">
         <span class="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-success-tint text-success"><Users className="h-6 w-6" /></span>
-        <span class="flex-grow"><span class="block font-bold text-ink">Current PhD project listings</span><span class="mt-1 block text-sm text-muted">Check university-posted topics and availability</span></span>
+        <span class="flex-grow"><span class="block font-bold text-ink">{t.join.phdTitle}</span><span class="mt-1 block text-sm text-muted">{t.join.phdBody}</span></span>
         <ArrowUpRight className="h-5 w-5 text-muted" />
       </a>
     </div>

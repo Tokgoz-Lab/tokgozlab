@@ -12,18 +12,21 @@ import {
   Waves,
 } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
-import { SITE, withBase } from '../config';
+import { SITE } from '../config';
+import { getI18n, localizePath } from '../i18n';
 import profileImage from '../assets/korkut-kaan-tokgoz.jpg';
 import tubitakLogo from '../assets/tubitak-logo.png';
 import turkishAerospaceLogo from '../assets/turkish-aerospace-logo.png';
-import { activeProjects } from '../data/projects';
+import { activeProjects, formatPeriod } from '../data/projects';
 import { formatNewsDate, getPublishedNews } from '../data/news';
+
+const { locale, t } = getI18n(Astro);
 
 const SHOW_RESEARCH_NETWORK = false; // hidden for now, re-enable when ready
 
 const partners = [
   { name: 'TÜBİTAK', logo: tubitakLogo },
-  { name: 'Turkish Aerospace', logo: turkishAerospaceLogo },
+  { name: t.home.turkishAerospace, logo: turkishAerospaceLogo },
 ];
 const partnerLoop = [...partners, ...partners, ...partners].concat([...partners, ...partners, ...partners]);
 
@@ -50,7 +53,7 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     <div class="absolute inset-0">
       <Image
         src={SITE.hero.image}
-        alt="CMOS test chip on a high-frequency probe station"
+        alt={t.home.heroImageAlt}
         class="h-full w-full object-cover object-[64%_center]"
         widths={[720, 1080, 1440, 1800]}
         sizes="100vw"
@@ -68,25 +71,25 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
       <div class="max-w-3xl">
         <div class="mb-7 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/8 px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent backdrop-blur-sm">
           <Sparkles className="h-3.5 w-3.5 text-brand-red" />
-          {SITE.hero.eyebrow}
+          {t.home.hero.eyebrow}
         </div>
         <h1 class="max-w-3xl text-5xl font-bold leading-[0.97] tracking-[-0.055em] sm:text-6xl lg:text-[5.5rem]">
-          From silicon to <span class="text-on-dark-glow">sub-terahertz</span> systems.
+          {t.home.hero.title.before}<span class="text-on-dark-glow">{t.home.hero.title.highlight}</span>{t.home.hero.title.after}
         </h1>
         <p class="mt-7 max-w-2xl text-lg leading-8 text-on-dark-body sm:text-xl">
-          {SITE.hero.subtitle}
+          {t.home.hero.subtitle}
         </p>
         <div class="mt-10 flex flex-col gap-3 sm:flex-row">
-          <a href={withBase('/research/')} class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-azure/25 bg-brand-azure-tint/90 px-6 py-3.5 text-sm font-bold text-brand-navy shadow-[0_22px_45px_-28px_color-mix(in_srgb,var(--color-brand-navy)_55%,transparent)] backdrop-blur-sm transition hover:border-brand-azure/40 hover:bg-white">
-            Explore our research <ArrowRight className="h-4 w-4" />
+          <a href={localizePath('/research/', locale)} class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-azure/25 bg-brand-azure-tint/90 px-6 py-3.5 text-sm font-bold text-brand-navy shadow-[0_22px_45px_-28px_color-mix(in_srgb,var(--color-brand-navy)_55%,transparent)] backdrop-blur-sm transition hover:border-brand-azure/40 hover:bg-white">
+            {t.home.hero.primaryCta} <ArrowRight className="h-4 w-4" />
           </a>
-          <a href={withBase('/join/')} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
-            Work with us <ArrowUpRight className="h-4 w-4" />
+          <a href={localizePath('/join/', locale)} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
+            {t.home.hero.secondaryCta} <ArrowUpRight className="h-4 w-4" />
           </a>
         </div>
       </div>
 
-      <a href="#overview" id="scroll-cue" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/60 transition hover:text-white sm:flex" aria-label="Scroll to explore the site">
+      <a href="#overview" id="scroll-cue" class="absolute bottom-6 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-white/60 transition hover:text-white sm:flex" aria-label={t.home.hero.scrollCue}>
         <span class="flex h-9 w-6 items-start justify-center rounded-full border-2 border-current p-1">
           <span class="scroll-cue-dot h-1.5 w-1.5 rounded-full bg-current"></span>
         </span>
@@ -96,16 +99,16 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     <div class="relative z-10 border-t border-white/10 bg-darker/70 backdrop-blur-md">
       <div class="section-shell grid divide-y divide-white/10 sm:grid-cols-3 sm:divide-x sm:divide-y-0">
         <div class="py-5 sm:px-7 sm:first:pl-0">
-          <p class="text-2xl font-bold text-white">120 Gb/s</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">CMOS transceiver milestone</p>
+          <p class="text-2xl font-bold text-white">{t.home.stats.rate.value}</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">{t.home.stats.rate.label}</p>
         </div>
         <div class="py-5 sm:px-7">
-          <p class="text-2xl font-bold text-white">300 GHz</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">Sub-THz circuit research</p>
+          <p class="text-2xl font-bold text-white">{t.home.stats.frequency.value}</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">{t.home.stats.frequency.label}</p>
         </div>
         <div class="py-5 sm:px-7">
-          <p class="text-2xl font-bold text-white">Device → System</p>
-          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">End-to-end research scope</p>
+          <p class="text-2xl font-bold text-white">{t.home.stats.scope.value}</p>
+          <p class="mt-1 text-xs font-semibold uppercase tracking-[0.12em] text-on-dark-muted">{t.home.stats.scope.label}</p>
         </div>
       </div>
     </div>
@@ -115,7 +118,7 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     <section data-surface="light" class="border-y border-line-subtle bg-white py-10 sm:py-14">
       <div class="section-shell">
         <div class="text-center sm:text-left">
-          <span class="eyebrow">Research network</span>
+          <span class="eyebrow">{t.home.researchNetwork}</span>
         </div>
         <div class="mt-6 overflow-hidden [mask-image:linear-gradient(to_right,transparent,black_10%,black_90%,transparent)]">
           <div class="marquee-track flex w-max items-center gap-16">
@@ -132,17 +135,17 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     <div class="section-shell">
       <div class="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
         <div>
-          <span class="eyebrow">Our mission</span>
+          <span class="eyebrow">{t.home.mission.eyebrow}</span>
           <h2 class="mt-5 text-4xl font-bold leading-tight tracking-[-0.045em] text-ink sm:text-5xl">
-            Building the hardware foundations of future connectivity.
+            {t.home.mission.title}
           </h2>
         </div>
         <div class="self-end">
           <p class="text-lg leading-8 text-body">
-            Tokgöz Lab, led by Korkut Kaan Tokgöz, is an integrated-circuits and systems research group at Sabancı University. We connect transistor-level design, high-frequency measurement, communication theory, and intelligent edge systems to solve problems that no single layer can address alone.
+            {t.home.mission.body}
           </p>
-          <a href={withBase('/research/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link hover:text-link-hover">
-            See how we work across the stack <ArrowRight className="h-4 w-4" />
+          <a href={localizePath('/research/', locale)} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link hover:text-link-hover">
+            {t.home.mission.link} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
       </div>
@@ -151,14 +154,14 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
         {researchAreas.map((area, index) => {
           const Icon = focusIcons[index % focusIcons.length];
           return (
-            <a href={withBase(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`)} class="card-lift group rounded-2xl border border-line bg-white p-6">
+            <a href={localizePath(`/research/${area.id.replace(/\.[^/.]+$/, '')}/`, locale)} class="card-lift group rounded-2xl border border-line bg-white p-6">
               <div class:list={['flex h-12 w-12 items-center justify-center rounded-xl', focusStyles[index % focusStyles.length]]}>
                 <Icon className="h-6 w-6" />
               </div>
               <h3 class="mt-6 text-lg font-bold leading-snug text-ink group-hover:text-link-hover">{area.data.title}</h3>
               <p class="mt-3 text-sm leading-6 text-body">{area.data.description}</p>
               <span class="mt-5 inline-flex items-center gap-1 text-xs font-bold uppercase tracking-[0.1em] text-link">
-                Learn more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                {t.common.learnMore} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
               </span>
             </a>
           );
@@ -171,12 +174,12 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     <div class="section-shell">
       <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
         <div class="max-w-2xl">
-          <span class="eyebrow">Selected active projects</span>
-          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Research in motion.</h2>
-          <p class="mt-4 leading-7 text-body">Current directions spanning frequency synthesis, emerging CMOS architectures, and millimeter/terahertz communications.</p>
+          <span class="eyebrow">{t.home.projects.eyebrow}</span>
+          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{t.home.projects.title}</h2>
+          <p class="mt-4 leading-7 text-body">{t.home.projects.body}</p>
         </div>
         <a href="https://fens.sabanciuniv.edu/en/en/research-areas/projects" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 text-sm font-bold text-link">
-          University project directory <ArrowUpRight className="h-4 w-4" />
+          {t.home.projects.directory} <ArrowUpRight className="h-4 w-4" />
         </a>
       </div>
 
@@ -184,9 +187,9 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
         {projects.map((project, index) => (
           <article class="relative overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-sm">
             <span class="absolute right-6 top-5 font-mono text-5xl font-bold text-line-subtle">0{index + 1}</span>
-            <p class="relative text-xs font-bold uppercase tracking-[0.14em] text-link">{project.period}</p>
+            <p class="relative text-xs font-bold uppercase tracking-[0.14em] text-link">{formatPeriod(project, locale)}</p>
             <h3 class="relative mt-8 min-h-24 text-xl font-bold leading-snug text-ink">{project.title}</h3>
-            <p class="relative mt-5 border-t border-line-subtle pt-4 text-sm text-muted">{project.type} research project</p>
+            <p class="relative mt-5 border-t border-line-subtle pt-4 text-sm text-muted">{t.home.projects.typeLine(project.type)}</p>
           </article>
         ))}
       </div>
@@ -197,11 +200,11 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
     <div class="section-shell">
       <div class="flex items-end justify-between gap-6">
         <div>
-          <span class="eyebrow">Research output</span>
-          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Selected publications.</h2>
+          <span class="eyebrow">{t.home.publications.eyebrow}</span>
+          <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{t.home.publications.title}</h2>
         </div>
-        <a href={withBase('/publications/')} class="hidden items-center gap-2 text-sm font-bold text-link sm:inline-flex">
-          View all <ArrowRight className="h-4 w-4" />
+        <a href={localizePath('/publications/', locale)} class="hidden items-center gap-2 text-sm font-bold text-link sm:inline-flex">
+          {t.home.publications.viewAll} <ArrowRight className="h-4 w-4" />
         </a>
       </div>
 
@@ -226,8 +229,8 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
           );
         })}
       </div>
-      <a href={withBase('/publications/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link sm:hidden">
-        View all publications <ArrowRight className="h-4 w-4" />
+      <a href={localizePath('/publications/', locale)} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link sm:hidden">
+        {t.home.publications.viewAllPublications} <ArrowRight className="h-4 w-4" />
       </a>
     </div>
   </section>
@@ -237,33 +240,33 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
       <div class="section-shell">
         <div class="flex items-end justify-between gap-6">
           <div>
-            <span class="eyebrow">Lab news</span>
-            <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">Latest from the lab.</h2>
+            <span class="eyebrow">{t.home.news.eyebrow}</span>
+            <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{t.home.news.title}</h2>
           </div>
-          <a href={withBase('/news/')} class="hidden items-center gap-2 text-sm font-bold text-link sm:inline-flex">
-            All news <ArrowRight className="h-4 w-4" />
+          <a href={localizePath('/news/', locale)} class="hidden items-center gap-2 text-sm font-bold text-link sm:inline-flex">
+            {t.common.allNews} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
 
         <div class="mt-12 grid gap-5 lg:grid-cols-3">
           {latestNews.map((post) => (
-            <a href={withBase(`/news/${post.id}/`)} class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
+            <a href={localizePath(`/news/${post.id}/`, locale)} class="card-lift group flex flex-col overflow-hidden rounded-2xl border border-line bg-white">
               {post.data.image && (
                 <Image src={post.data.image} alt="" class:list={['aspect-[16/9] w-full', post.data.imageFit === 'contain' ? 'border-b border-line-subtle bg-white object-contain p-3' : 'object-cover']} widths={[480, 720]} sizes="(max-width: 1024px) 100vw, 30vw" quality={82} />
               )}
               <div class="flex flex-1 flex-col p-7">
-                <time datetime={post.data.date.toISOString().slice(0, 10)} class="text-xs font-bold uppercase tracking-[0.14em] text-link">{formatNewsDate(post.data.date)}</time>
+                <time datetime={post.data.date.toISOString().slice(0, 10)} class="text-xs font-bold uppercase tracking-[0.14em] text-link">{formatNewsDate(post.data.date, locale)}</time>
                 <h3 class="mt-4 text-xl font-bold leading-snug text-ink group-hover:text-link-hover">{post.data.title}</h3>
                 <p class="mt-3 line-clamp-3 text-sm leading-6 text-body">{post.data.summary}</p>
                 <span class="mt-auto inline-flex items-center gap-1 pt-5 text-xs font-bold uppercase tracking-[0.1em] text-link">
-                  Read more <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
+                  {t.common.readMore} <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" />
                 </span>
               </div>
             </a>
           ))}
         </div>
-        <a href={withBase('/news/')} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link sm:hidden">
-          All news <ArrowRight className="h-4 w-4" />
+        <a href={localizePath('/news/', locale)} class="mt-7 inline-flex items-center gap-2 text-sm font-bold text-link sm:hidden">
+          {t.common.allNews} <ArrowRight className="h-4 w-4" />
         </a>
       </div>
     </section>
@@ -275,23 +278,23 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
         <div class="absolute -inset-4 rounded-[2rem] border border-on-dark-glow/20"></div>
         <Image src={profileImage} alt="Korkut Kaan Tokgöz" class="relative aspect-square w-full rounded-[1.5rem] object-cover" widths={[320, 480, 640]} sizes="(max-width: 1024px) 80vw, 32vw" quality={88} />
         <div class="absolute -bottom-6 -right-5 rounded-2xl border border-white/10 bg-dark-raised px-5 py-4 shadow-2xl">
-          <p class="text-xs font-bold uppercase tracking-[0.15em] text-on-dark-accent">Principal Investigator</p>
-          <p class="mt-1 font-bold">Sabancı University</p>
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-on-dark-accent">{t.roles['Principal Investigator'].one}</p>
+          <p class="mt-1 font-bold">{t.home.pi.university}</p>
         </div>
       </div>
 
       <div>
-        <span class="eyebrow !text-on-dark-accent">Lab leadership</span>
+        <span class="eyebrow !text-on-dark-accent">{t.home.pi.eyebrow}</span>
         <h2 class="mt-5 text-4xl font-bold tracking-[-0.04em] sm:text-5xl">Korkut Kaan Tokgöz</h2>
         <p class="mt-6 text-lg leading-8 text-on-dark-body">
-          Korkut Kaan Tokgöz leads the group at Sabancı University’s Faculty of Engineering and Natural Sciences. His background spans CMOS transceivers, high-frequency device characterization, 5G systems at NEC, and academic research at Tokyo Institute of Technology.
+          {t.home.pi.body}
         </p>
         <div class="mt-8 flex flex-wrap gap-3">
-          <a href={withBase('/team/korkut-kaan-tokgoz/')} class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-brand-navy">
-            PI profile <ArrowRight className="h-4 w-4" />
+          <a href={localizePath('/team/korkut-kaan-tokgoz/', locale)} class="inline-flex items-center gap-2 rounded-full bg-white px-5 py-3 text-sm font-bold text-brand-navy">
+            {t.home.pi.profile} <ArrowRight className="h-4 w-4" />
           </a>
           <a href={SITE.profile.scholarUrl} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-5 py-3 text-sm font-bold text-white hover:bg-white/10">
-            <GraduationCap className="h-4 w-4" /> Google Scholar
+            <GraduationCap className="h-4 w-4" /> {t.common.googleScholar}
           </a>
         </div>
       </div>
@@ -301,12 +304,12 @@ const latestNews = (await getPublishedNews()).slice(0, 3);
   <section data-surface="light" class="bg-white py-20 sm:py-24">
     <div class="section-shell overflow-hidden rounded-[2rem] bg-brand-navy px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12 lg:px-16">
       <div class="max-w-2xl">
-        <p class="text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">Join the lab</p>
-        <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">Curious about circuits beyond today’s limits?</h2>
-        <p class="mt-4 leading-7 text-on-dark-body">We welcome prospective graduate and undergraduate researchers interested in integrated circuits, high-frequency systems, and intelligent hardware.</p>
+        <p class="text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">{t.home.join.eyebrow}</p>
+        <h2 class="mt-4 text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{t.home.join.title}</h2>
+        <p class="mt-4 leading-7 text-on-dark-body">{t.home.join.body}</p>
       </div>
-      <a href={withBase('/join/')} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-brand-navy transition hover:bg-brand-azure-tint-strong lg:mt-0">
-        Explore opportunities <ArrowUpRight className="h-4 w-4" />
+      <a href={localizePath('/join/', locale)} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-brand-navy transition hover:bg-brand-azure-tint-strong lg:mt-0">
+        {t.home.join.cta} <ArrowUpRight className="h-4 w-4" />
       </a>
     </div>
   </section>

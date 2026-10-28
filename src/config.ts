@@ -55,28 +55,20 @@ export const SITE = {
     image: heroImage,
   },
 
+  // English labels; Turkish ones are in src/i18n/tr.ts. `link` is an app-root
+  // path — render it through localizePath() so it gets base and locale.
   nav: [
-    { text: 'Research', link: withBase('/research/'), key: 'research' },
-    { text: 'Projects', link: withBase('/projects/'), key: 'projects' },
-    { text: 'Publications', link: withBase('/publications/'), key: 'publications' },
-    { text: 'People', link: withBase('/team/'), key: 'team' },
-    { text: 'News', link: withBase('/news/'), key: 'news' },
-    { text: 'Opportunities', link: withBase('/join/'), key: 'join' },
-    { text: 'Search', link: withBase('/search/'), key: 'search' },
+    { text: 'Research', link: '/research/', key: 'research' },
+    { text: 'Projects', link: '/projects/', key: 'projects' },
+    { text: 'Publications', link: '/publications/', key: 'publications' },
+    { text: 'People', link: '/team/', key: 'team' },
+    { text: 'News', link: '/news/', key: 'news' },
+    { text: 'Opportunities', link: '/join/', key: 'join' },
+    { text: 'Search', link: '/search/', key: 'search' },
   ],
 
   customPages: [],
-
-  i18n: {
-    enabled: false,
-    defaultLocale: 'en',
-  },
 };
-
-export const LOCALE = {
-  lang: 'en',
-  langTag: ['en-US'],
-} as const;
 
 export const LOGO_IMAGE = {
   enable: true,
@@ -90,5 +82,3 @@ export const SOCIALS = [
   { link: SITE.profile.orcidUrl, label: 'ORCID', active: true },
   { link: SITE.profile.linkedinUrl, label: 'LinkedIn', active: true },
 ];
-
-export const DEFAULT_LANG = 'en';
