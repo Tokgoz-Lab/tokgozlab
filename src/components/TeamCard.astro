@@ -1,5 +1,6 @@
 ---
 import { ArrowRight, ExternalLink, GraduationCap, Globe, Mail } from 'lucide-react';
+import { Image } from 'astro:assets';
 import type { CollectionEntry } from 'astro:content';
 import { getI18n, localizePath } from '../i18n';
 import { localizeEntry } from '../i18n/content';
@@ -21,7 +22,7 @@ const showRole = role === 'Principal Investigator' || role === 'Alumni';
 
 <article class="group overflow-hidden rounded-3xl border border-line bg-white shadow-sm">
   <a href={profileLink} class="block aspect-square overflow-hidden bg-subtle">
-    <img src={avatar.src} alt={name} class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" loading="lazy" />
+    <Image src={avatar} alt={name} widths={[320, 480, 640, 960]} sizes="(min-width: 1024px) 330px, (min-width: 640px) 50vw, 100vw" class="h-full w-full object-cover transition duration-500 group-hover:scale-[1.025]" />
   </a>
   <div class="p-6">
     {showRole && <p class="text-xs font-bold uppercase tracking-[0.14em] text-link">{t.roles[role].one}</p>}

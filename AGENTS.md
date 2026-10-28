@@ -58,7 +58,7 @@ Plus three Turkish overlay collections — `researchTr`, `teamTr`, `newsTr` in `
 
 (There is no `cover` field on any collection — it existed in both schemas plus matching import-bibtex.js validation/fallback logic, but was never rendered anywhere in the UI, so it was removed in full, commit `07d8757`. Don't reintroduce a `cover:` field without also wiring it into the templates that would display it.)
 
-Images referenced in frontmatter (e.g. `avatar: "../../assets/x.jpg"`) must live under `src/assets/` and be imported via Astro's `image()` schema helper — this gets them optimized/compressed at build time. Anything placed in `public/` bypasses that optimization and is served as-is; `public/` is reserved for truly static files (favicon, fonts, robots.txt, the small lab mark SVG).
+Images referenced in frontmatter (e.g. `avatar: "../../assets/x.jpg"`) must live under `src/assets/` and be imported via Astro's `image()` schema helper. That alone does **not** shrink them: they are resized/compressed only when rendered through `<Image>` (or `getImage()`) from `astro:assets`. A plain `<img src={avatar.src}>` serves the original upload — that's how the team page used to ship ~20 MB of photos (submissions are often 1–4 MB), so always render them with `<Image widths={…} sizes="…">`. Anything placed in `public/` bypasses that optimization and is served as-is; `public/` is reserved for truly static files (favicon, fonts, robots.txt, the small lab mark SVG).
 
 ### Publications: BibTeX import pipeline
 
