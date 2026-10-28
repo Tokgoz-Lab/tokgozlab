@@ -40,7 +40,7 @@ const researchAreas = await Promise.all(
 const recordLang = locale === 'en' ? undefined : 'en';
 const papers = (await getCollection('publications'))
   .filter((paper) => paper.data.type === 'paper' && paper.data.featured)
-  .sort((a, b) => b.data.year - a.data.year)
+  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'en'))
   .slice(0, 5);
 
 const focusIcons = [Waves, Radio, Cpu, BrainCircuit];

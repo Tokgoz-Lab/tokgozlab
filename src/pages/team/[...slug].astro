@@ -25,7 +25,7 @@ const contentLang = localized.fallback ? 'en' : undefined;
 
 const memberPublications = (await getCollection('publications'))
   .filter((paper) => paper.data.authors.includes(name))
-  .sort((a, b) => b.data.year - a.data.year);
+  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'en'));
 
 // --- Person JSON-LD ---
 // Korkut Kaan Tokgöz already has a full Person entity in Layout.astro's
