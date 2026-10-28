@@ -19,6 +19,7 @@ const en = {
     mobileNavigation: 'Mobile navigation',
     openNavigation: 'Open navigation',
     closeNavigation: 'Close navigation',
+    language: 'Language',
   },
   footer: {
     tagline: 'Integrated Circuits & Systems',

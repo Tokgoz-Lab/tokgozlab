@@ -86,4 +86,33 @@ const news = defineCollection({
     }),
 });
 
-export const collections = { publications, team, research, news };
+// Turkish translations: src/content/tr/<collection>/<same file name as the English
+// entry>.md, holding only the translated fields plus the translated body. Names,
+// roles, photos, links, dates and ordering always come from the English entry.
+const researchTr = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tr/research' }),
+  schema: z.object({
+    title: z.string(),
+    description: z.string(),
+  }),
+});
+
+const teamTr = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tr/team' }),
+  schema: z.object({
+    title: z.array(z.string()).optional(),
+    bio: z.string().optional(),
+  }),
+});
+
+const newsTr = defineCollection({
+  loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/tr/news' }),
+  schema: z.object({
+    title: z.string(),
+    summary: z.string(),
+    imageAlt: z.string().optional(),
+    linkText: z.string().optional(),
+  }),
+});
+
+export const collections = { publications, team, research, news, researchTr, teamTr, newsTr };

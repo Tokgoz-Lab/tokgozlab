@@ -11,6 +11,8 @@ const { locale, t } = getI18n(Astro);
 const { entry } = Astro.props;
 const { title, authors, year, venue, links, doi, award, badges } = entry.data;
 const detailLink = localizePath(`/publications/${entry.id}/`, locale);
+// Publication records stay English on every locale.
+const recordLang = locale === 'en' ? undefined : 'en';
 
 const iconMap: Record<string, any> = {
   pdf: FileText,
@@ -32,11 +34,11 @@ const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
   </div>
 
   <div>
-    <h3 class="text-lg font-bold leading-snug tracking-[-0.015em] text-ink sm:text-xl">
+    <h3 class="text-lg font-bold leading-snug tracking-[-0.015em] text-ink sm:text-xl" lang={recordLang}>
       <a href={detailLink} class="transition-colors hover:text-link-hover">{title}</a>
     </h3>
 
-    <p class="mt-3 text-sm leading-6 text-body">
+    <p class="mt-3 text-sm leading-6 text-body" lang={recordLang}>
       {authors.map((author, index) => (
         <>
           <span class:list={[isLabAuthor(author) && 'font-bold text-brand-navy']}>{author}</span>{index < authors.length - 1 ? ', ' : ''}
@@ -45,7 +47,7 @@ const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
     </p>
 
     <div class="mt-4 flex flex-wrap items-center gap-2 text-sm">
-      <span class="font-semibold text-body">{venue}</span>
+      <span class="font-semibold text-body" lang={recordLang}>{venue}</span>
       {(badges || award) && (
         <>
           {(badges ?? [{ text: award, type: 'gold' }]).map((badge) => (

@@ -1,0 +1,7 @@
+---
+// Turkish edition: renders the English page, which reads the locale from the URL.
+import Page from '../../news/[...slug].astro';
+export { getStaticPaths } from '../../news/[...slug].astro';
+---
+
+<Page {...Astro.props} />

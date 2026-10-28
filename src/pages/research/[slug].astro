@@ -3,6 +3,7 @@ import { getCollection, render } from 'astro:content';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import { getI18n, localizePath } from '../../i18n';
+import { localizeEntry } from '../../i18n/content';
 
 export async function getStaticPaths() {
   const researchAreas = await getCollection('research');
@@ -13,8 +14,10 @@ export async function getStaticPaths() {
 }
 
 const { locale, t } = getI18n(Astro);
-const { area } = Astro.props;
-const { Content } = await render(area);
+const { area: entry } = Astro.props;
+const area = await localizeEntry(entry, locale);
+const { Content } = await render(area.source);
+const contentLang = area.fallback ? 'en' : undefined;
 ---
 
 <Layout title={area.data.title} description={area.data.description}>
@@ -27,13 +30,13 @@ const { Content } = await render(area);
         <a href={localizePath('/research/', locale)} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent transition hover:text-white">
           <ArrowLeft className="h-4 w-4" /> {t.research.allAreas}
         </a>
-        <h1 class="mt-10 max-w-4xl text-4xl font-bold leading-tight tracking-[-0.045em] sm:text-6xl">{area.data.title}</h1>
-        <p class="mt-7 max-w-3xl text-lg leading-8 text-on-dark-body sm:text-xl">{area.data.description}</p>
+        <h1 class="mt-10 max-w-4xl text-4xl font-bold leading-tight tracking-[-0.045em] sm:text-6xl" lang={contentLang}>{area.data.title}</h1>
+        <p class="mt-7 max-w-3xl text-lg leading-8 text-on-dark-body sm:text-xl" lang={contentLang}>{area.data.description}</p>
       </div>
     </header>
 
     <div class="section-shell grid gap-12 py-16 sm:py-24 lg:grid-cols-[1fr_18rem] lg:gap-20">
-      <div class="prose max-w-3xl">
+      <div class="prose max-w-3xl" lang={contentLang}>
         <Content />
       </div>
       <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">

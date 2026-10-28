@@ -5,6 +5,7 @@ import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import { SITE } from '../../config';
 import { getI18n, localizePath } from '../../i18n';
+import { localizeEntry } from '../../i18n/content';
 import { formatNewsDate, getPublishedNews } from '../../data/news';
 
 export async function getStaticPaths() {
@@ -17,8 +18,10 @@ export async function getStaticPaths() {
 
 const { locale, t } = getI18n(Astro);
 const { post } = Astro.props;
-const { title, date, summary, image, imageAlt, link, linkText } = post.data;
-const { Content } = await render(post);
+const localized = await localizeEntry(post, locale);
+const { title, date, summary, image, imageAlt, link, linkText } = localized.data;
+const { Content } = await render(localized.source);
+const contentLang = localized.fallback ? 'en' : undefined;
 
 const siteBase = Astro.site ?? new URL(Astro.url.origin);
 const isoDate = date.toISOString().slice(0, 10);
@@ -29,6 +32,7 @@ const newsArticleSchema = {
   '@type': 'NewsArticle',
   headline: title,
   description: summary,
+  inLanguage: contentLang ?? locale,
   datePublished: isoDate,
   url: new URL(Astro.url.pathname, siteBase).href,
   ...(schemaImage ? { image: schemaImage } : {}),
@@ -53,8 +57,8 @@ const newsArticleSchema = {
           <ArrowLeft className="h-4 w-4" /> {t.common.allNews}
         </a>
         <time datetime={isoDate} class="mt-10 block font-mono text-sm font-bold uppercase tracking-[0.12em] text-on-dark-accent">{formatNewsDate(date, locale)}</time>
-        <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-[-0.045em] sm:text-6xl">{title}</h1>
-        <p class="mt-7 max-w-3xl text-lg leading-8 text-on-dark-body sm:text-xl">{summary}</p>
+        <h1 class="mt-4 max-w-4xl text-4xl font-bold leading-tight tracking-[-0.045em] sm:text-6xl" lang={contentLang}>{title}</h1>
+        <p class="mt-7 max-w-3xl text-lg leading-8 text-on-dark-body sm:text-xl" lang={contentLang}>{summary}</p>
       </div>
     </header>
 
@@ -63,7 +67,7 @@ const newsArticleSchema = {
         {image && (
           <Image src={image} alt={imageAlt ?? ''} class="mb-10 w-full rounded-2xl border border-line object-cover" widths={[640, 960, 1280]} sizes="(max-width: 1024px) 100vw, 48rem" quality={85} />
         )}
-        <div class="prose">
+        <div class="prose" lang={contentLang}>
           <Content />
         </div>
       </div>

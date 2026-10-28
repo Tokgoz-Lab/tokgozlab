@@ -16,6 +16,11 @@ export async function getStaticPaths() {
 const { locale, t } = getI18n(Astro);
 const { entry } = Astro.props;
 const { title, authors, year, venue, description, doi, award, links, badges } = entry.data;
+// Google Scholar must see exactly one record per paper: the English page. The
+// Turkish copy only translates the labels, so it carries no citation metadata,
+// stays out of search indexes and isn't advertised via hreflang.
+const isTurkish = locale === 'tr';
+const recordLang = isTurkish ? 'en' : undefined;
 
 const iconMap: Record<string, any> = {
   pdf: FileText,
@@ -64,17 +69,24 @@ const scholarlyArticleSchema = {
 };
 ---
 
-<Layout title={title} description={description ?? t.publications.fallbackDescription(title, venue, year)}>
-  <Fragment slot="head">
-    <meta name="citation_title" content={title} />
-    {authors.map((author) => <meta name="citation_author" content={author} />)}
-    <meta name="citation_publication_date" content={citationDate} />
-    {isJournalVenue && <meta name="citation_journal_title" content={venue} />}
-    {isConferenceVenue && <meta name="citation_conference_title" content={venue} />}
-    {doi && <meta name="citation_doi" content={doi} />}
-    {citationPdfUrl && <meta name="citation_pdf_url" content={citationPdfUrl} />}
-    <script is:inline type="application/ld+json" set:html={JSON.stringify(scholarlyArticleSchema)} />
-  </Fragment>
+<Layout
+  title={title}
+  description={description ?? t.publications.fallbackDescription(title, venue, year)}
+  robots={isTurkish ? 'noindex, follow' : undefined}
+  alternates={false}
+>
+  {!isTurkish && (
+    <Fragment slot="head">
+      <meta name="citation_title" content={title} />
+      {authors.map((author) => <meta name="citation_author" content={author} />)}
+      <meta name="citation_publication_date" content={citationDate} />
+      {isJournalVenue && <meta name="citation_journal_title" content={venue} />}
+      {isConferenceVenue && <meta name="citation_conference_title" content={venue} />}
+      {doi && <meta name="citation_doi" content={doi} />}
+      {citationPdfUrl && <meta name="citation_pdf_url" content={citationPdfUrl} />}
+      <script is:inline type="application/ld+json" set:html={JSON.stringify(scholarlyArticleSchema)} />
+    </Fragment>
+  )}
 
   <header class="relative overflow-hidden bg-dark text-white">
     <div class="signal-grid absolute inset-0 opacity-50"></div>
@@ -90,8 +102,8 @@ const scholarlyArticleSchema = {
             <span class="rounded-full bg-brand-red px-3 py-1 text-white">{badge.text}</span>
           ))}
         </div>
-        <h1 class="mt-4 text-3xl font-bold leading-[1.1] tracking-[-0.03em] sm:text-5xl">{title}</h1>
-        <p class="mt-4 text-lg font-semibold text-on-dark-body">{venue}</p>
+        <h1 class="mt-4 text-3xl font-bold leading-[1.1] tracking-[-0.03em] sm:text-5xl" lang={recordLang}>{title}</h1>
+        <p class="mt-4 text-lg font-semibold text-on-dark-body" lang={recordLang}>{venue}</p>
 
         <div class="mt-8 flex flex-wrap gap-2">
           {activeLinks.map(([key, url]) => {
@@ -117,7 +129,7 @@ const scholarlyArticleSchema = {
       {description && (
         <>
           <h2>{t.publications.abstract}</h2>
-          <p>{description}</p>
+          <p lang={recordLang}>{description}</p>
         </>
       )}
     </div>
@@ -126,7 +138,7 @@ const scholarlyArticleSchema = {
       <dl class="mt-5 space-y-5 text-sm">
         <div>
           <dt class="font-bold text-ink">{t.publications.authors}</dt>
-          <dd class="mt-1 leading-6 text-body">
+          <dd class="mt-1 leading-6 text-body" lang={recordLang}>
             {authors.map((author, index) => (
               <>
                 <span class:list={[isLabAuthor(author) && 'font-bold text-brand-navy']}>{author}</span>{index < authors.length - 1 ? ', ' : ''}
@@ -136,7 +148,7 @@ const scholarlyArticleSchema = {
         </div>
         <div>
           <dt class="font-bold text-ink">{t.publications.venue}</dt>
-          <dd class="mt-1 leading-6 text-body">{venue}</dd>
+          <dd class="mt-1 leading-6 text-body" lang={recordLang}>{venue}</dd>
         </div>
         <div>
           <dt class="font-bold text-ink">{t.publications.year}</dt>

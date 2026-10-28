@@ -3,7 +3,8 @@ import { getCollection, render } from 'astro:content';
 import { ArrowLeft, ArrowUpRight, ExternalLink, GraduationCap, Globe, Mail } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
-import { getI18n, localizePath } from '../../i18n';
+import { getI18n, localizePath, switchLocalePath } from '../../i18n';
+import { localizeEntry } from '../../i18n/content';
 
 export async function getStaticPaths() {
   const teamMembers = await getCollection('team');
@@ -15,9 +16,11 @@ export async function getStaticPaths() {
 
 const { locale, t } = getI18n(Astro);
 const { member } = Astro.props;
-const { Content } = await render(member);
+const localized = await localizeEntry(member, locale);
+const { Content } = await render(localized.source);
 const { name, role, title, avatar, email, website, personalWebsite, linkedin, googleScholar, github, twitter, orcid, bio } =
-  member.data;
+  localized.data;
+const contentLang = localized.fallback ? 'en' : undefined;
 
 const memberPublications = (await getCollection('publications'))
   .filter((paper) => paper.data.authors.includes(name))
@@ -34,9 +37,11 @@ const isAlumni = role === 'Alumni';
 // The title line already states the position for these roles, so the eyebrow would repeat it.
 const showRole = role === 'Principal Investigator' || isAlumni;
 const siteBase = Astro.site ?? new URL(Astro.url.origin);
-const canonicalHref = new URL(Astro.url.pathname, siteBase).href;
+// The person is one entity in both languages: identify them by the English
+// profile URL and describe them with the English record on /tr/ pages too.
+const englishHref = new URL(switchLocalePath(Astro.url.pathname, 'en'), siteBase).href;
 const labId = `${siteBase.href}#lab`;
-const jobTitle = title?.length ? title.join(' · ') : !isAlumni ? role : undefined;
+const jobTitle = member.data.title?.length ? member.data.title.join(' · ') : !isAlumni ? role : undefined;
 const sameAs = [website, personalWebsite, googleScholar, linkedin, github, twitter, orcid].filter(
   (url): url is string => Boolean(url),
 );
@@ -44,10 +49,10 @@ const sameAs = [website, personalWebsite, googleScholar, linkedin, github, twitt
 const personSchema = {
   '@context': 'https://schema.org',
   '@type': 'Person',
-  '@id': `${canonicalHref}#person`,
+  '@id': `${englishHref}#person`,
   name,
-  url: canonicalHref,
-  ...(bio ? { description: bio } : {}),
+  url: englishHref,
+  ...(member.data.bio ? { description: member.data.bio } : {}),
   ...(jobTitle ? { jobTitle } : {}),
   ...(isAlumni ? { alumniOf: { '@id': labId } } : { affiliation: { '@id': labId } }),
   ...(sameAs.length ? { sameAs } : {}),
@@ -75,7 +80,7 @@ const personSchema = {
         <div>
           {showRole && <p class="text-xs font-bold uppercase tracking-[0.16em] text-on-dark-accent">{t.roles[role].one}</p>}
           <h1 class:list={['text-4xl font-bold tracking-[-0.045em] sm:text-6xl', showRole && 'mt-3']}>{name}</h1>
-          {title?.length && <p class="mt-4 text-lg font-semibold text-on-dark-body">{title.join(' · ')}</p>}
+          {title?.length && <p class="mt-4 text-lg font-semibold text-on-dark-body" lang={contentLang}>{title.join(' · ')}</p>}
           <div class="mt-8 flex flex-wrap gap-2">
             {email && <a href={`mailto:${email}`} class="inline-flex items-center gap-2 rounded-full bg-white px-4 py-2.5 text-sm font-bold text-brand-navy"><Mail className="h-4 w-4" /> {t.team.email}</a>}
             {website && <a href={website} target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 rounded-full border border-white/20 px-4 py-2.5 text-sm font-bold text-white hover:bg-white/10"><ExternalLink className="h-4 w-4" /> {t.team.universityProfile}</a>}
@@ -92,11 +97,11 @@ const personSchema = {
   </header>
 
   <article class="section-shell grid gap-12 py-16 sm:py-24 lg:grid-cols-[1fr_19rem] lg:gap-20">
-    <div class="prose max-w-3xl">
+    <div class="prose max-w-3xl" lang={contentLang}>
       <Content />
 
       {memberPublications.length > 0 && (
-        <div class="not-prose mt-12">
+        <div class="not-prose mt-12" lang={contentLang && locale}>
           <h2 class="text-2xl font-bold tracking-[-0.025em] text-ink">{t.team.publications}</h2>
           <div class="mt-6 space-y-5">
             {memberPublications.map((entry) => <PublicationItem entry={entry} />)}

@@ -3,10 +3,13 @@ import { Image } from 'astro:assets';
 import { ArrowRight, Newspaper } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import { getI18n, localizePath } from '../../i18n';
+import { localizeEntry } from '../../i18n/content';
 import { formatNewsDate, getPublishedNews } from '../../data/news';
 
 const { locale, t } = getI18n(Astro);
-const posts = await getPublishedNews();
+const posts = await Promise.all(
+  (await getPublishedNews()).map(async (post) => ({ id: post.id, ...(await localizeEntry(post, locale)) })),
+);
 ---
 
 <Layout title={t.news.title} description={t.news.description}>
@@ -41,7 +44,7 @@ const posts = await getPublishedNews();
               <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-brand-navy">
                 {formatNewsDate(post.data.date, locale)}
               </time>
-              <div>
+              <div lang={post.fallback ? 'en' : undefined}>
                 <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-ink transition group-hover:text-link-hover">
                   <a href={localizePath(`/news/${post.id}/`, locale)}>{post.data.title}</a>
                 </h2>

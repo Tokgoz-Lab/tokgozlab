@@ -1,0 +1,275 @@
+import { SITE } from '../config';
+import type { Dictionary } from '.';
+import type { ProjectType } from './en';
+
+const projectTypes: Record<ProjectType, string> = { National: 'Ulusal', International: 'Uluslararası' };
+
+const tr: Dictionary = {
+  site: {
+    description:
+      'Sabancı Üniversitesi’ndeki Tokgöz Lab, geleceğin haberleşme sistemleri için enerji verimli milimetre dalga ve alt-terahertz CMOS devreleri, entegre sistemler ve akıllı donanım geliştirir.',
+    university: 'Sabancı Üniversitesi · Elektronik Mühendisliği',
+  },
+  nav: {
+    research: 'Araştırma',
+    projects: 'Projeler',
+    publications: 'Yayınlar',
+    team: 'Ekip',
+    news: 'Haberler',
+    join: 'Fırsatlar',
+    search: 'Ara',
+  },
+  header: {
+    skipToContent: 'İçeriğe geç',
+    homeLabel: `${SITE.labName} ana sayfası`,
+    primaryNavigation: 'Ana menü',
+    mobileNavigation: 'Mobil menü',
+    openNavigation: 'Menüyü aç',
+    closeNavigation: 'Menüyü kapat',
+    language: 'Dil',
+  },
+  footer: {
+    tagline: 'Entegre Devreler ve Sistemler',
+    blurb: 'Geleceğin kablosuz haberleşme ve algılama sistemleri için enerji verimli entegre devreler ve akıllı donanım.',
+    explore: 'Keşfet',
+    navigation: 'Alt menü',
+    contact: 'İletişim',
+    address: ['Sabancı Üniversitesi FENS', 'Tuzla, İstanbul, Türkiye'],
+    officialProfile: 'Resmî üniversite profili',
+    rights: (year: number) => `© ${year} ${SITE.labName}. Tüm hakları saklıdır.`,
+    faculty: 'Sabancı Üniversitesi · Mühendislik ve Doğa Bilimleri Fakültesi',
+  },
+  common: {
+    readMore: 'Devamını oku',
+    learnMore: 'Daha fazla bilgi',
+    allNews: 'Tüm haberler',
+    atAGlance: 'Kısaca',
+    googleScholar: 'Google Akademik',
+  },
+  roles: {
+    'Principal Investigator': { one: 'Laboratuvar Yöneticisi', many: 'Laboratuvar Yöneticisi' },
+    'Postdoctoral Researcher': { one: 'Doktora Sonrası Araştırmacı', many: 'Doktora Sonrası Araştırmacılar' },
+    'PhD Candidate': { one: 'Doktora Öğrencisi', many: 'Doktora Öğrencileri' },
+    "Master's Student": { one: 'Yüksek Lisans Öğrencisi', many: 'Yüksek Lisans Öğrencileri' },
+    Alumni: { one: 'Mezun', many: 'Mezunlar' },
+  },
+  home: {
+    heroImageAlt: 'Yüksek frekanslı prob istasyonunda bir CMOS test çipi',
+    hero: {
+      eyebrow: 'Kablosuz iletişimin yeni sınırları için entegre devreler',
+      title: { before: 'Silisyumdan ', highlight: 'alt-terahertz', after: ' sistemlere.' },
+      subtitle:
+        'Ultra yüksek veri hızlı haberleşme, algılama ve bağlantılı sistemler için enerji verimli CMOS devreleri ve akıllı donanım tasarlıyoruz.',
+      primaryCta: 'Araştırmalarımızı keşfedin',
+      secondaryCta: 'Bizimle çalışın',
+      scrollCue: 'Siteyi keşfetmek için aşağı kaydırın',
+    },
+    stats: {
+      rate: { value: '120 Gb/s', label: 'CMOS alıcı-vericide kilometre taşı' },
+      frequency: { value: '300 GHz', label: 'Alt-THz devre araştırmaları' },
+      scope: { value: 'Cihaz → Sistem', label: 'Uçtan uca araştırma kapsamı' },
+    },
+    researchNetwork: 'Araştırma ağı',
+    turkishAerospace: 'TUSAŞ',
+    mission: {
+      eyebrow: 'Misyonumuz',
+      title: 'Geleceğin bağlantı teknolojilerinin donanım temellerini kuruyoruz.',
+      body: 'Korkut Kaan Tokgöz liderliğindeki Tokgöz Lab, Sabancı Üniversitesi’nde entegre devreler ve sistemler üzerine çalışan bir araştırma grubudur. Transistör düzeyindeki tasarımı, yüksek frekans ölçümlerini, haberleşme kuramını ve akıllı uç sistemleri bir araya getirerek tek bir katmanın tek başına çözemeyeceği problemlere yanıt arıyoruz.',
+      link: 'Tüm katmanlarda nasıl çalıştığımızı görün',
+    },
+    projects: {
+      eyebrow: 'Seçili devam eden projeler',
+      title: 'Hız kesmeyen araştırmalar.',
+      body: 'Frekans sentezi, yeni nesil CMOS mimarileri ve milimetre/terahertz haberleşmeye uzanan güncel çalışmalar.',
+      directory: 'Üniversite proje dizini',
+      typeLine: (type: ProjectType) => `${projectTypes[type]} araştırma projesi`,
+    },
+    publications: {
+      eyebrow: 'Araştırma çıktıları',
+      title: 'Seçili yayınlar.',
+      viewAll: 'Tümünü gör',
+      viewAllPublications: 'Tüm yayınları gör',
+    },
+    news: {
+      eyebrow: 'Laboratuvar haberleri',
+      title: 'Laboratuvardan son haberler.',
+    },
+    pi: {
+      university: 'Sabancı Üniversitesi',
+      eyebrow: 'Laboratuvar yönetimi',
+      body: 'Korkut Kaan Tokgöz, grubu Sabancı Üniversitesi Mühendislik ve Doğa Bilimleri Fakültesi’nde yönetmektedir. Deneyimi CMOS alıcı-vericileri, yüksek frekanslı cihaz karakterizasyonunu, NEC’teki 5G sistemleri çalışmalarını ve Tokyo Teknoloji Enstitüsü’ndeki akademik araştırmaları kapsar.',
+      profile: 'Profili görüntüle',
+    },
+    join: {
+      eyebrow: 'Laboratuvara katılın',
+      title: 'Bugünün sınırlarının ötesindeki devreleri merak ediyor musunuz?',
+      body: 'Entegre devreler, yüksek frekanslı sistemler ve akıllı donanım alanlarına ilgi duyan lisansüstü ve lisans öğrencisi araştırmacı adaylarını bekliyoruz.',
+      cta: 'Fırsatları keşfedin',
+    },
+  },
+  research: {
+    title: 'Araştırma',
+    description:
+      'Tokgöz Lab’in milimetre dalga ve alt-terahertz CMOS devreleri, 6G kablosuz sistemler, uç yapay zekâ, Nesnelerin İnterneti ve yapay zekâ destekli yarı iletken modelleme alanlarındaki araştırmaları.',
+    heading: 'Donanımın tüm katmanlarında çalışıyoruz.',
+    intro:
+      'Doğru cihaz modellerinden eksiksiz kablosuz bağlantılara kadar araştırmalarımız devre tasarımını, ölçümü, algoritmaları ve sistem düzeyinde düşünmeyi bir araya getirir.',
+    readAbout: (title: string) => `Daha fazla bilgi: ${title}`,
+    approachTitle: 'Ölçüme dayalı bir yaklaşım.',
+    approachBody:
+      'Sorularımız fiziksel sınırlarla başlar, deneylerle doğrulanmış sistemlerle sonuçlanır. Karakterizasyon, kalibrasyon ve de-embedding sonradan akla gelen adımlar değildir; mimariyi ilk günden biçimlendirirler.',
+    allAreas: 'Tüm araştırma alanları',
+    withUs: 'Bizimle araştırın',
+    withUsBody: 'Bu alan ilginizi mi çekiyor? Aday öğrenciler ve iş birliği yapmak isteyen araştırmacılar bizimle iletişime geçebilir.',
+  },
+  projects: {
+    title: 'Projeler',
+    description: 'Sabancı Üniversitesi’ndeki Tokgöz Lab’in yürüttüğü seçili devam eden ve tamamlanmış araştırma projeleri.',
+    heading: 'Somut donanım çıktıları olan araştırma programları.',
+    intro:
+      'Korkut Kaan Tokgöz’ün yürüttüğü; ileri CMOS teknolojilerinden geleceğin kablosuz bağlantılarına ve kaynak verimli akıllı sistemlere uzanan seçili projeler.',
+    directory: 'Resmî FENS proje dizini',
+    active: 'Devam eden projeler',
+    completed: 'Seçili tamamlanmış çalışmalar',
+    completedIntro: 'Laboratuvarın güncel devre ve sistem araştırmalarına temel oluşturan programlar.',
+    types: projectTypes,
+  },
+  publications: {
+    title: 'Yayınlar',
+    description:
+      'Tokgöz Lab’in milimetre dalga, alt-terahertz CMOS, kablosuz sistemler, uç yapay zekâ ve yarı iletken modelleme alanlarındaki seçili dergi ve konferans yayınları.',
+    heading: 'Silisyumda ve sistemlerde sınanan fikirler.',
+    intro: 'Entegre devreler, yüksek frekanslı haberleşme, algılama ve akıllı donanım alanlarından seçili bir kaynakça.',
+    officialList: 'Resmî yayın listesi',
+    browseByYear: 'Yıllara göre',
+    years: 'Yayın yılları',
+    count: (n: number) => `${n} yayın`,
+    empty: 'Yayın kayıtları hazırlanıyor.',
+    links: { pdf: 'Makale', code: 'Kod', demo: 'Demo', slides: 'Sunum', video: 'Video', website: 'Yayıncı' },
+    back: 'Yayınlara dön',
+    abstract: 'Özet',
+    authors: 'Yazarlar',
+    venue: 'Yayın yeri',
+    year: 'Yıl',
+    fallbackDescription: (title: string, venue: string, year: number) => `${title} — ${venue}, ${year}. Tokgöz Lab yayını.`,
+  },
+  team: {
+    title: 'Ekip',
+    description: 'Sabancı Üniversitesi’ndeki Tokgöz Lab’in araştırmacıları ve öğrencileri.',
+    heading: 'Devrelerin arkasındaki insanlar.',
+    intro:
+      'Entegre devre tasarımını, yüksek frekans ölçümlerini, haberleşme sistemlerini ve akıllı uç donanımı bir araya getiren bir araştırma grubu.',
+    empty: 'Ekip profilleri hazırlanıyor.',
+    ctaEyebrow: 'Geleceğin ekip üyeleri',
+    ctaTitle: 'Ekibe katılmak ister misiniz?',
+    ctaBody: 'Doktora, yüksek lisans ve lisans öğrencileri için araştırma yollarını keşfedin.',
+    ctaLink: 'Fırsatları görüntüle',
+    back: 'Ekibe dön',
+    email: 'E-posta',
+    universityProfile: 'Üniversite profili',
+    website: 'Web sitesi',
+    scholar: 'Google Akademik',
+    publications: 'Yayınlar',
+    selectedPublications: 'Seçili yayınlar',
+    piFacts: [
+      { term: 'Kurum', lines: ['Elektronik Mühendisliği', 'Sabancı Üniversitesi'] },
+      { term: 'Doktora', lines: ['Fiziksel Elektronik', 'Tokyo Teknoloji Enstitüsü, 2018'] },
+      { term: 'Araştırma alanları', lines: ['CMOS devreleri · alt-THz · 6G · Uç yapay zekâ · IoT'] },
+    ],
+    card: {
+      profile: 'Profil',
+      email: (name: string) => `E-posta: ${name}`,
+      linkedin: (name: string) => `LinkedIn: ${name}`,
+      github: (name: string) => `GitHub: ${name}`,
+      twitter: (name: string) => `X (Twitter): ${name}`,
+      scholar: (name: string) => `Google Akademik: ${name}`,
+      orcid: (name: string) => `ORCID: ${name}`,
+      website: (name: string) => `Kurumsal profil: ${name}`,
+      personalWebsite: (name: string) => `Kişisel web sitesi: ${name}`,
+    },
+  },
+  news: {
+    title: 'Haberler',
+    description:
+      'Sabancı Üniversitesi’ndeki Tokgöz Lab’den son haberler: yayınlar, ödüller, etkinlikler, yeni üyeler ve araştırmadaki önemli gelişmeler.',
+    heading: 'Laboratuvarda neler oluyor?',
+    intro: 'Tokgöz Lab’den makaleler, ödüller, konuşmalar, yeni üyeler ve önemli gelişmeler.',
+    emptyTitle: 'Henüz haber yok.',
+    emptyBody: 'Laboratuvardan güncellemeler için yakında tekrar göz atın.',
+    readMoreAbout: (title: string) => `Devamını oku: ${title}`,
+    published: (date: string) => `${date} tarihinde yayımlandı.`,
+  },
+  join: {
+    title: 'Fırsatlar',
+    description:
+      'Sabancı Üniversitesi’ndeki Tokgöz Lab’de doktora, yüksek lisans ve lisans öğrencisi adayları için araştırma fırsatları.',
+    heading: 'İddialı donanım araştırmalarını bizimle yapın.',
+    intro:
+      'Devreler, ölçüm, haberleşme sistemleri, algılama ve akıllı donanım alanlarında çalışmak isteyen öğrencilerden gelen özenli başvuruları memnuniyetle karşılıyoruz.',
+    introduceYourself: 'Kendinizi tanıtın',
+    prospectiveSubject: 'Araştırmacı adayı — Tokgöz Lab',
+    industryEyebrow: 'Sanayi ve iş birlikleri',
+    industryTitle: 'Şirket olarak iş birliği yapmak ister misiniz?',
+    industryBody:
+      'Milimetre dalga/alt-terahertz entegre devreler, 6G sistemleri ve uç yapay zekâ donanımı alanlarında sanayi ortaklarımızla sponsorlu araştırmalar, ortak test altyapıları ve teknoloji transferi üzerine çalışıyoruz.',
+    industryPoints: ['Sponsorlu araştırma ve ortak projeler', 'Teknoloji lisanslama ve transferi', 'Laboratuvardan yetenek kazanımı'],
+    industrySubject: 'Sanayi iş birliği — Tokgöz Lab',
+    contactLab: 'Laboratuvarla iletişime geçin',
+    pathsEyebrow: 'Katkı yolları',
+    pathsTitle: 'Size uygun araştırma yolunu bulun.',
+    pathsBody:
+      'Açık pozisyonlar ve burslu kadrolar dönemden döneme değişir. Bu yollar, laboratuvarın desteklediği araştırma katılımı türlerini tanımlar.',
+    paths: [
+      {
+        label: 'Doktora araştırması',
+        description: 'Entegre devreler, yüksek frekanslı donanım ve geleceğin haberleşme sistemleri üzerine derinlemesine, çok yıllı araştırma.',
+        points: ['Güçlü elektrik-elektronik temeli', 'Araştırma odaklı bakış açısı', 'Açık ve net teknik yazım'],
+      },
+      {
+        label: 'Yüksek lisans araştırması',
+        description: 'Devre veya sistem tasarımını benzetim, uygulama ve ölçümle birleştiren tez odaklı çalışma.',
+        points: ['Analog/RF veya sayısal sistemler', 'Uygulamalı deneysel çalışma', 'Bağımsız problem çözme'],
+      },
+      {
+        label: 'Lisans araştırması',
+        description: 'Lisans araştırma programları, bitirme projeleri ve laboratuvar tabanlı teknik geliştirme kapsamında odaklı projeler.',
+        points: ['Merak ve süreklilik', 'Yeni araçları öğrenme isteği', 'Projeye bağlılık'],
+      },
+    ],
+    beforeEyebrow: 'Yazmadan önce',
+    beforeTitle: 'İlk mesajınızı verimli kılın.',
+    beforeBody:
+      'Kısa ve net bir tanıtım, ilgi alanlarınızın laboratuvarın güncel çalışmalarıyla nerede kesiştiğini anlamamıza yardımcı olur.',
+    steps: [
+      ['Durumunuzu anlatın', 'Mevcut programınızı, kurumunuzu, tahmini mezuniyet tarihinizi ve düşündüğünüz araştırma yolunu belirtin.'],
+      ['Ortak noktayı belirtin', 'Tokgöz Lab’in sizi gerçekten ilgilendiren bir veya iki araştırma alanını ve nedenini yazın.'],
+      ['Temel belgeleri ekleyin', 'Özgeçmişinizi ve transkriptinizi ekleyin; portfolyo, makale veya proje bağlantısını yalnızca ilgiliyse ekleyin.'],
+      ['Somut olun', 'Devreler, RF, gömülü sistemler, FPGA, modelleme veya ölçüm konularındaki teknik deneyiminizi anlatın.'],
+    ],
+    graduateTitle: 'Lisansüstü programlar',
+    graduateBody: 'Başvuru koşulları, programlar ve üniversite bilgileri',
+    phdTitle: 'Güncel doktora projesi ilanları',
+    phdBody: 'Üniversitenin yayımladığı konuları ve kontenjanları inceleyin',
+  },
+  search: {
+    title: 'Arama',
+    description: 'Tokgöz Lab’in araştırma alanlarında, yayınlarında ve ekibinde arama yapın.',
+    heading: 'Laboratuvarın araştırmalarında arayın.',
+    intro: 'Bu sitedeki yayınlarda, araştırma konularında ve kişilerde arama yapın.',
+    siteSearch: 'Site içi arama',
+    noscript: 'Arama için JavaScript gereklidir.',
+    pagefind: {
+      placeholder: 'Yayın, konu veya kişi arayın…',
+      clear_search: 'Temizle',
+      load_more: 'Daha fazla sonuç yükle',
+      search_label: 'Bu sitede ara',
+      filters_label: 'Filtreler',
+      zero_results: '[SEARCH_TERM] için sonuç bulunamadı',
+      many_results: '[SEARCH_TERM] için [COUNT] sonuç bulundu',
+      one_result: '[SEARCH_TERM] için [COUNT] sonuç bulundu',
+      searching: '[SEARCH_TERM] aranıyor…',
+    },
+  },
+};
+
+export default tr;

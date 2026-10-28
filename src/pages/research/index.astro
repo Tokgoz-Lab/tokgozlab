@@ -3,9 +3,14 @@ import { getCollection } from 'astro:content';
 import { ArrowRight, BrainCircuit, Cpu, Gauge, Radio, Waves } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import { getI18n, localizePath } from '../../i18n';
+import { localizeEntry } from '../../i18n/content';
 
 const { locale, t } = getI18n(Astro);
-const researchAreas = (await getCollection('research')).sort((a, b) => a.data.order - b.data.order);
+const researchAreas = await Promise.all(
+  (await getCollection('research'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (area) => ({ id: area.id, ...(await localizeEntry(area, locale)) })),
+);
 const icons = [Waves, Radio, Cpu, BrainCircuit];
 const numbers = ['01', '02', '03', '04'];
 ---
@@ -38,7 +43,7 @@ const numbers = ['01', '02', '03', '04'];
               <div class="absolute -bottom-20 -right-16 h-44 w-44 rounded-full border border-on-dark-glow/20"></div>
               <div class="absolute -bottom-12 -right-10 h-32 w-32 rounded-full border border-on-dark-glow/30"></div>
             </div>
-            <div class="p-7 sm:p-9">
+            <div class="p-7 sm:p-9" lang={area.fallback ? 'en' : undefined}>
               <h2 class="text-2xl font-bold tracking-[-0.025em] text-ink transition group-hover:text-link-hover">{area.data.title}</h2>
               <p class="mt-4 max-w-3xl leading-7 text-body">{area.data.description}</p>
             </div>

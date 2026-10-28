@@ -4,7 +4,7 @@ import '../styles/global.css';
 import Header from '../components/Header.astro';
 import { ArrowUpRight, Mail, MapPin } from 'lucide-react';
 import { SITE, withBase } from '../config';
-import { getI18n, localizePath } from '../i18n';
+import { getI18n, LOCALES, localizePath, switchLocalePath } from '../i18n';
 import type { NavKey } from '../i18n/en';
 
 interface Props {
@@ -13,16 +13,33 @@ interface Props {
   image?: string;
   robots?: string;
   theme?: 'light' | 'dark';
+  // false when the other-language version must not be advertised to search
+  // engines (publication detail pages: the Turkish copy is noindex).
+  alternates?: boolean;
+  // Where the language switcher points; defaults to this page in the other language.
+  switchHref?: string;
 }
 
 const { locale, t } = getI18n(Astro);
-const { title, description = t.site.description, robots = 'index, follow', theme = 'light' } = Astro.props;
+const {
+  title,
+  description = t.site.description,
+  robots = 'index, follow',
+  theme = 'light',
+  alternates = true,
+  switchHref = switchLocalePath(Astro.url.pathname, locale === 'en' ? 'tr' : 'en'),
+} = Astro.props;
 // <meta name="theme-color"> needs literals: these are the `darker` and `canvas` tokens (docs/color-system.md).
 const chromeColor = theme === 'dark' ? '#031522' : '#ffffff';
 const pageTitle = title && title !== 'Home' ? `${title} · ${SITE.labName}` : `${SITE.labName} · ${t.site.university}`;
 const siteBase = Astro.site ?? new URL(Astro.url.origin);
 const canonicalUrl = new URL(Astro.url.pathname, siteBase);
 const homeLink = localizePath('/', locale);
+// Reciprocal hreflang set (both languages + x-default), only between indexable pages.
+const hreflangLinks =
+  alternates && !robots.includes('noindex')
+    ? LOCALES.map((code) => ({ code, href: new URL(switchLocalePath(Astro.url.pathname, code), siteBase).href }))
+    : [];
 const basePrefix = import.meta.env.BASE_URL;
 const baseNoSlash = basePrefix.replace(/\/$/, '');
 const pathWithoutBase = Astro.url.pathname.startsWith(basePrefix)
@@ -50,6 +67,7 @@ const organizationSchema = {
       url: siteBase.href,
       name: SITE.labName,
       alternateName: ['Tokgoz Lab', 'tokgozlab.com'],
+      inLanguage: [...LOCALES],
       publisher: { '@id': `${siteBase.href}#lab` },
     },
     {
@@ -110,11 +128,15 @@ const organizationSchema = {
     <link rel="icon" type="image/png" sizes="16x16" href={withBase('/favicon-16x16.png')} />
     <link rel="apple-touch-icon" href={withBase('/apple-touch-icon.png')} />
     <link rel="canonical" href={canonicalUrl} />
+    {hreflangLinks.map(({ code, href }) => <link rel="alternate" hreflang={code} href={href} />)}
+    {hreflangLinks.length > 0 && <link rel="alternate" hreflang="x-default" href={hreflangLinks[0].href} />}
     <title>{pageTitle}</title>
 
     <meta property="og:type" content="website" />
     <meta property="og:url" content={canonicalUrl} />
     <meta property="og:site_name" content={SITE.labName} />
+    <meta property="og:locale" content={locale === 'tr' ? 'tr_TR' : 'en_US'} />
+    {hreflangLinks.length > 0 && <meta property="og:locale:alternate" content={locale === 'tr' ? 'en_US' : 'tr_TR'} />}
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
@@ -151,7 +173,7 @@ const organizationSchema = {
     <slot name="head" />
   </head>
   <body class="min-h-screen">
-    <Header />
+    <Header switchHref={switchHref} />
     {/* Explicit bg, not inherited from body: the surface-sync script below
        recolors body/--page-chrome-bg once the footer nears the viewport
        center, which would otherwise show through any content section that

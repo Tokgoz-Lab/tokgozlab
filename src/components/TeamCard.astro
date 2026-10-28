@@ -2,6 +2,7 @@
 import { ArrowRight, ExternalLink, GraduationCap, Globe, Mail } from 'lucide-react';
 import type { CollectionEntry } from 'astro:content';
 import { getI18n, localizePath } from '../i18n';
+import { localizeEntry } from '../i18n/content';
 
 interface Props {
   member: CollectionEntry<'team'>;
@@ -9,7 +10,9 @@ interface Props {
 
 const { locale, t } = getI18n(Astro);
 const { member } = Astro.props;
-const { name, role, title, avatar, bio, email, website, personalWebsite, linkedin, github, twitter, googleScholar, orcid } = member.data;
+const { data, fallback } = await localizeEntry(member, locale);
+const { name, role, title, avatar, bio, email, website, personalWebsite, linkedin, github, twitter, googleScholar, orcid } = data;
+const contentLang = fallback ? 'en' : undefined;
 const slug = member.id.replace(/\.[^/.]+$/, '');
 const profileLink = localizePath(`/team/${slug}/`, locale);
 // The title line already states the position for these roles, so the eyebrow would repeat it.
@@ -25,8 +28,8 @@ const showRole = role === 'Principal Investigator' || role === 'Alumni';
     <a href={profileLink} class:list={['block', showRole && 'mt-2']}>
       <h3 class="text-xl font-bold tracking-[-0.02em] text-ink transition group-hover:text-link-hover">{name}</h3>
     </a>
-    {title?.[0] && <p class="mt-2 text-sm font-semibold text-muted">{title[0]}</p>}
-    {bio && <p class="mt-4 line-clamp-3 text-sm leading-6 text-body">{bio}</p>}
+    {title?.[0] && <p class="mt-2 text-sm font-semibold text-muted" lang={contentLang}>{title[0]}</p>}
+    {bio && <p class="mt-4 line-clamp-3 text-sm leading-6 text-body" lang={contentLang}>{bio}</p>}
 
     <div class="mt-6 flex flex-wrap items-center gap-2 border-t border-line-subtle pt-5">
       <a href={profileLink} class="mr-auto inline-flex items-center gap-1.5 text-sm font-bold text-brand-navy">
