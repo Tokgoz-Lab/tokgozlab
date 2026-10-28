@@ -2,6 +2,8 @@ import { getCollection } from 'astro:content';
 import satori from 'satori';
 import { Resvg } from '@resvg/resvg-js';
 import { SITE } from '../../config';
+import { getDictionary, type Locale } from '../../i18n';
+import { localizeEntry } from '../../i18n/content';
 import { readFile } from 'node:fs/promises';
 import { join } from 'node:path';
 
@@ -10,78 +12,91 @@ export async function getStaticPaths() {
   const team = await getCollection('team');
   const research = await getCollection('research');
   const news = await getCollection('news', ({ data }) => !data.draft);
-  
-  // Define static pages
-  const pages = [
-    { slug: 'index', title: SITE.labName, subtitle: SITE.description },
-    { slug: 'research', title: 'Research', subtitle: 'Across the hardware stack' },
-    { slug: 'projects', title: 'Projects', subtitle: 'Research programs in motion' },
-    { slug: 'team', title: 'People', subtitle: 'The people behind the circuits' },
-    { slug: 'publications', title: 'Publications', subtitle: 'Ideas tested in silicon and systems' },
-    { slug: 'news', title: 'News', subtitle: "What's happening in the lab" },
-    { slug: 'join', title: 'Opportunities', subtitle: 'Do ambitious hardware research with us' },
-  ];
 
-  // Generate paths for static pages
-  const staticPaths = pages.map(page => ({
-    params: { slug: page.slug },
-    props: { title: page.title, subtitle: page.subtitle },
-  }));
+  // Turkish cards live under tr/ and mirror the English ones, except for
+  // publications: their records (and so their cards) are English-only.
+  const cardsFor = async (locale: Locale) => {
+    const t = getDictionary(locale);
+    const prefix = locale === 'tr' ? 'tr/' : '';
 
-  // Generate paths for dynamic content
-  const pubPaths = publications.map(post => {
-    const slug = `publications/${post.id.replace(/\.[^/.]+$/, "")}`;
-    return {
-      params: { slug },
-      props: { 
-        title: post.data.title, 
-        subtitle: `${post.data.venue} ${post.data.year}` 
-      },
-    };
-  });
+    // Define static pages
+    const pages = [
+      { slug: 'index', title: SITE.labName, subtitle: t.site.description },
+      { slug: 'research', ...t.og.research },
+      { slug: 'projects', ...t.og.projects },
+      { slug: 'team', ...t.og.team },
+      { slug: 'publications', ...t.og.publications },
+      { slug: 'news', ...t.og.news },
+      { slug: 'join', ...t.og.join },
+    ];
 
-  const teamPaths = team.map(member => {
-    const slug = `team/${member.id.replace(/\.[^/.]+$/, "")}`;
-    return {
-      params: { slug },
-      props: { 
-        title: member.data.name, 
-        subtitle: member.data.role 
-      },
-    };
-  });
+    // Generate paths for static pages
+    const staticPaths = pages.map(page => ({
+      params: { slug: `${prefix}${page.slug}` },
+      props: { title: page.title, subtitle: page.subtitle },
+    }));
 
-  const researchPaths = research.map(item => {
-    const slug = `research/${item.id.replace(/\.[^/.]+$/, "")}`;
-    return {
-      params: { slug },
-      props: { 
-        title: item.data.title, 
-        subtitle: item.data.description 
-      },
-    };
-  });
+    // Generate paths for dynamic content
+    const pubPaths = locale !== 'en' ? [] : publications.map(post => {
+      const slug = `publications/${post.id.replace(/\.[^/.]+$/, "")}`;
+      return {
+        params: { slug },
+        props: {
+          title: post.data.title,
+          subtitle: `${post.data.venue} ${post.data.year}`
+        },
+      };
+    });
 
-  const newsPaths = news.map(post => ({
-    params: { slug: `news/${post.id}` },
-    props: { title: post.data.title, subtitle: post.data.summary },
-  }));
+    const teamPaths = team.map(member => {
+      const slug = `${prefix}team/${member.id.replace(/\.[^/.]+$/, "")}`;
+      return {
+        params: { slug },
+        props: {
+          title: member.data.name,
+          subtitle: t.roles[member.data.role].one
+        },
+      };
+    });
 
-  return [
-    ...staticPaths, 
-    ...pubPaths, 
-    ...teamPaths, 
-    ...researchPaths,
-    ...newsPaths
-  ];
+    const researchPaths = await Promise.all(research.map(async item => {
+      const slug = `${prefix}research/${item.id.replace(/\.[^/.]+$/, "")}`;
+      const { data } = await localizeEntry(item, locale);
+      return {
+        params: { slug },
+        props: {
+          title: data.title,
+          subtitle: data.description
+        },
+      };
+    }));
+
+    const newsPaths = await Promise.all(news.map(async post => {
+      const { data } = await localizeEntry(post, locale);
+      return {
+        params: { slug: `${prefix}news/${post.id}` },
+        props: { title: data.title, subtitle: data.summary },
+      };
+    }));
+
+    return [
+      ...staticPaths,
+      ...pubPaths,
+      ...teamPaths,
+      ...researchPaths,
+      ...newsPaths
+    ];
+  };
+
+  return [...(await cardsFor('en')), ...(await cardsFor('tr'))];
 }
 
 export async function GET({ params, props }: { params: any; props: any }) {
   const { title, subtitle } = props;
   const slug = params.slug || 'index';
-  
-  // Determine section for icon selection
-  const section = slug.split('/')[0];
+
+  // Determine section for icon selection (Turkish cards share the English icons)
+  const section = slug.replace(/^tr\//, '').split('/')[0];
 
   // Load local fonts
   const fontData = await readFile(join(process.cwd(), 'public/fonts/Inter-Bold.woff'));

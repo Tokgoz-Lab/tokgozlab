@@ -231,6 +231,23 @@ const en = {
     phdTitle: 'Current PhD project listings',
     phdBody: 'Check university-posted topics and availability',
   },
+  notFound: {
+    title: 'Page not found',
+    description: "The page you're looking for doesn't exist.",
+    eyebrow: 'Error 404',
+    heading: 'Signal lost.',
+    body: "The page you're looking for doesn't exist, or has moved.",
+    home: 'Back to home',
+  },
+  // Text drawn into the per-page Open Graph images (src/pages/og/[...slug].png.ts).
+  og: {
+    research: { title: 'Research', subtitle: 'Across the hardware stack' },
+    projects: { title: 'Projects', subtitle: 'Research programs in motion' },
+    team: { title: 'People', subtitle: 'The people behind the circuits' },
+    publications: { title: 'Publications', subtitle: 'Ideas tested in silicon and systems' },
+    news: { title: 'News', subtitle: "What's happening in the lab" },
+    join: { title: 'Opportunities', subtitle: 'Do ambitious hardware research with us' },
+  },
   search: {
     title: 'Search',
     description: 'Search Tokgöz Lab research areas, publications, and people.',

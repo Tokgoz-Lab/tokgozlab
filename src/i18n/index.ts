@@ -24,11 +24,13 @@ if (missing.length) throw new Error(`src/i18n/tr.ts is missing: ${missing.join('
 // BCP 47 tags for Intl date formatting.
 export const DATE_LOCALES: Record<Locale, string> = { en: 'en-US', tr: 'tr-TR' };
 
+export const getDictionary = (locale: Locale) => dictionaries[locale];
+
 // Astro derives currentLocale from the URL, so pages under /tr/ (including the
 // English page components they render) resolve to 'tr' and everything else to 'en'.
 export const getI18n = (astro: { currentLocale: string | undefined }) => {
   const locale: Locale = astro.currentLocale === 'tr' ? 'tr' : 'en';
-  return { locale, t: dictionaries[locale] };
+  return { locale, t: getDictionary(locale) };
 };
 
 // For page links only. Assets (logos, favicons, /og/, /pagefind/) keep using

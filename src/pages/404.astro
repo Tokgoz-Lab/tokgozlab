@@ -1,25 +1,49 @@
 ---
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
-import { withBase } from '../config';
+import { getDictionary, localizePath } from '../i18n';
+
+// GitHub Pages serves this one page for every unknown URL, /tr/ ones
+// included, so it speaks both languages.
+const en = getDictionary('en');
+const tr = getDictionary('tr');
 ---
 
-<Layout title="Page not found" description="The page you're looking for doesn't exist.">
+<Layout
+  title={en.notFound.title}
+  description={en.notFound.description}
+  alternates={false}
+  searchable={false}
+  switchHref={localizePath('/', 'tr')}
+>
   <section class="relative overflow-hidden bg-dark py-24 text-white sm:py-32">
     <div class="signal-grid absolute inset-0 opacity-40"></div>
     <div class="section-shell relative z-10 text-center">
-      <p class="font-mono text-sm font-bold uppercase tracking-[0.2em] text-on-dark-accent">Error 404</p>
-      <h1 class="mt-5 text-5xl font-bold tracking-[-0.05em] sm:text-7xl">Signal lost.</h1>
+      <p class="font-mono text-sm font-bold uppercase tracking-[0.2em] text-on-dark-accent">{en.notFound.eyebrow}</p>
+      <h1 class="mt-5 text-5xl font-bold tracking-[-0.05em] sm:text-7xl">{en.notFound.heading}</h1>
       <p class="mx-auto mt-6 max-w-xl text-lg leading-8 text-on-dark-body">
-        The page you're looking for doesn't exist, or has moved.
+        {en.notFound.body}
       </p>
       <div class="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
-        <a href={withBase('/')} class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-brand-navy transition hover:bg-brand-azure-tint-strong">
-          <ArrowLeft className="h-4 w-4" /> Back to home
+        <a href={localizePath('/', 'en')} class="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-sm font-bold text-brand-navy transition hover:bg-brand-azure-tint-strong">
+          <ArrowLeft className="h-4 w-4" /> {en.notFound.home}
         </a>
-        <a href={withBase('/research/')} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
-          Explore our research <ArrowRight className="h-4 w-4" />
+        <a href={localizePath('/research/', 'en')} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
+          {en.home.hero.primaryCta} <ArrowRight className="h-4 w-4" />
         </a>
+      </div>
+
+      <div class="mx-auto mt-14 max-w-xl border-t border-white/10 pt-10" lang="tr">
+        <p class="text-2xl font-bold tracking-[-0.03em]">{tr.notFound.heading}</p>
+        <p class="mt-3 leading-7 text-on-dark-body">{tr.notFound.body}</p>
+        <div class="mt-6 flex flex-col items-center justify-center gap-x-6 gap-y-3 sm:flex-row">
+          <a href={localizePath('/', 'tr')} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent transition hover:text-white">
+            <ArrowLeft className="h-4 w-4" /> {tr.notFound.home}
+          </a>
+          <a href={localizePath('/research/', 'tr')} class="inline-flex items-center gap-2 text-sm font-bold text-on-dark-accent transition hover:text-white">
+            {tr.home.hero.primaryCta} <ArrowRight className="h-4 w-4" />
+          </a>
+        </div>
       </div>
     </div>
   </section>

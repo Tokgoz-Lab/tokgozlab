@@ -11,7 +11,7 @@ const pagefindBase = withBase('/pagefind/');
 const translations = t.search.pagefind;
 ---
 
-<Layout title={t.search.title} description={t.search.description} robots="noindex, follow">
+<Layout title={t.search.title} description={t.search.description} robots="noindex, follow" searchable={false}>
   <header class="page-intro">
     <div class="section-shell relative z-10 py-16 sm:py-20">
       <span class="eyebrow">{t.search.title}</span>

@@ -1,62 +1,45 @@
 import fs from 'fs';
 import path from 'path';
 
-// Must match `site` in astro.config.mjs.
-const SITE_URL = 'https://tokgozlab.com';
-
+// Builds dist/sitemap.xml from the generated pages themselves: every
+// dist/**/index.html whose robots meta allows indexing is listed under its
+// canonical URL, with the hreflang alternates the page declares. Reading the
+// built HTML — instead of re-deriving routes from src/content — keeps the
+// sitemap in lockstep with Layout.astro: slugs (Astro lowercases them),
+// drafts, noindex pages (search, Turkish publication copies) and language
+// pairs all come out exactly as the pages state them, already percent-encoded.
 const DIST_DIR = path.join(process.cwd(), 'dist');
-const RESEARCH_DIR = path.join(process.cwd(), 'src', 'content', 'research');
-const TEAM_DIR = path.join(process.cwd(), 'src', 'content', 'team');
-const PUBLICATIONS_DIR = path.join(process.cwd(), 'src', 'content', 'publications');
-const NEWS_DIR = path.join(process.cwd(), 'src', 'content', 'news');
 
-// Astro's content-collection glob loader lowercases the filename to derive
-// each entry's `id` (e.g. "2016-Tokgöz-..." -> "2016-tokgöz-..."), so the
-// slug used here must match that or the sitemap links 404.
-const slugsIn = (dir) =>
-  fs
-    .readdirSync(dir)
-    .filter((file) => /\.mdx?$/.test(file))
-    .map((file) => file.replace(/\.mdx?$/, '').toLowerCase());
+const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1];
 
-// Mirrors the `type === 'paper'` filter in src/pages/publications/[...slug].astro
-// (schema defaults `type` to "paper" when the field is omitted).
-const paperSlugsIn = (dir) =>
-  fs
-    .readdirSync(dir)
-    .filter((file) => /\.mdx?$/.test(file))
-    .filter((file) => {
-      const match = fs.readFileSync(path.join(dir, file), 'utf8').match(/^type:\s*"?([\w-]+)"?/m);
-      return !match || match[1] === 'paper';
-    })
-    .map((file) => file.replace(/\.mdx?$/, '').toLowerCase());
+const entries = fs
+  .readdirSync(DIST_DIR, { recursive: true })
+  .filter((file) => path.basename(file) === 'index.html')
+  .flatMap((file) => {
+    const html = fs.readFileSync(path.join(DIST_DIR, file), 'utf8');
+    const tags = html.slice(0, html.indexOf('</head>')).match(/<(?:link|meta)\b[^>]*>/g) ?? [];
+    const robots = tags.find((tag) => attr(tag, 'name') === 'robots');
+    const canonical = tags.find((tag) => attr(tag, 'rel') === 'canonical');
+    if (!canonical || attr(robots ?? '', 'content')?.includes('noindex')) return [];
+    const alternates = tags
+      .filter((tag) => attr(tag, 'rel') === 'alternate' && attr(tag, 'hreflang'))
+      .map((tag) => ({ hreflang: attr(tag, 'hreflang'), href: attr(tag, 'href') }));
+    return [{ loc: attr(canonical, 'href'), alternates }];
+  })
+  .sort((a, b) => a.loc.localeCompare(b.loc));
 
-// Mirrors the `!data.draft` filter in src/data/news.ts.
-const publishedNewsSlugsIn = (dir) =>
-  fs
-    .readdirSync(dir)
-    .filter((file) => /\.mdx?$/.test(file))
-    .filter((file) => !/^draft:\s*true\s*$/m.test(fs.readFileSync(path.join(dir, file), 'utf8')))
-    .map((file) => file.replace(/\.mdx?$/, '').toLowerCase());
-
-// 'search' is deliberately excluded — it's noindex'd (see src/pages/search.astro)
-// and has no unique indexable content of its own.
-const staticRoutes = ['', 'research', 'projects', 'publications', 'team', 'news', 'join'];
-const researchRoutes = slugsIn(RESEARCH_DIR).map((slug) => `research/${slug}`);
-const teamRoutes = slugsIn(TEAM_DIR).map((slug) => `team/${slug}`);
-const publicationRoutes = paperSlugsIn(PUBLICATIONS_DIR).map((slug) => `publications/${slug}`);
-const newsRoutes = publishedNewsSlugsIn(NEWS_DIR).map((slug) => `news/${slug}`);
-
-const routes = [...staticRoutes, ...researchRoutes, ...teamRoutes, ...publicationRoutes, ...newsRoutes];
-
-// Every generated page is a directory route (e.g. `/team/index.html`), so its
-// canonical URL — and thus its sitemap entry — always carries a trailing
-// slash; omitting it here would point Google at a URL that just 301s.
-const urlEntries = routes
-  .map((route) => `  <url><loc>${SITE_URL}/${route ? `${route}/` : ''}</loc></url>`)
+const urlEntries = entries
+  .map(({ loc, alternates }) =>
+    [
+      `  <url>`,
+      `    <loc>${loc}</loc>`,
+      ...alternates.map(({ hreflang, href }) => `    <xhtml:link rel="alternate" hreflang="${hreflang}" href="${href}"/>`),
+      `  </url>`,
+    ].join('\n'),
+  )
   .join('\n');
 
-const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${urlEntries}\n</urlset>\n`;
+const sitemap = `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">\n${urlEntries}\n</urlset>\n`;
 
 fs.writeFileSync(path.join(DIST_DIR, 'sitemap.xml'), sitemap);
-console.log(`sitemap.xml written with ${routes.length} routes`);
+console.log(`sitemap.xml written with ${entries.length} URLs`);

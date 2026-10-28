@@ -18,6 +18,8 @@ interface Props {
   alternates?: boolean;
   // Where the language switcher points; defaults to this page in the other language.
   switchHref?: string;
+  // false keeps the page out of the Pagefind search index (search page, 404).
+  searchable?: boolean;
 }
 
 const { locale, t } = getI18n(Astro);
@@ -28,6 +30,7 @@ const {
   theme = 'light',
   alternates = true,
   switchHref = switchLocalePath(Astro.url.pathname, locale === 'en' ? 'tr' : 'en'),
+  searchable = true,
 } = Astro.props;
 // <meta name="theme-color"> needs literals: these are the `darker` and `canvas` tokens (docs/color-system.md).
 const chromeColor = theme === 'dark' ? '#031522' : '#ffffff';
@@ -47,12 +50,14 @@ const pathWithoutBase = Astro.url.pathname.startsWith(basePrefix)
   : Astro.url.pathname.startsWith(baseNoSlash)
     ? Astro.url.pathname.slice(baseNoSlash.length)
     : Astro.url.pathname.replace(/^\//, '');
-const currentPath = pathWithoutBase.replace(/^\/|\/$/g, '');
+const currentPath = pathWithoutBase.replace(/^\/|\/$/g, '').replace(/^tr(\/|$)/, '');
 const ogSlug = currentPath || 'index';
 const supportedTopLevel = ['index', 'research', 'projects', 'team', 'publications', 'news', 'join'];
 const topLevel = ogSlug.split('/')[0];
 const finalOgSlug = supportedTopLevel.includes(topLevel) ? ogSlug : 'index';
-const ogImage = new URL(withBase(`/og/${finalOgSlug}.png`), siteBase);
+// Turkish cards exist under /og/tr/ for everything except individual publications.
+const ogLocaleDir = locale === 'tr' && !finalOgSlug.startsWith('publications/') ? 'tr/' : '';
+const ogImage = new URL(withBase(`/og/${ogLocaleDir}${finalOgSlug}.png`), siteBase);
 
 const researchAreas = (await getCollection('research')).sort((a, b) => a.data.order - b.data.order);
 const knowsAbout = researchAreas.map((area) => area.data.title);
@@ -181,7 +186,7 @@ const organizationSchema = {
     <main
       id="main-content"
       class:list={['min-h-[60vh]', theme === 'dark' ? 'bg-darker' : 'bg-white']}
-      data-pagefind-body
+      data-pagefind-body={searchable ? '' : undefined}
     >
       <slot />
     </main>

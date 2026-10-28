@@ -251,6 +251,22 @@ const tr: Dictionary = {
     phdTitle: 'Güncel doktora projesi ilanları',
     phdBody: 'Üniversitenin yayımladığı konuları ve kontenjanları inceleyin',
   },
+  notFound: {
+    title: 'Sayfa bulunamadı',
+    description: 'Aradığınız sayfa mevcut değil.',
+    eyebrow: 'Hata 404',
+    heading: 'Sinyal kayboldu.',
+    body: 'Aradığınız sayfa mevcut değil ya da taşınmış.',
+    home: 'Ana sayfaya dön',
+  },
+  og: {
+    research: { title: 'Araştırma', subtitle: 'Donanımın tüm katmanlarında' },
+    projects: { title: 'Projeler', subtitle: 'Hız kesmeyen araştırma programları' },
+    team: { title: 'Ekip', subtitle: 'Devrelerin arkasındaki insanlar' },
+    publications: { title: 'Yayınlar', subtitle: 'Silisyumda ve sistemlerde sınanan fikirler' },
+    news: { title: 'Haberler', subtitle: 'Laboratuvarda neler oluyor?' },
+    join: { title: 'Fırsatlar', subtitle: 'İddialı donanım araştırmalarını bizimle yapın' },
+  },
   search: {
     title: 'Arama',
     description: 'Tokgöz Lab’in araştırma alanlarında, yayınlarında ve ekibinde arama yapın.',
