@@ -8,8 +8,8 @@ export type Dictionary = typeof en;
 
 const dictionaries: Record<Locale, Dictionary> = { en, tr };
 
-// The deploy workflow runs `astro build`, not `astro check`, so the Dictionary
-// type alone won't stop a missing Turkish string from shipping as blank text.
+// The Dictionary type only fails `astro check`; this also fails a plain
+// `astro build`, so a missing Turkish string can never ship as blank text.
 const missingKeys = (source: object, target: object, path = ''): string[] =>
   Object.entries(source).flatMap(([key, value]) =>
     !(key in target)

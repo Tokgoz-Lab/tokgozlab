@@ -360,7 +360,7 @@ Bunun gerçekleştiğini GitHub reposunun **Actions** sekmesinden izleyebilirsin
 - **Yeni bir yayın `/publications` sayfasında görünmüyor.** `type` alanının `"paper"` olduğunu doğrula (BibTeX'ten içe aktarılan girdiler, BibTeX türü `@book` olmadığı sürece bunu otomatik olarak varsayılan yapar).
 - **Bir haber görünmüyor.** Dosyada hâlâ `draft: true` yazmadığından ve `date` alanının `YYYY-MM-DD` şeklinde (örn. `2026-10-21`) yazıldığından emin ol.
 - **Bir fotoğraf bozuk görünüyor veya hiç görünmüyor.** Dosyanın gerçekten yazdığın yolda olduğunu (büyük/küçük harf duyarlı!) ve `public/` değil `src/assets/` altında olduğunu kontrol et.
-- **Build "`src/i18n/tr.ts is missing: …`" hatasıyla başarısız oldu.** `src/i18n/en.ts`'e Türkçe karşılığı olmayan bir metin eklenmiş; aynı adla `src/i18n/tr.ts`'e ekle.
+- **Build "`src/i18n/tr.ts is missing: …`" hatasıyla başarısız oldu** (GitHub'da: **Type-check** adımı `src/i18n/tr.ts`'i gösteren bir hatayla durur). `src/i18n/en.ts`'e Türkçe karşılığı olmayan bir metin eklenmiş; aynı adla `src/i18n/tr.ts`'e ekle.
 - **Değişikliğimi canlı sitede henüz göremiyorum.** GitHub'daki **Actions** sekmesini kontrol et — build bir-iki dakika sürer, ve başarısız olduysa hiçbir şey yayınlanmaz.
 
 ## Proje yapısı referansı

@@ -364,7 +364,7 @@ You can watch this happen under the **Actions** tab of the GitHub repository; a 
 - **A new publication doesn't appear on `/publications`.** Confirm its `type` is `"paper"` (BibTeX-imported entries default to this automatically unless the BibTeX entry type was `@book`).
 - **A news post doesn't show up.** Check that it doesn't still say `draft: true`, and that `date` is written as `YYYY-MM-DD` (e.g. `2026-10-21`).
 - **A photo looks broken or missing.** Check that the file actually exists at the path you wrote (case-sensitive!) and that it's under `src/assets/`, not `public/`.
-- **The build failed with "`src/i18n/tr.ts is missing: …`".** A text was added to `src/i18n/en.ts` without its Turkish counterpart; add it to `src/i18n/tr.ts` under the same name.
+- **The build failed with "`src/i18n/tr.ts is missing: …`"** (on GitHub: the **Type-check** step fails with an error pointing at `src/i18n/tr.ts`). A text was added to `src/i18n/en.ts` without its Turkish counterpart; add it to `src/i18n/tr.ts` under the same name.
 - **I don't see my change on the live site yet.** Check the **Actions** tab on GitHub — the build takes a minute or two, and if it failed, nothing gets published.
 
 ## Project structure reference
