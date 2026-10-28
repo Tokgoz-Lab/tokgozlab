@@ -18,7 +18,7 @@ import { localizeEntry } from '../i18n/content';
 import profileImage from '../assets/korkut-kaan-tokgoz.jpg';
 import tubitakLogo from '../assets/tubitak-logo.png';
 import turkishAerospaceLogo from '../assets/turkish-aerospace-logo.png';
-import { activeProjects, formatPeriod } from '../data/projects';
+import { activeProjects, formatPeriod, localizeProject } from '../data/projects';
 import { formatNewsDate, getPublishedNews } from '../data/news';
 
 const { locale, t } = getI18n(Astro);
@@ -51,7 +51,7 @@ const focusStyles = [
   'bg-success-tint text-success',
 ];
 
-const projects = activeProjects.slice(0, 3);
+const projects = activeProjects.slice(0, 3).map((project) => ({ ...project, ...localizeProject(project, locale) }));
 const latestNews = await Promise.all(
   (await getPublishedNews()).slice(0, 3).map(async (post) => ({ id: post.id, ...(await localizeEntry(post, locale)) })),
 );
@@ -197,7 +197,7 @@ const latestNews = await Promise.all(
           <article class="relative overflow-hidden rounded-2xl border border-line bg-white p-7 shadow-sm">
             <span class="absolute right-6 top-5 font-mono text-5xl font-bold text-line-subtle">0{index + 1}</span>
             <p class="relative text-xs font-bold uppercase tracking-[0.14em] text-link">{formatPeriod(project, locale)}</p>
-            <h3 class="relative mt-8 min-h-24 text-xl font-bold leading-snug text-ink">{project.title}</h3>
+            <h3 class="relative mt-8 min-h-24 text-xl font-bold leading-snug text-ink" lang={project.fallback ? 'en' : undefined}>{project.title}</h3>
             <p class="relative mt-5 border-t border-line-subtle pt-4 text-sm text-muted">{t.home.projects.typeLine(project.type)}</p>
           </article>
         ))}

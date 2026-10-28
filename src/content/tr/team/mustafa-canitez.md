@@ -1,0 +1,10 @@
+---
+title: ["Elektronik Mühendisliği Doktora Öğrencisi"]
+bio: "Ocak 2026’da Sabancı Üniversitesi’nde Elektronik Mühendisliği lisans derecesini Fizik yan dalıyla birlikte tamamladıktan hemen sonra doktora çalışmalarına başlamıştır. Araştırmalarında, imec ile iş birliği içinde, yeni nesil dijital devreler ve hesaplama mimarileri için sinyalleşme ve ara bağlantı yaklaşımlarını incelemektedir."
+---
+
+Mustafa Canıtez, Sabancı Üniversitesi’nde Elektronik Mühendisliği doktora öğrencisidir. Doktora araştırmasında CMOS 2.0 mimarileri için en uygun sinyalleşme ve ara bağlantı yaklaşımlarını incelemekte olup daha geniş ölçekte yeni nesil dijital devrelerde ve hesaplama sistemlerinde verimli haberleşmeyi mümkün kılmayı amaçlamaktadır. Çalışma, Prof. Korkut Tokgöz ve Prof. Yusuf Leblebici’nin ortak danışmanlığında, imec ile iş birliği içinde yürütülmektedir. Şu anda üç boyutlu (3D) entegrasyon için yüksek yoğunluklu dikey ara bağlantıların sinyal bütünlüğüne odaklanmakta, çip üstü ağ (network-on-chip) ve kablosuz ara bağlantı yaklaşımlarına da giderek artan bir ilgi duymaktadır.
+
+Ocak 2026’da Sabancı Üniversitesi’nden Fizik yan dalıyla birlikte Elektronik Mühendisliği lisans derecesini almış ve hemen ardından doktora çalışmalarına başlamıştır. Lisans öğrencisiyken Sabancı Üniversitesi’nde FPGA üzerinde özel hızlandırıcı tasarımı, mmWave entegre devreler ve kablosuz haberleşme sistemleri konularındaki araştırma projelerinde yer almıştır. Almanya’nın Frankfurt (Oder) kentindeki IHP – Leibniz Institute for High Performance Microelectronics bünyesinde Teknoloji Bölümü’nde staj yapmış ve burada IHP’nin SG13Cu teknolojisinde bir SPI arayüzü geliştirmiştir; Twente Üniversitesi’nde yaptığı stajda ise Prophesee’nin GenX320 nöromorfik sensörünü ve bir STM32F7 mikrodenetleyiciyi kullanarak uç yapay zekâ (Edge AI) uygulamaları üzerinde çalışmıştır.
+
+Lisans öğrenimi süresince SIAM Sabancı Öğrenci Kolu’nun başkanlığını yürütmüştür. Hem lisans hem de doktora öğrenimi boyunca MATH 203 (Olasılığa Giriş), CS 302 (Biçimsel Diller ve Otomata Teorisi) ve EE 308 (Mikrobilgisayar Tabanlı Sistem Tasarımı) derslerinde öğretim asistanlığı yapmıştır.

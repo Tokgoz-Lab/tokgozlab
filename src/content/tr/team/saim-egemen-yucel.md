@@ -1,0 +1,6 @@
+---
+title: ["Malzeme Bilimi ve Nanoteknoloji Yüksek Lisans"]
+bio: "Saim Egemen Yücel, Ankara Üniversitesi Fizik Mühendisliği bölümü mezunudur ve şu anda uç yapay zekâ (Edge AI) donanımı için kuantum malzemeler üzerine araştırmalar yürütmektedir. Çalışmaları, cihaz üzerinde daha verimli hesaplama için gelişmekte olan malzemelerin tasarımından üretimine uzanmaktadır."
+---
+
+Saim Egemen Yücel, Sabancı Üniversitesi’nde Malzeme Bilimi ve Nano Mühendislik alanında yüksek lisans öğrenimini sürdüren bir lisansüstü araştırmacıdır; Ankara Üniversitesi’nden Fizik Mühendisliği lisans derecesine sahiptir. Hesaplamalı modelleme ile uygulamalı laboratuvar çalışmasını bir araya getiren bir altyapıya sahiptir: iki boyutlu (2D) malzemelerin elektronik ve yapısal özelliklerini yoğunluk fonksiyonel teorisi (DFT) ile incelemiş, bunun yanı sıra temiz oda fabrikasyonu ve malzeme karakterizasyonu tekniklerinde uygulamalı deneyim kazanmıştır. Cihaz fiziği ve gelişmekte olan teknolojiler alanında akademik bir kariyer hedeflemekte olup araştırmaları şu anda uç yapay zekâ (Edge AI) donanımında uygulama potansiyeli taşıyan kuantum malzemelerin tasarımı ve deneysel olarak gerçekleştirilmesi üzerine yoğunlaşmaktadır.
