@@ -20,6 +20,7 @@ This README is written for anyone updating the site's content — including peop
 - [Posting news](#posting-news)
 - [Updating the Projects page](#updating-the-projects-page)
 - [Updating contact info, social links, and navigation](#updating-contact-info-social-links-and-navigation)
+- [Turkish version of the site](#turkish-version-of-the-site)
 - [Photo and image guidelines](#photo-and-image-guidelines)
 - [Local development](#local-development)
 - [Publishing your changes](#publishing-your-changes)
@@ -41,6 +42,8 @@ The things you'll actually edit day-to-day are plain text files:
 | News posts | `src/content/news/*.md` | Markdown file per post |
 | Active/completed projects | `src/data/projects.ts` | A short list in a code file |
 | Contact info, social links, navigation menu | `src/config.ts` | A short list of settings in a code file |
+| Turkish versions of team members, research areas, news | `src/content/tr/team/`, `src/content/tr/research/`, `src/content/tr/news/` | One Markdown file per item, named exactly like the English file |
+| Menu labels, buttons, and page text (English / Turkish) | `src/i18n/en.ts` / `src/i18n/tr.ts` | A list of texts in a code file |
 
 You never need to touch anything under `src/pages/`, `src/components/`, or `src/layouts/` to update content — those are the page templates that *display* the content above. Only edit them if you want to change how the site looks or behaves, not what it says.
 
@@ -106,7 +109,20 @@ Both options end the same way: once your change lands on the `main` branch, GitH
    - `website` is the person's official/institutional profile (e.g. a university faculty page) — shown as "University profile" on their profile page. `personalWebsite` is their own personal site — shown as "Website". Provide either, both, or neither.
    - Social fields (`email`, `website`, `personalWebsite`, `linkedin`, `github`, `twitter`, `googleScholar`) each render as a small icon button on the person's card/profile — only the ones you provide show up.
 
-5. Save the file, then [publish your change](#publishing-your-changes). The new person appears on `/team` automatically — no other file needs editing.
+5. **Add the Turkish version** (recommended). Create a file with the **same name** in `src/content/tr/team/`, e.g. `src/content/tr/team/jane-doe.md`, containing only the translated subtitle, short bio, and long biography — name, role, photo, and links always come from the English file:
+
+   ```markdown
+   ---
+   title: ["Elektronik Mühendisliği Doktora Öğrencisi"]
+   bio: "Ekip kartında görünen bir-iki cümlelik özet."
+   ---
+
+   Türkçe uzun biyografi buraya.
+   ```
+
+   Until this file exists, the person's Turkish page (`/tr/team/jane-doe/`) shows the English biography.
+
+6. Save the file(s), then [publish your change](#publishing-your-changes). The new person appears on `/team` and `/tr/team` automatically — no other file needs editing.
 
 **Removing someone** (e.g. an alumnus leaving active status): don't delete their file — change `role` to `"Alumni"` instead, so their profile page and history stay intact but they move to the Alumni group.
 
@@ -214,6 +230,8 @@ biography page.
 
 `order` controls where it appears among the other research areas (lower number = earlier); leave it out to default to last (100). The filename becomes the page address, e.g. `/research/new-research-direction`.
 
+**Turkish version:** create `src/content/tr/research/new-research-direction.md` (same file name) with the translated `title`, `description`, and body — no `order`, it comes from the English file.
+
 ## Posting news
 
 Each news post is one Markdown file in `src/content/news/`. Name it with the date first so posts stay in order in the folder, e.g. `src/content/news/2026-10-21-paper-accepted-at-rfic.md`:
@@ -241,30 +259,38 @@ You can also add more photos inside the text:
 - **Optional:** `image` (a cover photo you first add to `src/assets/`), `imageAlt` (a short description of that photo, for screen readers), `imageFit: "contain"` (for diagrams/figures: shows the whole image in thumbnails instead of cropping it to fill the frame), `link` + `linkText` (a button pointing to an external page, such as a university or conference announcement), and `draft: true`, which keeps the post off the live site until you remove it or set it to `false`.
 - The filename becomes the post's address, e.g. `/news/2026-10-21-paper-accepted-at-rfic`. Use lowercase letters, numbers, and hyphens only.
 - Posts are sorted newest first. The three latest also appear in a "Latest from the lab" section on the homepage. That section stays hidden until the first post exists.
+- **Turkish version:** create `src/content/tr/news/` + the same file name, with the translated `title`, `summary`, `imageAlt`/`linkText` (if the English post has them), and body. Date, image, and link come from the English post. Inside the Turkish text, start links to other pages of this site with `/tr/` (e.g. `/tr/team/jane-doe/`).
 
 ## Updating the Projects page
 
 Active and completed projects are **not** a content collection — they're a short list inside a code file: `src/data/projects.ts`. Open it and you'll see two lists:
 
 ```ts
-export const activeProjects = [
+export const activeProjects: ActiveProject[] = [
   {
-    period: 'Sep 2024 — Aug 2027',
+    start: '2024-09',       // year-month; shown as "Sep 2024" / "Eyl 2024"
+    end: '2027-08',
     title: 'Millimeter-Wave and Sub-Terahertz PLLs for Beyond-5G/6G Systems',
+    titleTr: '5G Ötesi/6G Sistemler için Milimetre Dalga ve Alt-Terahertz PLL’ler',
     type: 'National',       // or 'International'
     theme: 'Frequency synthesis',
+    themeTr: 'Frekans sentezi',
   },
   // ...more entries
 ];
 
-export const completedProjects = [
+export const completedProjects: Project[] = [
   {
-    period: '2022 — 2025',
+    start: '2022',          // a bare year works too
+    end: '2025',
     title: 'Critical Building Blocks for mmWave and sub-THz CMOS Front-End Transceivers...',
+    titleTr: '1 Tb/s Kablosuz Haberleşmeye Yönelik ... Kritik Yapı Taşları',
   },
   // ...more entries
 ];
 ```
+
+`titleTr` and `themeTr` are the Turkish texts shown on `/tr/projects/`; if you leave them out, the English text is shown there instead. Dates are written once (`start`/`end`) and displayed in each language automatically.
 
 To add a project: copy an existing `{ ... }` block (including the commas), paste it where you want it in the list, and edit the text inside the quotes. To remove one, delete its whole `{ ... }` block (and the comma after it, if it was the last one). Keep every value inside quotes (`'...'`) and don't remove any commas or curly braces — that will break the build.
 
@@ -277,10 +303,19 @@ General site-wide settings live in `src/config.ts`, inside the `SITE` object nea
 - `SITE.email` — the lab's contact email, used for the mailto links on the Opportunities page and footer.
 - `SITE.contact.phone`, `SITE.contact.address` — shown in the footer.
 - `SITE.profile.*` — the PI's official/personal/Scholar/ORCID/LinkedIn URLs, used across the homepage, team page, and structured data for search engines.
-- `SITE.nav` — the items in the header/footer navigation menu (text + link + a `key` used internally — don't change the `key` values, only `text` if you want to rename a menu item).
+- `SITE.nav` — the items in the header/footer navigation menu (text + link + a `key` used internally — don't change the `key` values, only `text` if you want to rename a menu item). The Turkish menu labels are under `nav` in `src/i18n/tr.ts`.
 - `SOCIALS` (further down the file) — the social icons shown around the site.
 
 These are plain values inside quotes — edit the text between the quotes and leave the surrounding structure (`{ }`, `,`, `:`) untouched.
+
+## Turkish version of the site
+
+Every page also exists in Turkish under `/tr/` with the same address (e.g. `/research/` → `/tr/research/`); the EN/TR switch in the header jumps between the two. What decides which Turkish text appears:
+
+- **Menu labels, buttons, headings, and the fixed text of each page**: `src/i18n/tr.ts` (the English originals are in `src/i18n/en.ts`). If you change a sentence in one language, change the other too. The build stops with "`src/i18n/tr.ts is missing: …`" if a Turkish text is missing — add it under the name shown.
+- **Team members, research areas, news**: the files in `src/content/tr/` described in the sections above. Anything not translated yet appears in English on the Turkish page.
+- **Projects**: `titleTr`/`themeTr` in `src/data/projects.ts`.
+- **Publications stay in English** (titles, authors, abstracts are the published records); only the labels around them are Turkish. This is deliberate, so Google Scholar keeps exactly one record per paper.
 
 ## Photo and image guidelines
 
@@ -329,6 +364,7 @@ You can watch this happen under the **Actions** tab of the GitHub repository; a 
 - **A new publication doesn't appear on `/publications`.** Confirm its `type` is `"paper"` (BibTeX-imported entries default to this automatically unless the BibTeX entry type was `@book`).
 - **A news post doesn't show up.** Check that it doesn't still say `draft: true`, and that `date` is written as `YYYY-MM-DD` (e.g. `2026-10-21`).
 - **A photo looks broken or missing.** Check that the file actually exists at the path you wrote (case-sensitive!) and that it's under `src/assets/`, not `public/`.
+- **The build failed with "`src/i18n/tr.ts is missing: …`".** A text was added to `src/i18n/en.ts` without its Turkish counterpart; add it to `src/i18n/tr.ts` under the same name.
 - **I don't see my change on the live site yet.** Check the **Actions** tab on GitHub — the build takes a minute or two, and if it failed, nothing gets published.
 
 ## Project structure reference
@@ -341,18 +377,21 @@ src/
   config.ts                    ← site-wide settings: contact info, social links, nav menu
   content.config.ts            ← the data "shape" (schema) for publications/team/research/news
   data/projects.ts             ← active & completed project lists
+  i18n/en.ts, i18n/tr.ts       ← English / Turkish menu labels, buttons and page text
   content/
     publications/*.md          ← generated from citations.bib — don't hand-edit, see above
     team/*.md                  ← one file per person
     research/*.md              ← one file per research area
     news/*.md                  ← one file per news post
+    tr/{team,research,news}/   ← Turkish versions, same file names as the English ones
   assets/                      ← optimized images (photos, covers) — reference these from content
-  pages/                       ← page templates (edit only to change layout/behavior, not content)
+  pages/                       ← page templates (edit only to change layout/behavior, not content);
+                                 pages/tr/ just reuses them for the Turkish pages
   components/, layouts/        ← reusable UI pieces
   styles/global.css            ← color tokens and global styles — see docs/color-system.md
 scripts/
   import-bibtex.js             ← turns citations.bib into src/content/publications/*.md
-  generate-sitemap.js          ← writes dist/sitemap.xml at build time
+  generate-sitemap.js          ← writes dist/sitemap.xml (both languages) from the built pages
 .github/workflows/pages.yml    ← builds and deploys to GitHub Pages on every push to main
 ```
 

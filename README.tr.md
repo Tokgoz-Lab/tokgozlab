@@ -20,6 +20,7 @@ Bu README, siteye içerik ekleyecek/güncelleyecek herkes için yazıldı — no
 - [Haber yayınlama](#haber-yayınlama)
 - [Projects sayfasını güncelleme](#projects-sayfasını-güncelleme)
 - [İletişim bilgisi, sosyal linkler ve navigasyonu güncelleme](#i̇letişim-bilgisi-sosyal-linkler-ve-navigasyonu-güncelleme)
+- [Sitenin Türkçe sürümü](#sitenin-türkçe-sürümü)
 - [Fotoğraf ve görsel kuralları](#fotoğraf-ve-görsel-kuralları)
 - [Yerel geliştirme](#yerel-geliştirme)
 - [Değişikliklerini yayınlama](#değişikliklerini-yayınlama)
@@ -41,6 +42,8 @@ Günlük olarak düzenleyeceğin şeyler düz metin dosyaları:
 | Haberler | `src/content/news/*.md` | Haber başına bir Markdown dosyası |
 | Devam eden/tamamlanan projeler | `src/data/projects.ts` | Bir kod dosyası içinde kısa bir liste |
 | İletişim bilgisi, sosyal linkler, navigasyon menüsü | `src/config.ts` | Bir kod dosyası içinde kısa bir ayar listesi |
+| Takım üyelerinin, araştırma alanlarının ve haberlerin Türkçeleri | `src/content/tr/team/`, `src/content/tr/research/`, `src/content/tr/news/` | Öğe başına bir Markdown dosyası, İngilizce dosyayla birebir aynı adla |
+| Menü adları, butonlar ve sayfa metinleri (İngilizce / Türkçe) | `src/i18n/en.ts` / `src/i18n/tr.ts` | Bir kod dosyası içinde metin listesi |
 
 Yukarıdaki içerikleri güncellemek için `src/pages/`, `src/components/` veya `src/layouts/` altındaki hiçbir şeye dokunmana gerek yok — onlar yukarıdaki içeriği *gösteren* sayfa şablonları. Onları sadece sitenin görünümünü/davranışını değiştirmek istiyorsan düzenle, ne yazdığını değil.
 
@@ -104,7 +107,20 @@ Her iki yöntem de aynı şekilde biter: değişikliğin `main` dalına ulaştı
    - `weight`, aynı rol grubu **içindeki** sıralamayı belirler — küçük sayı önce gelir. Boş bırakırsan varsayılan 100 olur (yani "en sona sırala"). PI'nin (`weight: 1`) Principal Investigator'lar arasında her zaman ilk sırada görünmesinin sebebi bu.
    - Sosyal alanlar (`email`, `website`, `linkedin`, `github`, `twitter`, `googleScholar`) kişinin kartında/profilinde küçük birer ikon buton olarak gösterilir — sadece doldurduğun olanlar görünür.
 
-5. Dosyayı kaydet, ardından [değişikliğini yayınla](#değişikliklerini-yayınlama). Yeni kişi `/team` sayfasında otomatik olarak görünür — başka hiçbir dosyayı düzenlemene gerek yok.
+5. **Türkçe sürümü ekle** (önerilir). `src/content/tr/team/` içinde **aynı adla** bir dosya oluştur, örn. `src/content/tr/team/jane-doe.md`. İçine sadece alt başlığın, kısa bio'nun ve uzun biyografinin Türkçesini yaz — ad, rol, fotoğraf ve linkler her zaman İngilizce dosyadan gelir:
+
+   ```markdown
+   ---
+   title: ["Elektronik Mühendisliği Doktora Öğrencisi"]
+   bio: "Ekip kartında görünen bir-iki cümlelik özet."
+   ---
+
+   Türkçe uzun biyografi buraya.
+   ```
+
+   Bu dosya eklenene kadar kişinin Türkçe sayfası (`/tr/team/jane-doe/`) İngilizce biyografiyi gösterir.
+
+6. Dosya(lar)ı kaydet, ardından [değişikliğini yayınla](#değişikliklerini-yayınlama). Yeni kişi `/team` ve `/tr/team` sayfalarında otomatik olarak görünür — başka hiçbir dosyayı düzenlemene gerek yok.
 
 **Birini kaldırma** (örn. aktiften ayrılan bir mezun): dosyasını silme — bunun yerine `role` alanını `"Alumni"` yap, böylece profil sayfası ve geçmişi korunur ama Alumni grubuna taşınır.
 
@@ -210,6 +226,8 @@ stille render edilir.
 
 `order`, bu alanın diğer araştırma alanları arasında nerede görüneceğini belirler (küçük sayı = önce); boş bırakılırsa varsayılan olarak en sona (100) gider. Dosya adı sayfanın adresi olur, örn. `/research/new-research-direction`.
 
+**Türkçe sürüm:** `src/content/tr/research/new-research-direction.md` (aynı dosya adı) oluştur; içine `title`, `description` ve gövdenin Türkçesini yaz — `order` yazma, İngilizce dosyadan gelir.
+
 ## Haber yayınlama
 
 Her haber, `src/content/news/` içinde bir Markdown dosyası. Klasörde sıralı dursun diye dosya adına tarihle başla, örn. `src/content/news/2026-10-21-paper-accepted-at-rfic.md`:
@@ -237,30 +255,38 @@ Metnin içine başka fotoğraflar da ekleyebilirsin:
 - **İsteğe bağlı:** `image` (önce `src/assets/` içine eklediğin bir kapak fotoğrafı), `imageAlt` (ekran okuyucular için fotoğrafın kısa açıklaması), `imageFit: "contain"` (diyagram/şekiller için: küçük önizlemelerde görseli kırpmak yerine tamamını gösterir), `link` + `linkText` (üniversite veya konferans duyurusu gibi harici bir sayfaya giden buton) ve `draft: true`. `draft: true` haberi, sen o satırı silene ya da `false` yapana kadar canlı sitede göstermez.
 - Dosya adı haberin adresi olur, örn. `/news/2026-10-21-paper-accepted-at-rfic`. Sadece küçük harf, rakam ve tire kullan.
 - Haberler en yeniden eskiye sıralanır. En son üç haber ana sayfadaki "Latest from the lab" bölümünde de görünür. Bu bölüm ilk haber eklenene kadar gizli kalır.
+- **Türkçe sürüm:** `src/content/tr/news/` içinde aynı dosya adıyla bir dosya oluştur; `title`, `summary`, (İngilizce haberde varsa) `imageAlt`/`linkText` ve gövdenin Türkçesini yaz. Tarih, görsel ve link İngilizce haberden gelir. Türkçe metindeki site içi linkleri `/tr/` ile başlat (örn. `/tr/team/jane-doe/`).
 
 ## Projects sayfasını güncelleme
 
 Devam eden ve tamamlanan projeler bir içerik koleksiyonu **değil** — bunlar bir kod dosyası içindeki kısa bir liste: `src/data/projects.ts`. Dosyayı açtığında iki liste görürsün:
 
 ```ts
-export const activeProjects = [
+export const activeProjects: ActiveProject[] = [
   {
-    period: 'Sep 2024 — Aug 2027',
+    start: '2024-09',       // yıl-ay; "Sep 2024" / "Eyl 2024" olarak gösterilir
+    end: '2027-08',
     title: 'Millimeter-Wave and Sub-Terahertz PLLs for Beyond-5G/6G Systems',
+    titleTr: '5G Ötesi/6G Sistemler için Milimetre Dalga ve Alt-Terahertz PLL’ler',
     type: 'National',       // ya da 'International'
     theme: 'Frequency synthesis',
+    themeTr: 'Frekans sentezi',
   },
   // ...daha fazla girdi
 ];
 
-export const completedProjects = [
+export const completedProjects: Project[] = [
   {
-    period: '2022 — 2025',
+    start: '2022',          // sadece yıl da yazılabilir
+    end: '2025',
     title: 'Critical Building Blocks for mmWave and sub-THz CMOS Front-End Transceivers...',
+    titleTr: '1 Tb/s Kablosuz Haberleşmeye Yönelik ... Kritik Yapı Taşları',
   },
   // ...daha fazla girdi
 ];
 ```
+
+`titleTr` ve `themeTr`, `/tr/projects/` sayfasında gösterilen Türkçe metinlerdir; yazmazsan orada İngilizcesi görünür. Tarihler bir kez (`start`/`end`) yazılır ve her dilde otomatik olarak doğru biçimde gösterilir.
 
 Proje eklemek için: mevcut bir `{ ... }` bloğunu (virgülüyle birlikte) kopyala, listede istediğin yere yapıştır ve tırnak içindeki metni düzenle. Kaldırmak için ilgili `{ ... }` bloğunun tamamını sil (eğer listenin son elemanıysa, ondan önceki virgülü de). Her değeri tırnak içinde (`'...'`) tut ve hiçbir virgülü veya süslü parantezi kaldırma — aksi halde build bozulur.
 
@@ -273,10 +299,19 @@ Site geneli ayarlar `src/config.ts` içinde, dosyanın başındaki `SITE` nesnes
 - `SITE.email` — laboratuvarın iletişim e-postası, Opportunities sayfasındaki ve footer'daki mailto linklerinde kullanılıyor.
 - `SITE.contact.phone`, `SITE.contact.address` — footer'da gösteriliyor.
 - `SITE.profile.*` — PI'nin resmi/kişisel/Scholar/ORCID/LinkedIn linkleri; ana sayfada, takım sayfasında ve arama motorları için yapılandırılmış veride kullanılıyor.
-- `SITE.nav` — header/footer navigasyon menüsündeki öğeler (metin + link + içeride kullanılan bir `key` — `key` değerlerini değiştirme, bir menü öğesini yeniden adlandırmak istiyorsan sadece `text`'i değiştir).
+- `SITE.nav` — header/footer navigasyon menüsündeki öğeler (metin + link + içeride kullanılan bir `key` — `key` değerlerini değiştirme, bir menü öğesini yeniden adlandırmak istiyorsan sadece `text`'i değiştir). Türkçe menü adları `src/i18n/tr.ts` içindeki `nav` altında.
 - `SOCIALS` (dosyada biraz daha aşağıda) — sitede gösterilen sosyal medya ikonları.
 
 Bunların hepsi tırnak içindeki düz değerler — tırnaklar arasındaki metni düzenle, çevresindeki yapıya (`{ }`, `,`, `:`) dokunma.
+
+## Sitenin Türkçe sürümü
+
+Her sayfanın `/tr/` altında aynı adresle bir Türkçesi var (örn. `/research/` → `/tr/research/`); header'daki EN/TR düğmesi ikisi arasında geçiş yapar. Hangi Türkçe metnin görüneceğini şunlar belirler:
+
+- **Menü adları, butonlar, başlıklar ve her sayfanın sabit metinleri**: `src/i18n/tr.ts` (İngilizce asılları `src/i18n/en.ts` içinde). Bir dilde bir cümleyi değiştirirsen diğerini de değiştir. Bir Türkçe metin eksikse build "`src/i18n/tr.ts is missing: …`" hatasıyla durur — gösterilen adla Türkçesini ekle.
+- **Takım üyeleri, araştırma alanları, haberler**: yukarıdaki bölümlerde anlatılan `src/content/tr/` dosyaları. Henüz çevrilmemiş içerik Türkçe sayfada İngilizce görünür.
+- **Projeler**: `src/data/projects.ts` içindeki `titleTr`/`themeTr`.
+- **Yayınlar İngilizce kalır** (başlıklar, yazarlar, özetler yayımlanmış kayıtlardır); sadece etrafındaki etiketler Türkçedir. Bu bilinçli bir tercih: Google Scholar her makale için tek bir kayıt görsün diye.
 
 ## Fotoğraf ve görsel kuralları
 
@@ -325,6 +360,7 @@ Bunun gerçekleştiğini GitHub reposunun **Actions** sekmesinden izleyebilirsin
 - **Yeni bir yayın `/publications` sayfasında görünmüyor.** `type` alanının `"paper"` olduğunu doğrula (BibTeX'ten içe aktarılan girdiler, BibTeX türü `@book` olmadığı sürece bunu otomatik olarak varsayılan yapar).
 - **Bir haber görünmüyor.** Dosyada hâlâ `draft: true` yazmadığından ve `date` alanının `YYYY-MM-DD` şeklinde (örn. `2026-10-21`) yazıldığından emin ol.
 - **Bir fotoğraf bozuk görünüyor veya hiç görünmüyor.** Dosyanın gerçekten yazdığın yolda olduğunu (büyük/küçük harf duyarlı!) ve `public/` değil `src/assets/` altında olduğunu kontrol et.
+- **Build "`src/i18n/tr.ts is missing: …`" hatasıyla başarısız oldu.** `src/i18n/en.ts`'e Türkçe karşılığı olmayan bir metin eklenmiş; aynı adla `src/i18n/tr.ts`'e ekle.
 - **Değişikliğimi canlı sitede henüz göremiyorum.** GitHub'daki **Actions** sekmesini kontrol et — build bir-iki dakika sürer, ve başarısız olduysa hiçbir şey yayınlanmaz.
 
 ## Proje yapısı referansı
@@ -337,18 +373,21 @@ src/
   config.ts                    ← site geneli ayarlar: iletişim bilgisi, sosyal linkler, nav menüsü
   content.config.ts            ← yayınlar/takım/araştırma/haberler için veri "şekli" (şema)
   data/projects.ts             ← devam eden ve tamamlanan proje listeleri
+  i18n/en.ts, i18n/tr.ts       ← İngilizce / Türkçe menü adları, butonlar ve sayfa metinleri
   content/
     publications/*.md          ← citations.bib'ten üretilir — elle düzenleme, yukarıya bak
     team/*.md                  ← kişi başına bir dosya
     research/*.md               ← araştırma alanı başına bir dosya
     news/*.md                  ← haber başına bir dosya
+    tr/{team,research,news}/   ← Türkçe sürümler, İngilizce dosyalarla aynı adlarla
   assets/                      ← optimize edilmiş görseller (fotoğraflar, kapaklar) — içerikten bunlara referans ver
-  pages/                       ← sayfa şablonları (sadece düzeni/davranışı değiştirmek için düzenle, içeriği değil)
+  pages/                       ← sayfa şablonları (sadece düzeni/davranışı değiştirmek için düzenle, içeriği değil);
+                                 pages/tr/ Türkçe sayfalar için aynı şablonları kullanır
   components/, layouts/        ← yeniden kullanılabilir arayüz parçaları
   styles/global.css            ← renk token'ları ve genel stiller — bkz. docs/color-system.md
 scripts/
   import-bibtex.js             ← citations.bib'i src/content/publications/*.md'ye dönüştürür
-  generate-sitemap.js          ← build sırasında dist/sitemap.xml'i yazar
+  generate-sitemap.js          ← derlenmiş sayfalardan dist/sitemap.xml'i (iki dil) yazar
 .github/workflows/pages.yml    ← main'e her push'ta GitHub Pages'e derler ve yayınlar
 ```
 
