@@ -5,6 +5,7 @@ year: 2025
 venue: "2025 Joint European Conference on Networks and Communications & 6G Summit (EuCNC/6G Summit)"
 type: "paper"
 kind: "conference"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

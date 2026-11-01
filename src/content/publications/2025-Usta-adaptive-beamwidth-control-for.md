@@ -5,6 +5,7 @@ year: 2025
 venue: "2025 IEEE 36th International Symposium on Personal, Indoor and Mobile Radio Communications (PIMRC)"
 type: "paper"
 kind: "conference"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

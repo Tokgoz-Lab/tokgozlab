@@ -5,6 +5,7 @@ year: 2026
 venue: "arXiv preprint arXiv:2603.21384"
 type: "paper"
 kind: "preprint"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: "https://arxiv.org/pdf/2603.21384"
   code: ""

@@ -5,6 +5,7 @@ year: 2020
 venue: "2020 IEEE International Symposium on Radio-Frequency Integration Technology (RFIT)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

@@ -5,6 +5,7 @@ year: 2020
 venue: "2020 IEEE/MTT-S International Microwave Symposium (IMS)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

@@ -5,6 +5,7 @@ year: 2026
 venue: "IEEE Open Journal of the Communications Society"
 type: "paper"
 kind: "journal"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: "https://arxiv.org/pdf/2604.16020"
   code: ""

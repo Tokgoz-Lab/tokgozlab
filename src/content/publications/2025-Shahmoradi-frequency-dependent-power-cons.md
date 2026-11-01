@@ -5,6 +5,7 @@ year: 2025
 venue: "2025 55th European Microwave Conference (EuMC)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

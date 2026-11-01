@@ -5,9 +5,10 @@ import Layout from '../layouts/Layout.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import { SITE } from '../config';
 import { getI18n } from '../i18n';
+import { localizeEntry } from '../i18n/content';
 import { PUBLICATION_KINDS, publicationKind } from '../data/publications';
 
-const { t } = getI18n(Astro);
+const { locale, t } = getI18n(Astro);
 // Titles are English records on every locale, so collate them the same way everywhere.
 const allPapers = (await getCollection('publications'))
   .filter((paper) => paper.data.type === 'paper')
@@ -24,6 +25,15 @@ const yearCounts = (year: number) => {
     ]),
   );
 };
+const areas = await Promise.all(
+  (await getCollection('research'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (area) => ({
+      id: area.id,
+      title: (await localizeEntry(area, locale)).data.title,
+      count: allPapers.filter((paper) => paper.data.areas.some((ref) => ref.id === area.id)).length,
+    })),
+);
 const filterClass =
   'w-fit rounded-full border border-line px-3 py-1.5 text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover aria-pressed:border-brand-navy aria-pressed:bg-brand-navy aria-pressed:text-white';
 ---
@@ -50,8 +60,17 @@ const filterClass =
   </header>
 
   <section class="py-16 sm:py-24">
-    <div class="section-shell grid gap-10 lg:grid-cols-[11rem_1fr] lg:gap-14">
+    <div class="section-shell grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-14">
       <aside class="h-fit lg:sticky lg:top-28">
+        <label for="publication-search" class="text-sm font-bold text-ink">{t.publications.search}</label>
+        <input id="publication-search" type="search" data-search-input placeholder={t.publications.searchPlaceholder} autocomplete="off" class="mt-3 mb-8 w-full rounded-full border border-line-strong bg-white px-4 py-2 text-sm text-ink placeholder:text-muted focus:border-brand-azure focus:outline-none focus:ring-2 focus:ring-brand-azure/30" />
+        <div class="text-sm font-bold text-ink">{t.publications.filterByArea}</div>
+        <div class="mt-4 mb-8 flex flex-wrap gap-2 lg:flex-col" role="group" aria-label={t.publications.filterByArea}>
+          <button type="button" data-area="all" aria-pressed="true" class={filterClass}>{t.publications.all}</button>
+          {areas.map((area) => (
+            <button type="button" data-area={area.id} aria-pressed="false" class:list={[filterClass, 'text-left']}>{area.title} ({area.count})</button>
+          ))}
+        </div>
         <div class="text-sm font-bold text-ink">{t.publications.filterByType}</div>
         <div class="mt-4 mb-8 flex flex-wrap gap-2 lg:flex-col" role="group" aria-label={t.publications.filterByType}>
           <button type="button" data-filter="all" aria-pressed="true" class={filterClass}>{t.publications.all} ({allPapers.length})</button>
@@ -73,7 +92,7 @@ const filterClass =
 
       <div class="space-y-16">
         {years.map((year) => (
-          <section id={`year-${year}`} data-year={year} data-counts={yearCounts(year)} class="scroll-mt-28">
+          <section id={`year-${year}`} data-year={year} data-counts={yearCounts(year)} data-count-one={t.publications.count(1)} data-count-many={t.publications.count(999).replace('999', '{n}')} class="scroll-mt-28">
             <div class="mb-6 flex items-end gap-4 border-b border-line pb-4">
               <h2 class="font-mono text-3xl font-bold text-brand-navy">{year}</h2>
               <span data-count class="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-muted">
@@ -86,6 +105,11 @@ const filterClass =
           </section>
         ))}
 
+        <div data-no-results hidden class="rounded-2xl border border-dashed border-line-strong bg-subtle p-10 text-center text-muted">
+          <p>{t.publications.noResults}</p>
+          <button type="button" data-clear class="mt-4 text-sm font-bold text-link hover:underline">{t.publications.clearFilters}</button>
+        </div>
+
         {allPapers.length === 0 && (
           <div class="rounded-2xl border border-dashed border-line-strong bg-subtle p-10 text-center text-muted">{t.publications.empty}</div>
         )}
@@ -94,31 +118,60 @@ const filterClass =
   </section>
 
   <script is:inline>
-    // Type filter. Without JavaScript every publication stays visible.
+    // Search, research-area and type filters. Without JavaScript every publication stays visible.
+    // ?q=, ?area= and ?type= links restore a filtered view.
     (() => {
-      const buttons = document.querySelectorAll('[data-filter]');
-      const apply = (filter) => {
-        buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
+      const state = { q: '', area: 'all', type: 'all' };
+      const typeButtons = document.querySelectorAll('[data-filter]');
+      const areaButtons = document.querySelectorAll('[data-area]');
+      const input = document.querySelector('[data-search-input]');
+      const empty = document.querySelector('[data-no-results]');
+      const normalize = (text) => text.normalize('NFC').toLocaleLowerCase('tr').trim();
+      const apply = () => {
+        typeButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === state.type)));
+        areaButtons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.area === state.area)));
+        const terms = normalize(state.q).split(/\s+/).filter(Boolean);
+        let total = 0;
         document.querySelectorAll('[data-year]').forEach((section) => {
           let visible = 0;
           section.querySelectorAll('[data-kind]').forEach((item) => {
-            const show = filter === 'all' || item.dataset.kind === filter;
+            const show =
+              (state.type === 'all' || item.dataset.kind === state.type) &&
+              (state.area === 'all' || item.dataset.areas.split(' ').includes(state.area)) &&
+              terms.every((term) => item.dataset.search.includes(term));
             item.hidden = !show;
             if (show) visible += 1;
           });
+          total += visible;
           section.hidden = visible === 0;
-          section.querySelector('[data-count]').textContent = JSON.parse(section.dataset.counts)[filter];
+          const counts = JSON.parse(section.dataset.counts);
+          const filtered = state.area === 'all' && !terms.length;
+          section.querySelector('[data-count]').textContent = filtered ? counts[state.type] : (visible === 1 ? section.dataset.countOne : section.dataset.countMany.replace('{n}', visible));
           const link = document.querySelector(`[data-year-link="${section.dataset.year}"]`);
           if (link) link.hidden = visible === 0;
         });
+        empty.hidden = total > 0;
         const url = new URL(location.href);
-        if (filter === 'all') url.searchParams.delete('type');
-        else url.searchParams.set('type', filter);
+        for (const key of ['q', 'area', 'type']) {
+          const value = key === 'q' ? state.q.trim() : state[key];
+          if (!value || value === 'all') url.searchParams.delete(key);
+          else url.searchParams.set(key, value);
+        }
         history.replaceState(null, '', url);
       };
-      buttons.forEach((button) => button.addEventListener('click', () => apply(button.dataset.filter)));
-      const initial = new URLSearchParams(location.search).get('type');
-      if (initial && document.querySelector(`[data-filter="${initial}"]`)) apply(initial);
+      typeButtons.forEach((button) => button.addEventListener('click', () => { state.type = button.dataset.filter; apply(); }));
+      areaButtons.forEach((button) => button.addEventListener('click', () => { state.area = button.dataset.area; apply(); }));
+      input.addEventListener('input', () => { state.q = input.value; apply(); });
+      document.querySelector('[data-clear]').addEventListener('click', () => {
+        Object.assign(state, { q: '', area: 'all', type: 'all' });
+        input.value = '';
+        apply();
+      });
+      const params = new URLSearchParams(location.search);
+      if (document.querySelector(`[data-filter="${params.get('type')}"]`)) state.type = params.get('type');
+      if (document.querySelector(`[data-area="${params.get('area')}"]`)) state.area = params.get('area');
+      if (params.get('q')) input.value = state.q = params.get('q');
+      if (state.type !== 'all' || state.area !== 'all' || state.q) apply();
     })();
   </script>
 </Layout>

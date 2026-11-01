@@ -5,6 +5,7 @@ year: 2025
 venue: "2025 IEEE-APS Topical Conference on Antennas and Propagation in Wireless Communications (APWC)"
 type: "paper"
 kind: "conference"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

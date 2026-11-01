@@ -63,6 +63,7 @@ export const SITE = {
     { text: 'Publications', link: '/publications/', key: 'publications' },
     { text: 'People', link: '/team/', key: 'team' },
     { text: 'News', link: '/news/', key: 'news' },
+    { text: 'Collaborate', link: '/collaborate/', key: 'collaborate' },
     { text: 'Opportunities', link: '/join/', key: 'join' },
     { text: 'Search', link: '/search/', key: 'search' },
   ],

@@ -5,6 +5,7 @@ year: 2025
 venue: "2025 Asia-Pacific Microwave Conference (APMC)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

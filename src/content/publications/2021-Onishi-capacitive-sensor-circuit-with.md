@@ -5,6 +5,7 @@ year: 2021
 venue: "Proceedings of the 26th Asia and South Pacific Design Automation Conference"
 type: "paper"
 kind: "conference"
+areas: ["sensors-edge-ai-iot"]
 links:
   pdf: ""
   code: ""

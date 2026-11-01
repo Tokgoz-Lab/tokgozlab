@@ -5,6 +5,7 @@ year: 2021
 venue: "2021 13th International Conference on Electrical and Electronics Engineering (ELECO)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

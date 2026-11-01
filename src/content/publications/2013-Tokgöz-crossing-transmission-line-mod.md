@@ -5,6 +5,7 @@ year: 2013
 venue: "Extended Abstracts of the 2013 International Conference on Solid State Devices and Materials"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

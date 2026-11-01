@@ -35,7 +35,7 @@ const activeLinks = links ? Object.entries(links).filter(([, url]) => Boolean(ur
 const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
 ---
 
-<article data-kind={kind} class="group grid gap-5 rounded-2xl border border-line bg-white p-6 transition hover:border-brand-azure/40 hover:shadow-[0_18px_45px_-32px_color-mix(in_srgb,var(--color-brand-navy)_45%,transparent)] sm:p-7 md:grid-cols-[6rem_1fr]">
+<article data-kind={kind} data-areas={entry.data.areas.map((ref) => ref.id).join(' ')} data-search={[title, ...authors, venue, doi ?? ''].join(' ').normalize('NFC').toLocaleLowerCase('tr')} class="group grid gap-5 rounded-2xl border border-line bg-white p-6 transition hover:border-brand-azure/40 hover:shadow-[0_18px_45px_-32px_color-mix(in_srgb,var(--color-brand-navy)_45%,transparent)] sm:p-7 md:grid-cols-[6rem_1fr]">
   <div class="flex items-center gap-2 md:flex-col md:items-start">
     <span class="inline-flex rounded-lg bg-brand-azure-tint px-3 py-2 font-mono text-sm font-bold text-brand-navy">{year}</span>
     <span class:list={['inline-flex rounded-full px-2.5 py-1 text-[11px] font-bold', kindClass]}>{t.publications.kinds[kind]}</span>

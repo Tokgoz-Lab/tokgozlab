@@ -5,6 +5,7 @@ year: 2017
 venue: "2017 IEEE 12th International Conference on ASIC (ASICON)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

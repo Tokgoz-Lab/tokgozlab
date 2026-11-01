@@ -5,6 +5,7 @@ year: 2026
 venue: "IEEE Transactions on Circuits and Systems I: Regular Papers"
 type: "paper"
 kind: "journal"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

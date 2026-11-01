@@ -1,4 +1,4 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection, reference, z } from 'astro:content';
 import { glob } from 'astro/loaders';
 
 const publications = defineCollection({
@@ -11,6 +11,8 @@ const publications = defineCollection({
     type: z.enum(['paper', 'book', 'patent', 'software']).default('paper'),
     // Set by import-bibtex.js from the BibTeX entry type; see publicationKind() for hand-written files.
     kind: z.enum(['journal', 'conference', 'preprint']).optional(),
+    // Research areas this paper belongs to (ids of src/content/research/*.md); a typo fails the build.
+    areas: z.array(reference('research')).default([]),
     description: z.string().optional(),
     doi: z.string().optional(),
     award: z.string().optional(),
@@ -81,6 +83,8 @@ const news = defineCollection({
       title: z.string(),
       date: z.coerce.date(),
       summary: z.string(),
+      // Shown as a label on the news list and article (names in src/i18n/*.ts news.categories).
+      category: z.enum(['publication', 'research', 'conference', 'project', 'lab']).default('lab'),
       image: image().optional(),
       imageAlt: z.string().optional(),
       imageFit: z.enum(['cover', 'contain']).default('cover'),

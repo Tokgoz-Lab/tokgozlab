@@ -5,6 +5,7 @@ year: 2021
 venue: "2021 IEEE International Symposium on Circuits and Systems (ISCAS)"
 type: "paper"
 kind: "conference"
+areas: ["sensors-edge-ai-iot"]
 links:
   pdf: ""
   code: ""

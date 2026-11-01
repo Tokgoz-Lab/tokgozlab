@@ -5,6 +5,7 @@ year: 2026
 venue: "2026 IEEE International Symposium on Circuits and Systems (ISCAS)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

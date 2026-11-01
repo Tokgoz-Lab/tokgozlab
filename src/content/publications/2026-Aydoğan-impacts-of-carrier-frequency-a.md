@@ -5,6 +5,7 @@ year: 2026
 venue: "2026 IEEE 37th International Symposium on Personal, Indoor and Mobile Radio Communications (PIMRC)"
 type: "paper"
 kind: "conference"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

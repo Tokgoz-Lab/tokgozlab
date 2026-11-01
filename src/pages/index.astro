@@ -93,8 +93,11 @@ const latestNews = await Promise.all(
           <a href={localizePath('/research/', locale)} class="inline-flex items-center justify-center gap-2 rounded-full border border-brand-azure/25 bg-brand-azure-tint/90 px-6 py-3.5 text-sm font-bold text-brand-navy shadow-[0_22px_45px_-28px_color-mix(in_srgb,var(--color-brand-navy)_55%,transparent)] backdrop-blur-sm transition hover:border-brand-azure/40 hover:bg-white">
             {t.home.hero.primaryCta} <ArrowRight className="h-4 w-4" />
           </a>
-          <a href={localizePath('/join/', locale)} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
+          <a href={localizePath('/collaborate/', locale)} class="inline-flex items-center justify-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white backdrop-blur-sm transition hover:bg-white/10">
             {t.home.hero.secondaryCta} <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <a href={localizePath('/publications/', locale)} class="inline-flex items-center justify-center gap-2 rounded-full px-4 py-3.5 text-sm font-bold text-on-dark-accent transition hover:text-white">
+            {t.home.hero.tertiaryCta} <ArrowRight className="h-4 w-4" />
           </a>
         </div>
       </div>
@@ -307,6 +310,26 @@ const latestNews = await Promise.all(
             <GraduationCap className="h-4 w-4" /> {t.common.googleScholar}
           </a>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <section data-surface="light" class="border-t border-line bg-subtle py-20 sm:py-24" aria-labelledby="home-collaborate">
+    <div class="section-shell grid gap-10 lg:grid-cols-[1.2fr_0.8fr] lg:items-center lg:gap-16">
+      <div>
+        <span class="eyebrow">{t.home.collaborate.eyebrow}</span>
+        <h2 id="home-collaborate" class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink sm:text-5xl">{t.home.collaborate.title}</h2>
+        <p class="mt-5 max-w-2xl text-lg leading-8 text-body">{t.home.collaborate.body}</p>
+      </div>
+      <div class="rounded-3xl border border-line bg-white p-7">
+        <ul class="space-y-3 text-sm leading-6 text-body">
+          {t.home.collaborate.points.map((point) => (
+            <li class="flex gap-2.5"><ArrowRight className="mt-1 h-4 w-4 shrink-0 text-link" /> {point}</li>
+          ))}
+        </ul>
+        <a href={localizePath('/collaborate/', locale)} class="mt-7 inline-flex items-center gap-2 rounded-full bg-brand-navy px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-navy-hover">
+          {t.home.collaborate.cta} <ArrowUpRight className="h-4 w-4" />
+        </a>
       </div>
     </div>
   </section>

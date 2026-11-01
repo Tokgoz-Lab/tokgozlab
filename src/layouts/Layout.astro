@@ -52,7 +52,7 @@ const pathWithoutBase = Astro.url.pathname.startsWith(basePrefix)
     : Astro.url.pathname.replace(/^\//, '');
 const currentPath = pathWithoutBase.replace(/^\/|\/$/g, '').replace(/^tr(\/|$)/, '');
 const ogSlug = currentPath || 'index';
-const supportedTopLevel = ['index', 'research', 'projects', 'team', 'publications', 'news', 'join'];
+const supportedTopLevel = ['index', 'research', 'projects', 'team', 'publications', 'news', 'join', 'collaborate'];
 const topLevel = ogSlug.split('/')[0];
 const finalOgSlug = supportedTopLevel.includes(topLevel) ? ogSlug : 'index';
 // Turkish cards exist under /og/tr/ for everything except individual publications.

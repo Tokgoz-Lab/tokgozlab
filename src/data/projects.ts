@@ -1,17 +1,25 @@
 import { DATE_LOCALES, type Locale } from '../i18n';
 import type { ProjectType } from '../i18n/en';
 
+const IC = 'mmwave-sub-terahertz-integrated-circuits';
+const WIRELESS = 'energy-efficient-6g-wireless-systems';
+const EDGE = 'sensors-edge-ai-iot';
+const MODELING = 'ai-assisted-semiconductor-modeling';
+export type ResearchAreaId = typeof IC | typeof WIRELESS | typeof EDGE | typeof MODELING;
+
 // `start`/`end` are 'YYYY-MM' (rendered per language, e.g. "Sep 2024" / "Eyl 2024")
 // or a bare 'YYYY'. `titleTr`/`themeTr` are the Turkish versions; if one is
 // missing the English text is shown on /tr/ pages.
-interface Project {
+// `areas` are research-area ids (src/content/research/<id>.md) the project feeds into.
+export interface Project {
   start: string;
   end: string;
   title: string;
   titleTr?: string;
+  areas: ResearchAreaId[];
 }
 
-interface ActiveProject extends Project {
+export interface ActiveProject extends Project {
   type: ProjectType;
   theme: string;
   themeTr?: string;
@@ -22,6 +30,7 @@ export const activeProjects: ActiveProject[] = [
     start: '2024-09',
     end: '2027-08',
     title: 'Millimeter-Wave and Sub-Terahertz PLLs for Beyond-5G/6G Systems',
+    areas: [IC, WIRELESS],
     titleTr: '5G Ötesi/6G Sistemler için Milimetre Dalga ve Alt-Terahertz PLL’ler',
     type: 'National',
     theme: 'Frequency synthesis',
@@ -31,6 +40,7 @@ export const activeProjects: ActiveProject[] = [
     start: '2026-01',
     end: '2029-12',
     title: 'Investigation of Signaling Methods Within CMOS 2.0 Architectures',
+    areas: [IC],
     titleTr: 'CMOS 2.0 Mimarilerinde Sinyalleşme Yöntemlerinin İncelenmesi',
     type: 'International',
     theme: 'Emerging architectures',
@@ -40,6 +50,7 @@ export const activeProjects: ActiveProject[] = [
     start: '2026-06',
     end: '2028-02',
     title: 'MİTHAT: Development of Millimeter/Terahertz Communication Technologies',
+    areas: [WIRELESS, IC],
     titleTr: 'MİTHAT: Milimetre/Terahertz Haberleşme Teknolojilerinin Geliştirilmesi',
     type: 'National',
     theme: 'Future communications',
@@ -49,6 +60,7 @@ export const activeProjects: ActiveProject[] = [
     start: '2026-03',
     end: '2028-03',
     title: 'Ultra-High-Speed Wired OFDM Chip-to-Chip Links for Data Centers',
+    areas: [IC],
     titleTr: 'Veri Merkezleri için Ultra Yüksek Hızlı Kablolu OFDM Çipten Çipe Bağlantılar',
     type: 'National',
     theme: 'Wireline systems',
@@ -58,6 +70,7 @@ export const activeProjects: ActiveProject[] = [
     start: '2026-01',
     end: '2027-07',
     title: 'Real-Time FPGA Implementation of RNN/GRU/LSTM Models for Li-Ion Battery Remaining-Life Estimation',
+    areas: [EDGE],
     titleTr: 'Li-İyon Bataryalarda Kalan Ömür Tahmini için RNN/GRU/LSTM Modellerinin Gerçek Zamanlı FPGA Uygulaması',
     type: 'National',
     theme: 'Edge AI hardware',
@@ -70,18 +83,21 @@ export const completedProjects: Project[] = [
     start: '2022',
     end: '2025',
     title: 'Critical Building Blocks for mmWave and sub-THz CMOS Front-End Transceivers Toward 1 Tb/s Wireless Communications',
+    areas: [IC, WIRELESS],
     titleTr: '1 Tb/s Kablosuz Haberleşmeye Yönelik Milimetre Dalga ve Alt-THz CMOS Ön Uç Alıcı-Vericiler için Kritik Yapı Taşları',
   },
   {
     start: '2022',
     end: '2024',
     title: 'ENSPEC6G: Energy- and Spectrally-Efficient sub-THz Transmitter Array Toward Indoor 6G Infrastructure',
+    areas: [WIRELESS, IC],
     titleTr: 'ENSPEC6G: İç Mekân 6G Altyapısına Yönelik Enerji ve Spektrum Verimli Alt-THz Verici Dizisi',
   },
   {
     start: '2023',
     end: '2025',
     title: 'Frequency-Tripler-Last Transmitter for Ultra-High-Data-Rate Wireless Communications',
+    areas: [IC, WIRELESS],
     titleTr: 'Ultra Yüksek Veri Hızlı Kablosuz Haberleşme için Son Katı Frekans Üçleyici Olan Verici',
   },
 ];

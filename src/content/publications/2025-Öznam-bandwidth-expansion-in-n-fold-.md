@@ -5,6 +5,7 @@ year: 2025
 venue: "IEEE Communications Letters"
 type: "paper"
 kind: "journal"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

@@ -5,6 +5,7 @@ year: 2019
 venue: "IEEE Microwave and Wireless Components Letters"
 type: "paper"
 kind: "journal"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

@@ -2,9 +2,17 @@
 import { ArrowUpRight, CheckCircle2, Clock3, Cpu, Radio, Waves } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
 import { activeProjects, completedProjects, formatPeriod, localizeProject } from '../data/projects';
-import { getI18n } from '../i18n';
+import { getCollection } from 'astro:content';
+import { getI18n, localizePath } from '../i18n';
+import { localizeEntry } from '../i18n/content';
 
 const { locale, t } = getI18n(Astro);
+const areaTitles = Object.fromEntries(
+  await Promise.all(
+    (await getCollection('research')).map(async (area) => [area.id, (await localizeEntry(area, locale)).data.title] as const),
+  ),
+);
+const areaLinkClass = 'rounded-full border border-line px-2.5 py-1 text-[11px] font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover';
 const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
 ---
 
@@ -42,6 +50,9 @@ const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
               <p class="mt-7 font-mono text-xs font-bold text-brand-navy">{formatPeriod(project, locale)}</p>
               <h3 class="mt-3 min-h-28 text-lg font-bold leading-snug text-ink" lang={text.fallback ? 'en' : undefined}>{text.title}</h3>
               <p class="mt-5 border-t border-line-subtle pt-4 text-xs font-bold uppercase tracking-[0.11em] text-link" lang={text.fallback ? 'en' : undefined}>{text.theme}</p>
+              <ul class="mt-4 flex flex-wrap gap-2" aria-label={t.publications.researchAreas}>
+                {project.areas.map((id) => <li><a href={localizePath(`/research/${id}/`, locale)} class={areaLinkClass}>{areaTitles[id]}</a></li>)}
+              </ul>
             </article>
           );
         })}
@@ -59,7 +70,12 @@ const themeIcons = [Waves, Cpu, Radio, Radio, Cpu];
         {completedProjects.map((project) => ({ ...project, ...localizeProject(project, locale) })).map((project) => (
           <article class="grid gap-3 py-7 sm:grid-cols-[7rem_1fr] sm:gap-7">
             <span class="font-mono text-sm font-bold text-brand-navy">{formatPeriod(project, locale)}</span>
-            <h3 class="font-bold leading-7 text-ink" lang={project.fallback ? 'en' : undefined}>{project.title}</h3>
+            <div>
+              <h3 class="font-bold leading-7 text-ink" lang={project.fallback ? 'en' : undefined}>{project.title}</h3>
+              <ul class="mt-3 flex flex-wrap gap-2" aria-label={t.publications.researchAreas}>
+                {project.areas.map((id) => <li><a href={localizePath(`/research/${id}/`, locale)} class={areaLinkClass}>{areaTitles[id]}</a></li>)}
+              </ul>
+            </div>
           </article>
         ))}
       </div>

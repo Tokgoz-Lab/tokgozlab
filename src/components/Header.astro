@@ -40,13 +40,13 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
       </span>
     </a>
 
-    <nav class="hidden items-center gap-1 lg:flex" aria-label={t.header.primaryNavigation}>
+    <nav class="hidden items-center gap-0.5 xl:flex" aria-label={t.header.primaryNavigation}>
       {regularNav.map((item) => (
         <a
           href={item.link}
           aria-current={isActive(item.link) ? 'page' : undefined}
           class:list={[
-            'rounded-full px-4 py-2 text-sm font-semibold transition-colors',
+            'whitespace-nowrap rounded-full px-3.5 py-2 text-sm font-semibold transition-colors',
             isActive(item.link)
               ? 'bg-brand-azure-tint text-link-hover'
               : 'text-body hover:bg-subtle hover:text-ink',
@@ -86,7 +86,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
 
     <button
       id="mobile-menu-button"
-      class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition hover:border-brand-azure hover:text-link-hover lg:hidden"
+      class="inline-flex h-11 w-11 items-center justify-center rounded-full border border-line text-ink transition hover:border-brand-azure hover:text-link-hover xl:hidden"
       type="button"
       aria-controls="mobile-menu"
       aria-expanded="false"
@@ -99,7 +99,7 @@ const isActive = (link: string) => pathname === link || (link !== homeLink && pa
     </button>
   </div>
 
-  <div id="mobile-menu" class="hidden border-t border-line bg-white lg:hidden" aria-hidden="true">
+  <div id="mobile-menu" class="hidden border-t border-line bg-white xl:hidden" aria-hidden="true">
     <nav class="mx-auto flex max-w-[90rem] flex-col gap-1 px-4 py-5 sm:px-6" aria-label={t.header.mobileNavigation}>
       {regularNav.map((item) => (
         <a

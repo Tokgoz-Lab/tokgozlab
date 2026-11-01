@@ -5,6 +5,7 @@ year: 2015
 venue: "ESSCIRC Conference 2015 - 41st European Solid-State Circuits Conference (ESSCIRC)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

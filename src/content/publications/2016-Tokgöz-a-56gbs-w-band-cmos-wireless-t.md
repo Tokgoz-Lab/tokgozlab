@@ -5,6 +5,7 @@ year: 2016
 venue: "2016 IEEE International Solid-State Circuits Conference (ISSCC)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

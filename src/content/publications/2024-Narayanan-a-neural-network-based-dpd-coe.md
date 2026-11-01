@@ -5,6 +5,7 @@ year: 2024
 venue: "IEICE Electronics Express"
 type: "paper"
 kind: "journal"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

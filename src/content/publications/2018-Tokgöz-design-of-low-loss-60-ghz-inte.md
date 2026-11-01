@@ -5,6 +5,7 @@ year: 2018
 venue: "IEICE Electronics Express"
 type: "paper"
 kind: "journal"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

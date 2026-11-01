@@ -5,6 +5,7 @@ year: 2015
 venue: "2015 IEEE 15th Topical Meeting on Silicon Monolithic Integrated Circuits in RF Systems"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

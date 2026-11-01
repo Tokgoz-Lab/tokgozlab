@@ -5,6 +5,7 @@ year: 2025
 venue: "2025 21st International Conference on Synthesis, Modeling, Analysis and Simulation Methods, and Applications to Circuits Design (SMACD)"
 type: "paper"
 kind: "conference"
+areas: ["ai-assisted-semiconductor-modeling"]
 links:
   pdf: ""
   code: ""

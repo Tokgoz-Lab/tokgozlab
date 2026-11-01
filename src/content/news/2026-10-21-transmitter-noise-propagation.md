@@ -1,6 +1,7 @@
 ---
 title: "When the Transmitter Adds Noise to the Signal"
 date: 2026-10-21
+category: "publication"
 summary: "Mahir Burak Usta, together with fellow Tokgöz Lab members and collaborators at N3Cat (UPC), has shown when noise generated inside a transmitter's own electronics can limit the performance of millimeter-wave and sub-terahertz wireless links."
 image: "../../assets/news-transmitter-noise-fig1.png"
 imageAlt: "Noise created in the transmitter's own electronic stages travels to the receiver together with the intended signal, and both weaken along the path. At the receiver, this transmitter noise adds to noise from the atmosphere and to the receiver's own noise."

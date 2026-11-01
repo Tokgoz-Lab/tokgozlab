@@ -1,9 +1,12 @@
 ---
 import { getCollection, render } from 'astro:content';
-import { ArrowLeft, ArrowUpRight } from 'lucide-react';
+import { ArrowLeft, ArrowRight, ArrowUpRight } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
+import PublicationItem from '../../components/PublicationItem.astro';
 import { getI18n, localizePath } from '../../i18n';
 import { localizeEntry } from '../../i18n/content';
+import { memberNames, normalizeName } from '../../data/labAuthors';
+import { activeProjects, completedProjects, formatPeriod, localizeProject } from '../../data/projects';
 
 export async function getStaticPaths() {
   const researchAreas = await getCollection('research');
@@ -18,6 +21,24 @@ const { area: entry } = Astro.props;
 const area = await localizeEntry(entry, locale);
 const { Content } = await render(area.source);
 const contentLang = area.fallback ? 'en' : undefined;
+const areaId = entry.id.replace(/\.[^/.]+$/, '');
+
+// Everything below is derived from the `areas` tags on publications and projects.
+const areaPapers = (await getCollection('publications'))
+  .filter((paper) => paper.data.type === 'paper' && paper.data.areas.some((ref) => ref.id === areaId))
+  .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'en'));
+const recentPapers = areaPapers.slice(0, 5);
+const projects = [
+  ...activeProjects.map((project) => ({ project, active: true })),
+  ...completedProjects.map((project) => ({ project, active: false })),
+]
+  .filter(({ project }) => (project.areas as string[]).includes(areaId))
+  .map(({ project, active }) => ({ ...localizeProject(project, locale), period: formatPeriod(project, locale), active }));
+const authorNames = new Set(areaPapers.flatMap((paper) => paper.data.authors.map(normalizeName)));
+const people = (await getCollection('team'))
+  .filter((member) => member.data.role !== 'Alumni' && [...memberNames(member)].some((name) => authorNames.has(name)))
+  .sort((a, b) => a.data.weight - b.data.weight || a.data.name.localeCompare(b.data.name, 'tr'))
+  .sort((a, b) => Number(b.data.role === 'Principal Investigator') - Number(a.data.role === 'Principal Investigator'));
 ---
 
 <Layout title={area.data.title} description={area.data.description}>
@@ -36,15 +57,73 @@ const contentLang = area.fallback ? 'en' : undefined;
     </header>
 
     <div class="section-shell grid gap-12 py-16 sm:py-24 lg:grid-cols-[1fr_18rem] lg:gap-20">
-      <div class="prose max-w-3xl" lang={contentLang}>
-        <Content />
+      <div class="max-w-3xl">
+        <div class="prose" lang={contentLang}>
+          <Content />
+        </div>
+
+        {projects.length > 0 && (
+          <section class="mt-16" aria-labelledby="area-projects">
+            <h2 id="area-projects" class="text-2xl font-bold tracking-[-0.025em] text-ink">{t.research.areaProjects}</h2>
+            <ul class="mt-6 divide-y divide-line border-y border-line">
+              {projects.map((project) => (
+                <li class="grid gap-2 py-5 sm:grid-cols-[9rem_1fr] sm:gap-6">
+                  <div class="flex flex-wrap items-center gap-2 sm:flex-col sm:items-start">
+                    <span class="font-mono text-xs font-bold text-brand-navy">{project.period}</span>
+                    <span class:list={['rounded-full px-2.5 py-0.5 text-[11px] font-bold', project.active ? 'bg-success-tint text-success' : 'bg-subtle text-muted']}>
+                      {project.active ? t.research.projectStatus.active : t.research.projectStatus.completed}
+                    </span>
+                  </div>
+                  <p class="font-semibold leading-7 text-ink" lang={project.fallback ? 'en' : undefined}>{project.title}</p>
+                </li>
+              ))}
+            </ul>
+            <a href={localizePath('/projects/', locale)} class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-link">{t.nav.projects} <ArrowRight className="h-4 w-4" /></a>
+          </section>
+        )}
+
+        {recentPapers.length > 0 && (
+          <section class="mt-16" aria-labelledby="area-publications">
+            <h2 id="area-publications" class="text-2xl font-bold tracking-[-0.025em] text-ink">{t.research.areaPublications}</h2>
+            <div class="mt-6 space-y-4">
+              {recentPapers.map((paper) => <PublicationItem entry={paper} />)}
+            </div>
+            <a href={`${localizePath('/publications/', locale)}?area=${areaId}`} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-link">
+              {t.research.allAreaPublications(areaPapers.length)} <ArrowRight className="h-4 w-4" />
+            </a>
+          </section>
+        )}
       </div>
-      <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">
-        <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{t.research.withUs}</p>
-        <p class="mt-4 text-sm leading-6 text-body">{t.research.withUsBody}</p>
-        <a href={localizePath('/join/', locale)} class="mt-6 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">
-          {t.nav.join} <ArrowUpRight className="h-4 w-4" />
-        </a>
+
+      <aside class="h-fit space-y-5 lg:sticky lg:top-28">
+        {people.length > 0 && (
+          <div class="rounded-2xl border border-line bg-white p-6">
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{t.research.areaPeople}</p>
+            <p class="mt-2 text-xs leading-5 text-muted">{t.research.areaPeopleNote}</p>
+            <ul class="mt-4 space-y-2.5 text-sm">
+              {people.map((member) => (
+                <li>
+                  <a href={localizePath(`/team/${member.id.replace(/\.[^/.]+$/, '')}/`, locale)} class="font-bold text-ink hover:text-link-hover">{member.data.name}</a>
+                  <span class="block text-xs text-muted">{t.roles[member.data.role].one}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        <div class="rounded-2xl border border-line bg-subtle p-6">
+          <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{t.research.collaborateTitle}</p>
+          <p class="mt-4 text-sm leading-6 text-body">{t.research.collaborateBody}</p>
+          <a href={localizePath('/collaborate/', locale)} class="mt-5 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">
+            {t.research.collaborateCta} <ArrowUpRight className="h-4 w-4" />
+          </a>
+          <div class="mt-6 border-t border-line pt-5">
+            <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{t.research.withUs}</p>
+            <p class="mt-3 text-sm leading-6 text-body">{t.research.withUsBody}</p>
+            <a href={localizePath('/join/', locale)} class="mt-4 inline-flex items-center gap-2 text-sm font-bold text-brand-navy">
+              {t.nav.join} <ArrowUpRight className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
       </aside>
     </div>
   </article>

@@ -1,6 +1,6 @@
 import { SITE } from '../config';
 
-export type NavKey = 'research' | 'projects' | 'publications' | 'team' | 'news' | 'join' | 'search';
+export type NavKey = 'research' | 'projects' | 'publications' | 'team' | 'news' | 'collaborate' | 'join' | 'search';
 export type Role = 'Principal Investigator' | 'Postdoctoral Researcher' | 'PhD Candidate' | "Master's Student" | 'Alumni';
 export type ProjectType = 'National' | 'International';
 
@@ -53,7 +53,8 @@ const en = {
       title: { before: 'From silicon to ', highlight: 'sub-terahertz', after: ' systems.' },
       subtitle: SITE.hero.subtitle,
       primaryCta: 'Explore our research',
-      secondaryCta: 'Work with us',
+      secondaryCta: 'Collaborate with us',
+      tertiaryCta: 'View publications',
       scrollCue: 'Scroll to explore the site',
     },
     stats: {
@@ -92,6 +93,13 @@ const en = {
       body: 'Korkut Kaan Tokgöz leads the group at Sabancı University’s Faculty of Engineering and Natural Sciences. His background spans CMOS transceivers, high-frequency device characterization, 5G systems at NEC, and academic research at Tokyo Institute of Technology.',
       profile: 'PI profile',
     },
+    collaborate: {
+      eyebrow: 'Research collaboration',
+      title: 'Open to research collaboration.',
+      body: 'We work with academic groups, research institutes and industry teams on circuits, measurements, system models and edge hardware — from a first technical discussion to joint pilot studies, publications and proposals.',
+      cta: 'Collaborate with us',
+      points: ['Joint publications and pilot studies', 'Research exchanges and grant proposals', 'Industry–academia projects'],
+    },
     join: {
       eyebrow: 'Join the lab',
       title: 'Curious about circuits beyond today’s limits?',
@@ -110,6 +118,75 @@ const en = {
     allAreas: 'All research areas',
     withUs: 'Research with us',
     withUsBody: 'Interested in this direction? Prospective students and collaborators are welcome to get in touch.',
+    areaPublications: 'Publications in this area',
+    allAreaPublications: (n: number) => `All ${n} publications in this area`,
+    areaProjects: 'Related projects',
+    projectStatus: { active: 'Active', completed: 'Completed' },
+    areaPeople: 'Lab authors in this area',
+    areaPeopleNote: 'Current lab members who have published in this area.',
+    collaborateTitle: 'Collaborate on this topic',
+    collaborateBody: 'Working on a question that overlaps with this direction? We welcome academic and industry collaborations.',
+    collaborateCta: 'Collaborate with us',
+  },
+  collaborate: {
+    title: 'Collaborate',
+    description: 'Research collaboration with Tokgöz Lab at Sabancı University in mmWave and sub-terahertz integrated circuits, high-frequency characterization, wireless systems, semiconductor modeling and edge-AI hardware.',
+    eyebrow: 'Research collaboration',
+    heading: 'Work with us on high-frequency circuits and systems.',
+    intro: 'We welcome collaborations with academic groups, research institutes and industry teams whose questions meet ours — from device characterization and circuit design to wireless system models and edge hardware.',
+    cta: 'Start a conversation',
+    subject: 'Research collaboration inquiry — Tokgöz Lab',
+    browsePublications: 'Browse our publications',
+    whyEyebrow: 'Why Tokgöz Lab',
+    whyTitle: 'Why collaborate with us?',
+    why: [
+      { title: 'Circuit-to-system expertise', body: 'Our work connects CMOS circuit design at millimeter-wave and sub-terahertz frequencies with link budgets, phase-noise models and hardware-aware communication analysis.' },
+      { title: 'Measurement-driven methods', body: 'On-chip de-embedding, calibration and device characterization run through the group’s publications, from L-2L and thru-reflect-line de-embedding to cross-line and tee-junction characterization.' },
+      { title: 'A track record in silicon', body: 'Publications include CMOS wireless transceivers presented at ISSCC and a 273–301 GHz amplifier in 65-nm bulk CMOS.' },
+      { title: 'An active research group', body: 'Postdoctoral researchers and graduate students at Sabancı University’s Faculty of Engineering and Natural Sciences, working on national and international research projects.' },
+    ],
+    directionsEyebrow: 'Research directions',
+    directionsTitle: 'Where our expertise can complement yours.',
+    capabilitiesTitle: 'Complementary capabilities',
+    capabilities: [
+      'Analog/RF, millimeter-wave and sub-terahertz CMOS circuit design',
+      'On-chip de-embedding, calibration and device characterization',
+      'Phase-noise, transmitter-noise and link-level system modeling',
+      'Machine-learning-assisted device modeling from small measurement datasets',
+      'FPGA implementation of compact machine-learning models',
+    ],
+    formatsEyebrow: 'Collaboration formats',
+    formatsTitle: 'Ways to work together',
+    formats: [
+      { title: 'Joint publications', body: 'Co-authored studies that combine your application, data or hardware with our circuit and system expertise.' },
+      { title: 'Focused pilot studies', body: 'A small, well-defined first study to test whether a joint direction is worth pursuing.' },
+      { title: 'Research exchanges', body: 'Visits by researchers and graduate students in either direction.' },
+      { title: 'Grant proposals', body: 'Joint applications to national and international research funding programs.' },
+      { title: 'Joint benchmarking', body: 'Comparing models, methods or measurement procedures on shared test cases.' },
+      { title: 'Industry–academia projects', body: 'Sponsored research and joint projects with companies working on high-frequency and intelligent hardware.' },
+    ],
+    processEyebrow: 'Process',
+    processTitle: 'How a collaboration starts',
+    steps: [
+      { title: 'Identify research overlap', body: 'Tell us about your research question, technology or application.' },
+      { title: 'Technical discussion', body: 'We meet to compare methods, tools and constraints.' },
+      { title: 'Define a pilot', body: 'We scope a small, concrete first study with clear deliverables.' },
+      { title: 'Develop a joint project', body: 'Successful pilots grow into joint publications, proposals or longer-term projects.' },
+    ],
+    examplesEyebrow: 'Example topics',
+    examplesTitle: 'Example collaboration topics',
+    examplesNote: 'Illustrative topics drawn from our current research directions. They are not existing or agreed projects.',
+    examples: [
+      'Transmitter-noise and phase-noise models validated against measured sub-terahertz hardware',
+      'Phase-noise-aware OFDM and ISAC waveform design for D-band links',
+      'Benchmarking de-embedding and calibration methods for on-chip measurements',
+      'Neural-network device models trained on small measurement datasets',
+      'Energy-efficient wireline and wireless chip-to-chip links',
+      'Real-time FPGA inference for embedded monitoring',
+    ],
+    contactTitle: 'Have a research question that fits?',
+    contactBody: 'Write to Korkut Kaan Tokgöz with a short description of your group, your research question and the kind of collaboration you have in mind.',
+    contactCta: 'Email the lab',
   },
   projects: {
     title: 'Projects',
@@ -142,6 +219,12 @@ const en = {
     kinds: { journal: 'Journal', conference: 'Conference', preprint: 'Preprint' },
     kindSections: { journal: 'Journal Articles', conference: 'Conference Papers', preprint: 'Preprints' },
     filterByType: 'Filter by type',
+    filterByArea: 'Research area',
+    search: 'Search publications',
+    searchPlaceholder: 'Title, author or venue',
+    noResults: 'No publications match these filters.',
+    clearFilters: 'Clear filters',
+    researchAreas: 'Research areas',
     all: 'All',
     fallbackDescription: (title: string, venue: string, year: number) => `${title} — ${venue}, ${year}. Published by Tokgöz Lab.`,
   },
@@ -188,6 +271,9 @@ const en = {
     emptyBody: 'Check back soon for updates from the lab.',
     readMoreAbout: (title: string) => `Read more: ${title}`,
     published: (date: string) => `Published ${date}.`,
+    categories: { publication: 'Publication', research: 'Research', conference: 'Conference', project: 'Project', lab: 'Lab update' },
+    filterLabel: 'News categories',
+    all: 'All',
   },
   join: {
     title: 'Opportunities',
@@ -247,6 +333,7 @@ const en = {
   // Text drawn into the per-page Open Graph images (src/pages/og/[...slug].png.ts).
   og: {
     research: { title: 'Research', subtitle: 'Across the hardware stack' },
+    collaborate: { title: 'Collaborate', subtitle: 'Research collaboration with Tokgöz Lab' },
     projects: { title: 'Projects', subtitle: 'Research programs in motion' },
     team: { title: 'People', subtitle: 'The people behind the circuits' },
     publications: { title: 'Publications', subtitle: 'Ideas tested in silicon and systems' },

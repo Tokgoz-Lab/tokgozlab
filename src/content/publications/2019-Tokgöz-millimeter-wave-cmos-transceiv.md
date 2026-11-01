@@ -5,6 +5,7 @@ year: 2019
 venue: "2019 IEEE International Symposium on Circuits and Systems (ISCAS)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

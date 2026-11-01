@@ -112,6 +112,8 @@ function importBibtex() {
     }
 
     const doi = cleanString(tags.doi || '');
+    // Research-area ids (src/content/research/<id>.md), comma-separated.
+    const areas = cleanString(tags.areas || '').split(',').map((area) => area.trim()).filter(Boolean);
     
     const note = cleanString(tags.note || tags.keywords || '');
 
@@ -160,6 +162,7 @@ function importBibtex() {
       // Only add type for publications, not books
       isBook ? '' : `type: "${type}"`,
       kind ? `kind: "${kind}"` : '',
+      areas.length ? `areas: [${areas.map((area) => `"${area}"`).join(', ')}]` : '',
       'links:',
       `  pdf: "${pdf}"`,
       `  code: "${code}"`,

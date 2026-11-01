@@ -5,6 +5,7 @@ year: 2024
 venue: "2024 15th National Conference on Electrical and Electronics Engineering (ELECO)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

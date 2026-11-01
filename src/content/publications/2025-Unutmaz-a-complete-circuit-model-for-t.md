@@ -5,6 +5,7 @@ year: 2025
 venue: "IEEE Access"
 type: "paper"
 kind: "journal"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

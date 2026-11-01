@@ -5,6 +5,7 @@ year: 2018
 venue: "2018 IEEE Asian Solid-State Circuits Conference (A-SSCC)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits", "energy-efficient-6g-wireless-systems"]
 links:
   pdf: ""
   code: ""

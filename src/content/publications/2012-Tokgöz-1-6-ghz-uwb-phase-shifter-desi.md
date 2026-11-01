@@ -5,6 +5,7 @@ year: 2012
 venue: "2012 6th European Conference on Antennas and Propagation (EUCAP)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: ""
   code: ""

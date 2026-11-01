@@ -5,6 +5,7 @@ year: 2025
 venue: "ELECO 2025 (16th International Conference on Electrical and Electronics Engineering)"
 type: "paper"
 kind: "conference"
+areas: ["mmwave-sub-terahertz-integrated-circuits"]
 links:
   pdf: "http://www.eleco.org.tr/ELECO2025/Eleco2025-Papers/219.pdf"
   code: ""

@@ -5,6 +5,7 @@ year: 2025
 venue: "arXiv preprint arXiv:2509.08504"
 type: "paper"
 kind: "preprint"
+areas: ["energy-efficient-6g-wireless-systems"]
 links:
   pdf: "https://arxiv.org/pdf/2509.08504"
   code: ""

@@ -41,9 +41,12 @@ const posts = await Promise.all(
         <div class="divide-y divide-line border-y border-line">
           {posts.map((post) => (
             <article class="group grid gap-6 py-9 md:grid-cols-[11rem_1fr] md:gap-10 lg:grid-cols-[11rem_1fr_18rem]">
-              <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-brand-navy">
-                {formatNewsDate(post.data.date, locale)}
-              </time>
+              <div class="flex flex-wrap items-center gap-2 md:flex-col md:items-start">
+                <time datetime={post.data.date.toISOString().slice(0, 10)} class="font-mono text-sm font-bold text-brand-navy">
+                  {formatNewsDate(post.data.date, locale)}
+                </time>
+                <span class="rounded-full bg-brand-azure-tint px-2.5 py-1 text-[11px] font-bold text-brand-navy">{t.news.categories[post.data.category]}</span>
+              </div>
               <div lang={post.fallback ? 'en' : undefined}>
                 <h2 class="text-2xl font-bold leading-snug tracking-[-0.025em] text-ink transition group-hover:text-link-hover">
                   <a href={localizePath(`/news/${post.id}/`, locale)}>{post.data.title}</a>

@@ -1,0 +1,137 @@
+---
+import { getCollection } from 'astro:content';
+import { ArrowRight, ArrowUpRight, Check, Mail } from 'lucide-react';
+import Layout from '../layouts/Layout.astro';
+import { SITE } from '../config';
+import { getI18n, localizePath } from '../i18n';
+import { localizeEntry } from '../i18n/content';
+
+const { locale, t } = getI18n(Astro);
+const c = t.collaborate;
+const mailto = `mailto:${SITE.email}?subject=${encodeURIComponent(c.subject)}`;
+const areas = await Promise.all(
+  (await getCollection('research'))
+    .sort((a, b) => a.data.order - b.data.order)
+    .map(async (area) => ({ id: area.id, ...(await localizeEntry(area, locale)) })),
+);
+---
+
+<Layout title={c.title} description={c.description}>
+  <header class="relative overflow-hidden bg-dark text-white">
+    <div class="signal-grid absolute inset-0 opacity-55"></div>
+    <div class="absolute -right-32 -top-36 h-[34rem] w-[34rem] rounded-full border border-on-dark-glow/15"></div>
+    <div class="section-shell relative py-18 sm:py-28">
+      <p class="text-xs font-bold uppercase tracking-[0.17em] text-on-dark-accent">{c.eyebrow}</p>
+      <h1 class="mt-5 max-w-4xl text-5xl font-bold leading-[1.02] tracking-[-0.055em] sm:text-7xl">{c.heading}</h1>
+      <p class="mt-7 max-w-2xl text-lg leading-8 text-on-dark-body">{c.intro}</p>
+      <div class="mt-9 flex flex-wrap gap-3">
+        <a href={mailto} class="inline-flex items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover">
+          <Mail className="h-4 w-4" /> {c.cta}
+        </a>
+        <a href={localizePath('/publications/', locale)} class="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/5 px-6 py-3.5 text-sm font-bold text-white transition hover:bg-white/10">
+          {c.browsePublications} <ArrowRight className="h-4 w-4" />
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <section class="py-16 sm:py-24" aria-labelledby="why">
+    <div class="section-shell">
+      <span class="eyebrow">{c.whyEyebrow}</span>
+      <h2 id="why" class="mt-5 max-w-3xl text-4xl font-bold tracking-[-0.04em] text-ink">{c.whyTitle}</h2>
+      <div class="mt-12 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
+        {c.why.map((item) => (
+          <article class="rounded-3xl border border-line bg-white p-7">
+            <h3 class="text-lg font-bold text-ink">{item.title}</h3>
+            <p class="mt-3 text-sm leading-6 text-body">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-y border-line bg-subtle py-16 sm:py-24" aria-labelledby="directions">
+    <div class="section-shell grid gap-12 lg:grid-cols-[1.4fr_1fr] lg:gap-16">
+      <div>
+        <span class="eyebrow">{c.directionsEyebrow}</span>
+        <h2 id="directions" class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{c.directionsTitle}</h2>
+        <div class="mt-10 grid gap-4 sm:grid-cols-2">
+          {areas.map((area) => (
+            <a href={localizePath(`/research/${area.id}/`, locale)} class="card-lift group rounded-2xl border border-line bg-white p-6">
+              <h3 class="font-bold leading-snug text-ink group-hover:text-link-hover" lang={area.fallback ? 'en' : undefined}>{area.data.title}</h3>
+              <p class="mt-3 text-sm leading-6 text-body" lang={area.fallback ? 'en' : undefined}>{area.data.description}</p>
+              <span class="mt-4 inline-flex items-center gap-1.5 text-sm font-bold text-link">{t.common.learnMore} <ArrowRight className="h-4 w-4" /></span>
+            </a>
+          ))}
+        </div>
+      </div>
+      <div class="h-fit rounded-3xl border border-line bg-white p-7 lg:mt-24">
+        <h3 class="text-lg font-bold text-ink">{c.capabilitiesTitle}</h3>
+        <ul class="mt-5 space-y-3 text-sm leading-6 text-body">
+          {c.capabilities.map((item) => (
+            <li class="flex gap-2.5"><Check className="mt-1 h-4 w-4 shrink-0 text-link" /> {item}</li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24" aria-labelledby="formats">
+    <div class="section-shell">
+      <span class="eyebrow">{c.formatsEyebrow}</span>
+      <h2 id="formats" class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{c.formatsTitle}</h2>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {c.formats.map((item) => (
+          <article class="rounded-2xl border border-line p-6">
+            <h3 class="font-bold text-ink">{item.title}</h3>
+            <p class="mt-2 text-sm leading-6 text-body">{item.body}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-dark py-16 text-white sm:py-24" data-surface="dark" aria-labelledby="process">
+    <div class="section-shell">
+      <p class="text-xs font-bold uppercase tracking-[0.17em] text-on-dark-accent">{c.processEyebrow}</p>
+      <h2 id="process" class="mt-5 text-4xl font-bold tracking-[-0.04em]">{c.processTitle}</h2>
+      <ol class="mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+        {c.steps.map((step, index) => (
+          <li class="rounded-2xl border border-white/15 bg-white/5 p-6">
+            <span class="font-mono text-sm font-bold text-on-dark-accent">0{index + 1}</span>
+            <h3 class="mt-3 text-lg font-bold">{step.title}</h3>
+            <p class="mt-2 text-sm leading-6 text-on-dark-body">{step.body}</p>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24" aria-labelledby="examples">
+    <div class="section-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:gap-16">
+      <div>
+        <span class="eyebrow">{c.examplesEyebrow}</span>
+        <h2 id="examples" class="mt-5 text-4xl font-bold tracking-[-0.04em] text-ink">{c.examplesTitle}</h2>
+        <p class="mt-5 rounded-2xl border border-warning/25 bg-warning-tint p-4 text-sm leading-6 text-ink">{c.examplesNote}</p>
+      </div>
+      <ul class="divide-y divide-line border-y border-line">
+        {c.examples.map((example) => (
+          <li class="flex gap-3 py-5 leading-7 text-body"><ArrowRight className="mt-1.5 h-4 w-4 shrink-0 text-link" /> {example}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <section class="pb-16 sm:pb-24">
+    <div class="section-shell overflow-hidden rounded-[2rem] bg-dark px-6 py-12 text-white sm:px-12 lg:flex lg:items-center lg:justify-between lg:gap-12lg:px-16">
+      <div class="max-w-2xl">
+        <h2 class="text-3xl font-bold tracking-[-0.035em] sm:text-4xl">{c.contactTitle}</h2>
+        <p class="mt-4 leading-7 text-on-dark-body">{c.contactBody}</p>
+        <p class="mt-3 text-sm font-semibold text-on-dark-accent">{SITE.email}</p>
+      </div>
+      <a href={mailto} class="mt-8 inline-flex shrink-0 items-center gap-2 rounded-full bg-brand-red px-6 py-3.5 text-sm font-bold text-white transition hover:bg-brand-red-hover lg:mt-0">
+        <Mail className="h-4 w-4" /> {c.contactCta} <ArrowUpRight className="h-4 w-4" />
+      </a>
+    </div>
+  </section>
+</Layout>
