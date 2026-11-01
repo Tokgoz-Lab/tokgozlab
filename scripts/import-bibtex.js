@@ -81,7 +81,8 @@ function importBibtex() {
     const authors = parseAuthors(tags.author);
     // For books, publisher is often the venue equivalent
     const venue = cleanString(tags.booktitle || tags.journal || tags.school || tags.publisher || tags.howpublished || tags.organization || tags.institution || 'Unknown Venue');
-    const description = cleanString(tags.abstract || `Published in ${venue}.`);
+    // No invented summary: without an abstract the page skips its "Abstract" section.
+    const description = cleanString(tags.abstract || '');
 
     // PDF link
     let pdf = cleanString(tags.pdf || tags.file || tags.url || '');
@@ -164,7 +165,7 @@ function importBibtex() {
       award ? `award: "${award.replace(/"/g, '\\"')}"` : '',
       badges.length > 0 ? 'badges:' : '',
       ...badges.map(b => `  - { text: "${b.text}", type: "${b.type}" }`),
-      `description: "${description.replace(/"/g, '\\"')}"`,
+      description ? `description: "${description.replace(/"/g, '\\"')}"` : '',
       // Only add featured for publications, not books
       isBook ? '' : `featured: ${isFeatured}`,
       '---',
