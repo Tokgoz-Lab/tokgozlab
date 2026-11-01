@@ -84,6 +84,8 @@ const news = defineCollection({
       imageFit: z.enum(['cover', 'contain']).default('cover'),
       link: z.string().url().optional(),
       linkText: z.string().optional(),
+      // Team member slugs (src/content/team/<slug>.md) shown as profile cards after the article.
+      people: z.array(z.string()).optional(),
       draft: z.boolean().default(false),
     }),
 });

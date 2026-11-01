@@ -1,8 +1,9 @@
 ---
-import { render } from 'astro:content';
+import { getEntry, render } from 'astro:content';
 import { Image, getImage } from 'astro:assets';
 import { ArrowLeft, ArrowUpRight } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
+import TeamCard from '../../components/TeamCard.astro';
 import { SITE } from '../../config';
 import { getI18n, localizePath } from '../../i18n';
 import { localizeEntry } from '../../i18n/content';
@@ -22,6 +23,13 @@ const localized = await localizeEntry(post, locale);
 const { title, date, summary, image, imageAlt, link, linkText } = localized.data;
 const { Content } = await render(localized.source);
 const contentLang = localized.fallback ? 'en' : undefined;
+const people = await Promise.all(
+  (post.data.people ?? []).map(async (slug) => {
+    const member = await getEntry('team', slug);
+    if (!member) throw new Error(`News "${post.id}" lists unknown team member "${slug}" in people`);
+    return member;
+  }),
+);
 
 const siteBase = Astro.site ?? new URL(Astro.url.origin);
 const isoDate = date.toISOString().slice(0, 10);
@@ -70,6 +78,11 @@ const newsArticleSchema = {
         <div class="prose" lang={contentLang}>
           <Content />
         </div>
+        {people.length > 0 && (
+          <div class="mt-12 grid max-w-xl gap-6 sm:grid-cols-2">
+            {people.map((member) => <TeamCard member={member} />)}
+          </div>
+        )}
       </div>
       <aside class="h-fit rounded-2xl border border-line bg-subtle p-6 lg:sticky lg:top-28">
         <p class="text-xs font-bold uppercase tracking-[0.15em] text-link">{SITE.labName}</p>
