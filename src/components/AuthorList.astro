@@ -1,0 +1,17 @@
+---
+// Comma-separated author list with every Tokgöz Lab member in bold.
+import { getLabAuthorMatcher } from '../data/labAuthors';
+
+interface Props {
+  authors: string[];
+}
+
+const { authors } = Astro.props;
+const isLabAuthor = await getLabAuthorMatcher();
+---
+
+{authors.map((author, index) => (
+  <>
+    <span class:list={[isLabAuthor(author) && 'font-bold text-brand-navy']}>{author}</span>{index < authors.length - 1 ? ', ' : ''}
+  </>
+))}

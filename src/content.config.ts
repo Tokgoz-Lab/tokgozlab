@@ -58,6 +58,8 @@ const team = defineCollection({
       googleScholar: z.string().optional(),
       orcid: z.string().optional(),
       weight: z.number().default(100),
+      // Other spellings of `name` used in publication author lists (e.g. "K. K. Tokgöz").
+      authorNames: z.array(z.string()).optional(),
     }),
 });
 

@@ -6,6 +6,7 @@ import Layout from '../../layouts/Layout.astro';
 import PublicationItem from '../../components/PublicationItem.astro';
 import { getI18n, localizePath, switchLocalePath } from '../../i18n';
 import { localizeEntry } from '../../i18n/content';
+import { memberNames, normalizeName } from '../../data/labAuthors';
 
 export async function getStaticPaths() {
   const teamMembers = await getCollection('team');
@@ -23,8 +24,9 @@ const { name, role, title, avatar, email, website, personalWebsite, linkedin, go
   localized.data;
 const contentLang = localized.fallback ? 'en' : undefined;
 
+const authorNames = memberNames(member);
 const memberPublications = (await getCollection('publications'))
-  .filter((paper) => paper.data.authors.includes(name))
+  .filter((paper) => paper.data.authors.some((author) => authorNames.has(normalizeName(author))))
   .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'en'));
 
 // --- Person JSON-LD ---

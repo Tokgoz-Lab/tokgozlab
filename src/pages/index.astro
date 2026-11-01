@@ -12,6 +12,7 @@ import {
   Waves,
 } from 'lucide-react';
 import Layout from '../layouts/Layout.astro';
+import AuthorList from '../components/AuthorList.astro';
 import { SITE } from '../config';
 import { getI18n, localizePath } from '../i18n';
 import { localizeEntry } from '../i18n/content';
@@ -227,7 +228,7 @@ const latestNews = await Promise.all(
                 <h3 class="text-lg font-bold leading-snug text-ink transition group-hover:text-link-hover">
                   {target ? <a href={target} target="_blank" rel="noopener noreferrer">{paper.data.title}</a> : paper.data.title}
                 </h3>
-                <p class="mt-2 line-clamp-1 text-sm text-muted">{paper.data.authors.join(', ')}</p>
+                <p class="mt-2 line-clamp-1 text-sm text-muted"><AuthorList authors={paper.data.authors} /></p>
               </div>
               <div class="flex items-center gap-3 md:justify-end">
                 <span class="rounded-full bg-subtle px-3 py-1 text-xs font-bold text-body" lang={recordLang}>{paper.data.venue}</span>

@@ -2,6 +2,7 @@
 import { ArrowUpRight, Code2, FileText, Globe2, Play, Presentation, Video } from 'lucide-react';
 import type { CollectionEntry } from 'astro:content';
 import { getI18n, localizePath } from '../i18n';
+import AuthorList from './AuthorList.astro';
 
 interface Props {
   entry: CollectionEntry<'publications'>;
@@ -23,7 +24,6 @@ const iconMap: Record<string, any> = {
   website: Globe2,
 };
 
-const isLabAuthor = (author: string) => /Korkut Kaan Tokg[oö]z/i.test(author);
 const activeLinks = links ? Object.entries(links).filter(([, url]) => Boolean(url && url !== '#')) : [];
 const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
 ---
@@ -39,11 +39,7 @@ const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
     </h3>
 
     <p class="mt-3 text-sm leading-6 text-body" lang={recordLang}>
-      {authors.map((author, index) => (
-        <>
-          <span class:list={[isLabAuthor(author) && 'font-bold text-brand-navy']}>{author}</span>{index < authors.length - 1 ? ', ' : ''}
-        </>
-      ))}
+      <AuthorList authors={authors} />
     </p>
 
     <div class="mt-4 flex flex-wrap items-center gap-2 text-sm">
