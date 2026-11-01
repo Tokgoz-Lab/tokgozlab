@@ -4,6 +4,7 @@ authors: ["Seitaro Kawai", "Korkut Kaan Tokgöz", "Kenichi Okada", "Akira Matsuz
 year: 2015
 venue: "2015 IEEE 15th Topical Meeting on Silicon Monolithic Integrated Circuits in RF Systems"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

@@ -138,6 +138,11 @@ const en = {
     authors: 'Authors',
     venue: 'Venue',
     year: 'Year',
+    type: 'Type',
+    kinds: { journal: 'Journal', conference: 'Conference', preprint: 'Preprint' },
+    kindSections: { journal: 'Journal Articles', conference: 'Conference Papers', preprint: 'Preprints' },
+    filterByType: 'Filter by type',
+    all: 'All',
     fallbackDescription: (title: string, venue: string, year: number) => `${title} — ${venue}, ${year}. Published by Tokgöz Lab.`,
   },
   team: {

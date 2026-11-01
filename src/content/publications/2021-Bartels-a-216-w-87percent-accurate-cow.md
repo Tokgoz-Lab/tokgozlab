@@ -4,6 +4,7 @@ authors: ["Jim Bartels", "Korkut Kaan Tokgöz", "Masamoto Fukawa", "Shohei Otsub
 year: 2021
 venue: "2021 IEEE International Symposium on Circuits and Systems (ISCAS)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

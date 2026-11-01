@@ -4,6 +4,7 @@ authors: ["Jian Pang", "Korkut Kaan Tokgöz", "Shotaro Maki", "Zheng Li", "Xueti
 year: 2018
 venue: "2018 IEEE Asian Solid-State Circuits Conference (A-SSCC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

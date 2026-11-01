@@ -4,6 +4,7 @@ authors: ["Muhammed Abdullah Unutmaz", "Korkut Kaan Tokgöz", "Mehmet Unlu"]
 year: 2025
 venue: "IEEE Access"
 type: "paper"
+kind: "journal"
 links:
   pdf: ""
   code: ""

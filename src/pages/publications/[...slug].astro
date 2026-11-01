@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content';
 import { ArrowLeft, ArrowUpRight, Code2, FileText, Globe2, Play, Presentation, Video } from 'lucide-react';
 import Layout from '../../layouts/Layout.astro';
 import AuthorList from '../../components/AuthorList.astro';
+import { publicationKind } from '../../data/publications';
 import { SITE, withBase } from '../../config';
 import { getI18n, localizePath } from '../../i18n';
 
@@ -33,6 +34,7 @@ const iconMap: Record<string, any> = {
 };
 
 const activeLinks = links ? Object.entries(links).filter(([, url]) => Boolean(url && url !== '#')) : [];
+const kind = publicationKind(entry);
 const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
 
 // --- Academic SEO: Highwire Press / Google Scholar citation meta tags ---
@@ -141,6 +143,10 @@ const scholarlyArticleSchema = {
           <dd class="mt-1 leading-6 text-body" lang={recordLang}>
             <AuthorList authors={authors} />
           </dd>
+        </div>
+        <div>
+          <dt class="font-bold text-ink">{t.publications.type}</dt>
+          <dd class="mt-1 leading-6 text-body">{t.publications.kinds[kind]}</dd>
         </div>
         <div>
           <dt class="font-bold text-ink">{t.publications.venue}</dt>

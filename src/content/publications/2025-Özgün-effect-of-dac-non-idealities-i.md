@@ -4,6 +4,7 @@ authors: ["Arda Özgün", "Hasan Bartu Orhun", "Korkut Kaan Tokgöz", "Yusuf Leb
 year: 2025
 venue: "2025 16th International Conference on Electrical and Electronics Engineering (ELECO)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

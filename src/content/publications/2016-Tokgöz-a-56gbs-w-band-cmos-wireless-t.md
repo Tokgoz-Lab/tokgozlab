@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Shotaro Maki", "Seitaro Kawai", "Noriaki Nagas
 year: 2016
 venue: "2016 IEEE International Solid-State Circuits Conference (ISSCC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

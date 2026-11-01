@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Cagri Cetintepe", "Simsek Demir"]
 year: 2012
 venue: "2012 6th European Conference on Antennas and Propagation (EUCAP)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

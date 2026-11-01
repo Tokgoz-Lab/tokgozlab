@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Shotaro Maki", "Jian Pang", "Noriaki Nagashima
 year: 2018
 venue: "2018 IEEE International Solid-State Circuits Conference (ISSCC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

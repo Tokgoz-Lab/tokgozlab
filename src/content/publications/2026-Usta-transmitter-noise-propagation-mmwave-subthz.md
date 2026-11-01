@@ -4,6 +4,7 @@ authors: ["Mahir Burak Usta", "Didem Aydoğan", "Evgenii Vinogradov", "Mohammad 
 year: 2026
 venue: "IEEE Open Journal of the Communications Society"
 type: "paper"
+kind: "journal"
 links:
   pdf: "https://arxiv.org/pdf/2604.16020"
   code: ""

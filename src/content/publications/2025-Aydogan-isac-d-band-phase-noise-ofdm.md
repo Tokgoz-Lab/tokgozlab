@@ -4,6 +4,7 @@ authors: ["Didem Aydoğan", "Mohaned Chraiti", "Korkut Kaan Tokgöz"]
 year: 2025
 venue: "arXiv preprint arXiv:2509.08504"
 type: "paper"
+kind: "preprint"
 links:
   pdf: "https://arxiv.org/pdf/2509.08504"
   code: ""

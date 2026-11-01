@@ -4,6 +4,7 @@ authors: ["Ahmet Alperen Öznam", "Mohaned Chraiti", "Ali Ghrayeb", "Korkut Kaan
 year: 2025
 venue: "2025 IEEE 36th International Symposium on Personal, Indoor and Mobile Radio Communications (PIMRC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

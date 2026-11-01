@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "N. Fajri", "Y. Seo", "S. Kawai", "K. Okada", "
 year: 2014
 venue: "Extended Abstracts of the 2014 International Conference on Solid State Devices and Materials"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

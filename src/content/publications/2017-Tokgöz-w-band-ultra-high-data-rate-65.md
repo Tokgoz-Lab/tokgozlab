@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Shotaro Maki", "Seitarou Kawai", "Noriaki Naga
 year: 2017
 venue: "2017 22nd Asia and South Pacific Design Automation Conference (ASP-DAC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

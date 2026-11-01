@@ -4,6 +4,7 @@ authors: ["Aravind Tharayil Narayanan", "Makihiko Katsuragi", "Kento Kimura", "S
 year: 2015
 venue: "ESSCIRC Conference 2015 - 41st European Solid-State Circuits Conference (ESSCIRC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

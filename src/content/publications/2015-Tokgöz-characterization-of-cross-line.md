@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Shotaro Maki", "Kenichi Okada", "Akira Matsuza
 year: 2015
 venue: "2015 IEEE International Symposium on Radio-Frequency Integration Technology (RFIT)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

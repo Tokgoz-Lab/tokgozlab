@@ -4,6 +4,7 @@ authors: ["Ibrahim Abdo", "Korkut Kaan Tokgöz", "Takuya Fujimura", "Kenichi Oka
 year: 2017
 venue: "2017 IEEE International Symposium on Radio-Frequency Integration Technology (RFIT)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

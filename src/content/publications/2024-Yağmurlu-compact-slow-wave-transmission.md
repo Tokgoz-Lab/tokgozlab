@@ -4,6 +4,7 @@ authors: ["Selim Aras Yağmurlu", "Korkut Kaan Tokgöz"]
 year: 2024
 venue: "2024 15th National Conference on Electrical and Electronics Engineering (ELECO)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

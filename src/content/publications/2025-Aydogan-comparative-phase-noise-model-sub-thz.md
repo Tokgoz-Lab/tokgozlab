@@ -4,6 +4,7 @@ authors: ["Didem Aydoğan", "Mohaned Chraiti", "Korkut Kaan Tokgöz"]
 year: 2025
 venue: "2025 Joint European Conference on Networks and Communications & 6G Summit (EuCNC/6G Summit)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

@@ -9,6 +9,8 @@ const publications = defineCollection({
     year: z.number(),
     venue: z.string(),
     type: z.enum(['paper', 'book', 'patent', 'software']).default('paper'),
+    // Set by import-bibtex.js from the BibTeX entry type; see publicationKind() for hand-written files.
+    kind: z.enum(['journal', 'conference', 'preprint']).optional(),
     description: z.string().optional(),
     doi: z.string().optional(),
     award: z.string().optional(),

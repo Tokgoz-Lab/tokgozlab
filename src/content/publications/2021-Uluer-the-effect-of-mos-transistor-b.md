@@ -4,6 +4,7 @@ authors: ["Utku Uluer", "Korkut Kaan Tokgöz", "Ertan Zencir", "Mehmet Unlu"]
 year: 2021
 venue: "2021 13th International Conference on Electrical and Electronics Engineering (ELECO)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

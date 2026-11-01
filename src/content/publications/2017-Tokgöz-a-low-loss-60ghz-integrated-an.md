@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Seitaro Kawai", "Kenichi Okada", "Akira Matsuz
 year: 2017
 venue: "2017 IEEE International Symposium on Radio-Frequency Integration Technology (RFIT)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

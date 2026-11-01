@@ -4,6 +4,7 @@ authors: ["Ahmet Faruk Karahan", "Ahmet Yelboğa", "Ahmet Alperen Öznam", "Kork
 year: 2025
 venue: "2025 16th International Conference on Electrical and Electronics Engineering (ELECO)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

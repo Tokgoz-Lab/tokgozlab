@@ -4,6 +4,7 @@ authors: ["Jian Pang", "Zheng Li", "Ryo Kubozoe", "Xueting Luo", "Rui Wu", "Yun 
 year: 2019
 venue: "2019 IEEE International Solid-State Circuits Conference - (ISSCC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

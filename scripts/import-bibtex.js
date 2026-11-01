@@ -77,6 +77,11 @@ function importBibtex() {
     }
 
     const title = cleanString(tags.title);
+    const journal = cleanString(tags.journal || '');
+    let kind = '';
+    if (/arxiv/i.test(journal) || entryType === 'unpublished') kind = 'preprint';
+    else if (['inproceedings', 'conference', 'proceedings'].includes(entryType)) kind = 'conference';
+    else if (entryType === 'article') kind = 'journal';
     const year = parseInt(tags.year, 10);
     const authors = parseAuthors(tags.author);
     // For books, publisher is often the venue equivalent
@@ -154,6 +159,7 @@ function importBibtex() {
       `venue: "${venue.replace(/"/g, '\\"')}"`,
       // Only add type for publications, not books
       isBook ? '' : `type: "${type}"`,
+      kind ? `kind: "${kind}"` : '',
       'links:',
       `  pdf: "${pdf}"`,
       `  code: "${code}"`,

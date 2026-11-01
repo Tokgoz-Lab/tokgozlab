@@ -4,6 +4,7 @@ authors: ["Ibrahim Abdo", "Takuya Fujimura", "Tsuyoshi Miura", "Korkut Kaan Tokg
 year: 2020
 venue: "2020 IEEE/MTT-S International Microwave Symposium (IMS)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

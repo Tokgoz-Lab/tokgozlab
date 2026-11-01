@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Kenichi Okada"]
 year: 2019
 venue: "2019 IEEE International Symposium on Circuits and Systems (ISCAS)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

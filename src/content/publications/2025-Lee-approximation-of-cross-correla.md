@@ -4,6 +4,7 @@ authors: ["Jaewon Lee", "Pier-Andrea Francese", "Korkut Kaan Tokgöz", "Seoyoung
 year: 2025
 venue: "2025 IEEE/IEIE International Conference on Consumer Electronics-Asia (ICCE-Asia)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

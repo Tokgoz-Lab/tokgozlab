@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Seitaro Kawai", "Kenichi Okada", "Akira Matsuz
 year: 2018
 venue: "IEICE Electronics Express"
 type: "paper"
+kind: "journal"
 links:
   pdf: ""
   code: ""

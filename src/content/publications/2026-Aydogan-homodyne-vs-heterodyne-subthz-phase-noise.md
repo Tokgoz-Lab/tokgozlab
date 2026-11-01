@@ -4,6 +4,7 @@ authors: ["Didem Aydoğan", "Korkut Kaan Tokgöz"]
 year: 2026
 venue: "arXiv preprint arXiv:2603.21384"
 type: "paper"
+kind: "preprint"
 links:
   pdf: "https://arxiv.org/pdf/2603.21384"
   code: ""

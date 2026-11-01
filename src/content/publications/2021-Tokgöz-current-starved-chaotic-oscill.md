@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Ludovico Minati", "Hiroyuki Ito"]
 year: 2021
 venue: "Proceedings of the 26th Asia and South Pacific Design Automation Conference"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

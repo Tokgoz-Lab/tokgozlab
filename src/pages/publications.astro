@@ -5,6 +5,7 @@ import Layout from '../layouts/Layout.astro';
 import PublicationItem from '../components/PublicationItem.astro';
 import { SITE } from '../config';
 import { getI18n } from '../i18n';
+import { PUBLICATION_KINDS, publicationKind } from '../data/publications';
 
 const { t } = getI18n(Astro);
 // Titles are English records on every locale, so collate them the same way everywhere.
@@ -12,6 +13,19 @@ const allPapers = (await getCollection('publications'))
   .filter((paper) => paper.data.type === 'paper')
   .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'en'));
 const years = [...new Set(allPapers.map((paper) => paper.data.year))];
+const kinds = PUBLICATION_KINDS.filter((kind) => allPapers.some((paper) => publicationKind(paper) === kind));
+// Per-year count labels for every filter, so the script below can swap them without its own wording.
+const yearCounts = (year: number) => {
+  const papers = allPapers.filter((paper) => paper.data.year === year);
+  return JSON.stringify(
+    Object.fromEntries([
+      ['all', t.publications.count(papers.length)],
+      ...kinds.map((kind) => [kind, t.publications.count(papers.filter((paper) => publicationKind(paper) === kind).length)]),
+    ]),
+  );
+};
+const filterClass =
+  'w-fit rounded-full border border-line px-3 py-1.5 text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover aria-pressed:border-brand-navy aria-pressed:bg-brand-navy aria-pressed:text-white';
 ---
 
 <Layout title={t.publications.title} description={t.publications.description}>
@@ -38,22 +52,31 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
   <section class="py-16 sm:py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[11rem_1fr] lg:gap-14">
       <aside class="h-fit lg:sticky lg:top-28">
+        <div class="text-sm font-bold text-ink">{t.publications.filterByType}</div>
+        <div class="mt-4 mb-8 flex flex-wrap gap-2 lg:flex-col" role="group" aria-label={t.publications.filterByType}>
+          <button type="button" data-filter="all" aria-pressed="true" class={filterClass}>{t.publications.all} ({allPapers.length})</button>
+          {kinds.map((kind) => (
+            <button type="button" data-filter={kind} aria-pressed="false" class={filterClass}>
+              {t.publications.kindSections[kind]} ({allPapers.filter((paper) => publicationKind(paper) === kind).length})
+            </button>
+          ))}
+        </div>
         <div class="flex items-center gap-2 text-sm font-bold text-ink">
           <BookOpen className="h-4 w-4 text-link" /> {t.publications.browseByYear}
         </div>
         <nav class="mt-5 flex flex-wrap gap-2 lg:flex-col" aria-label={t.publications.years}>
           {years.map((year) => (
-            <a href={`#year-${year}`} class="w-fit rounded-full border border-line px-3 py-1.5 font-mono text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover">{year}</a>
+            <a href={`#year-${year}`} data-year-link={year} class="w-fit rounded-full border border-line px-3 py-1.5 font-mono text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover">{year}</a>
           ))}
         </nav>
       </aside>
 
       <div class="space-y-16">
         {years.map((year) => (
-          <section id={`year-${year}`} class="scroll-mt-28">
+          <section id={`year-${year}`} data-year={year} data-counts={yearCounts(year)} class="scroll-mt-28">
             <div class="mb-6 flex items-end gap-4 border-b border-line pb-4">
               <h2 class="font-mono text-3xl font-bold text-brand-navy">{year}</h2>
-              <span class="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-muted">
+              <span data-count class="mb-1 text-xs font-bold uppercase tracking-[0.12em] text-muted">
                 {t.publications.count(allPapers.filter((paper) => paper.data.year === year).length)}
               </span>
             </div>
@@ -69,4 +92,33 @@ const years = [...new Set(allPapers.map((paper) => paper.data.year))];
       </div>
     </div>
   </section>
+
+  <script is:inline>
+    // Type filter. Without JavaScript every publication stays visible.
+    (() => {
+      const buttons = document.querySelectorAll('[data-filter]');
+      const apply = (filter) => {
+        buttons.forEach((button) => button.setAttribute('aria-pressed', String(button.dataset.filter === filter)));
+        document.querySelectorAll('[data-year]').forEach((section) => {
+          let visible = 0;
+          section.querySelectorAll('[data-kind]').forEach((item) => {
+            const show = filter === 'all' || item.dataset.kind === filter;
+            item.hidden = !show;
+            if (show) visible += 1;
+          });
+          section.hidden = visible === 0;
+          section.querySelector('[data-count]').textContent = JSON.parse(section.dataset.counts)[filter];
+          const link = document.querySelector(`[data-year-link="${section.dataset.year}"]`);
+          if (link) link.hidden = visible === 0;
+        });
+        const url = new URL(location.href);
+        if (filter === 'all') url.searchParams.delete('type');
+        else url.searchParams.set('type', filter);
+        history.replaceState(null, '', url);
+      };
+      buttons.forEach((button) => button.addEventListener('click', () => apply(button.dataset.filter)));
+      const initial = new URLSearchParams(location.search).get('type');
+      if (initial && document.querySelector(`[data-filter="${initial}"]`)) apply(initial);
+    })();
+  </script>
 </Layout>

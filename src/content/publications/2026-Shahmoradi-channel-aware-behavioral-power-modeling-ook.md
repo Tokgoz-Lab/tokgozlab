@@ -4,6 +4,7 @@ authors: ["Mohammad Shahmoradi", "Ahmet Yelboğa", "Eduard Alarcón", "Korkut Ka
 year: 2026
 venue: "IEEE Transactions on Circuits and Systems I: Regular Papers"
 type: "paper"
+kind: "journal"
 links:
   pdf: ""
   code: ""

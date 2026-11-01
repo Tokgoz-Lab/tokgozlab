@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "Kenichi Okada"]
 year: 2020
 venue: "2020 IEEE International Symposium on Radio-Frequency Integration Technology (RFIT)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

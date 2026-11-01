@@ -7,6 +7,7 @@ import PublicationItem from '../../components/PublicationItem.astro';
 import { getI18n, localizePath, switchLocalePath } from '../../i18n';
 import { localizeEntry } from '../../i18n/content';
 import { memberNames, normalizeName } from '../../data/labAuthors';
+import { PUBLICATION_KINDS, publicationKind } from '../../data/publications';
 
 export async function getStaticPaths() {
   const teamMembers = await getCollection('team');
@@ -28,6 +29,10 @@ const authorNames = memberNames(member);
 const memberPublications = (await getCollection('publications'))
   .filter((paper) => paper.data.authors.some((author) => authorNames.has(normalizeName(author))))
   .sort((a, b) => b.data.year - a.data.year || a.data.title.localeCompare(b.data.title, 'en'));
+const publicationGroups = PUBLICATION_KINDS.map((kind) => ({
+  kind,
+  entries: memberPublications.filter((paper) => publicationKind(paper) === kind),
+})).filter((group) => group.entries.length > 0);
 
 // --- Person JSON-LD ---
 // Korkut Kaan Tokgöz already has a full Person entity in Layout.astro's
@@ -106,9 +111,14 @@ const personSchema = {
       {memberPublications.length > 0 && (
         <div class="not-prose mt-12" lang={contentLang && locale}>
           <h2 class="text-2xl font-bold tracking-[-0.025em] text-ink">{t.team.publications}</h2>
-          <div class="mt-6 space-y-5">
-            {memberPublications.map((entry) => <PublicationItem entry={entry} />)}
-          </div>
+          {publicationGroups.map((group) => (
+            <section class="mt-8">
+              <h3 class="text-lg font-bold tracking-[-0.015em] text-ink">{t.publications.kindSections[group.kind]}</h3>
+              <div class="mt-4 space-y-5">
+                {group.entries.map((entry) => <PublicationItem entry={entry} />)}
+              </div>
+            </section>
+          ))}
         </div>
       )}
     </div>

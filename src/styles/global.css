@@ -181,6 +181,8 @@ button {
   pointer-events: none;
 }
 
+/* Blocks marked .not-prose inside an article (e.g. a profile's publication
+   cards) keep their own component styling. */
 .prose {
   color: var(--color-body);
   font-size: 1rem;
@@ -191,20 +193,20 @@ button {
   margin-top: 1.15rem;
 }
 
-.prose h2,
-.prose h3 {
+.prose h2:not(.not-prose *),
+.prose h3:not(.not-prose *) {
   color: var(--color-ink);
   font-weight: 800;
   letter-spacing: -0.025em;
   line-height: 1.25;
 }
 
-.prose h2 {
+.prose h2:not(.not-prose *) {
   margin-top: 2.5rem;
   font-size: 1.6rem;
 }
 
-.prose h3 {
+.prose h3:not(.not-prose *) {
   margin-top: 1.8rem;
   font-size: 1.2rem;
 }
@@ -230,7 +232,7 @@ button {
   color: var(--color-ink);
 }
 
-.prose a {
+.prose a:not(.not-prose *) {
   color: var(--color-link);
   font-weight: 700;
   text-decoration: underline;

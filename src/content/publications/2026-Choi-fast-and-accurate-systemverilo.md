@@ -4,6 +4,7 @@ authors: ["Yujin Choi", "Seongjin Kim", "Seoyoung Jang", "Donggeon Kim", "Korkut
 year: 2026
 venue: "2026 IEEE International Symposium on Circuits and Systems (ISCAS)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

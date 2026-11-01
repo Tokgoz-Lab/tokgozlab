@@ -4,6 +4,7 @@ authors: ["Rui Wu", "Ryo Minami", "Yuuki Tsukui", "Seitaro Kawai", "Yuuki Seo", 
 year: 2017
 venue: "2017 IEEE 12th International Conference on ASIC (ASICON)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

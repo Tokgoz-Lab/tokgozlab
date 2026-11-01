@@ -4,6 +4,7 @@ authors: ["Mohammad Shahmoradi", "Korkut Kaan Tokgöz", "Eduard Alarcón", "Serg
 year: 2025
 venue: "2025 55th European Microwave Conference (EuMC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

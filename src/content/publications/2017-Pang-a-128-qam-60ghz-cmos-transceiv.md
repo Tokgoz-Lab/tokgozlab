@@ -4,6 +4,7 @@ authors: ["Jian Pang", "Shotaro Maki", "Seitarou Kawai", "Noriaki Nagashima", "Y
 year: 2017
 venue: "2017 IEEE International Solid-State Circuits Conference (ISSCC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

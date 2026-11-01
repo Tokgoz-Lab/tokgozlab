@@ -4,6 +4,7 @@ authors: ["Aravind Tharayil Narayanan", "Ludovico Minati", "Aran Hagihara", "Jun
 year: 2024
 venue: "IEICE Electronics Express"
 type: "paper"
+kind: "journal"
 links:
   pdf: ""
   code: ""

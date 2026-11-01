@@ -151,6 +151,11 @@ const tr: Dictionary = {
     authors: 'Yazarlar',
     venue: 'Yayın yeri',
     year: 'Yıl',
+    type: 'Tür',
+    kinds: { journal: 'Dergi', conference: 'Konferans', preprint: 'Ön baskı' },
+    kindSections: { journal: 'Dergi Makaleleri', conference: 'Konferans Bildirileri', preprint: 'Ön Baskılar' },
+    filterByType: 'Türe göre',
+    all: 'Tümü',
     fallbackDescription: (title: string, venue: string, year: number) => `${title} — ${venue}, ${year}. Tokgöz Lab yayını.`,
   },
   team: {

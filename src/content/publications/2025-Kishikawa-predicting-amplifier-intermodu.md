@@ -4,6 +4,7 @@ authors: ["Ryoko Kishikawa", "Korkut Kaan Tokgöz", "Hiroyuki Ito", "Shuhei Amak
 year: 2025
 venue: "2025 Asia-Pacific Microwave Conference (APMC)"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

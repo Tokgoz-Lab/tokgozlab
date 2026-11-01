@@ -4,6 +4,7 @@ authors: ["Korkut Kaan Tokgöz", "L. Kimsrun", "S. Kawai", "K. Okada", "A. Matsu
 year: 2013
 venue: "Extended Abstracts of the 2013 International Conference on Solid State Devices and Materials"
 type: "paper"
+kind: "conference"
 links:
   pdf: ""
   code: ""

@@ -3,6 +3,7 @@ import { ArrowUpRight, Code2, FileText, Globe2, Play, Presentation, Video } from
 import type { CollectionEntry } from 'astro:content';
 import { getI18n, localizePath } from '../i18n';
 import AuthorList from './AuthorList.astro';
+import { publicationKind } from '../data/publications';
 
 interface Props {
   entry: CollectionEntry<'publications'>;
@@ -11,6 +12,7 @@ interface Props {
 const { locale, t } = getI18n(Astro);
 const { entry } = Astro.props;
 const { title, authors, year, venue, links, doi, award, badges } = entry.data;
+const kind = publicationKind(entry);
 const detailLink = localizePath(`/publications/${entry.id}/`, locale);
 // Publication records stay English on every locale.
 const recordLang = locale === 'en' ? undefined : 'en';
@@ -28,7 +30,7 @@ const activeLinks = links ? Object.entries(links).filter(([, url]) => Boolean(ur
 const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
 ---
 
-<article class="group grid gap-5 rounded-2xl border border-line bg-white p-6 transition hover:border-brand-azure/40 hover:shadow-[0_18px_45px_-32px_color-mix(in_srgb,var(--color-brand-navy)_45%,transparent)] sm:p-7 md:grid-cols-[5rem_1fr]">
+<article data-kind={kind} class="group grid gap-5 rounded-2xl border border-line bg-white p-6 transition hover:border-brand-azure/40 hover:shadow-[0_18px_45px_-32px_color-mix(in_srgb,var(--color-brand-navy)_45%,transparent)] sm:p-7 md:grid-cols-[5rem_1fr]">
   <div>
     <span class="inline-flex rounded-lg bg-brand-azure-tint px-3 py-2 font-mono text-sm font-bold text-brand-navy">{year}</span>
   </div>
@@ -43,6 +45,7 @@ const doiUrl = doi ? `https://doi.org/${doi}` : undefined;
     </p>
 
     <div class="mt-4 flex flex-wrap items-center gap-2 text-sm">
+      <span class="rounded-full bg-subtle px-2.5 py-1 text-xs font-bold text-body ring-1 ring-inset ring-line">{t.publications.kinds[kind]}</span>
       <span class="font-semibold text-body" lang={recordLang}>{venue}</span>
       {(badges || award) && (
         <>
