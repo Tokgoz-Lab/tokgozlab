@@ -62,6 +62,8 @@ const filterClass =
   <section class="py-16 sm:py-24">
     <div class="section-shell grid gap-10 lg:grid-cols-[15rem_1fr] lg:gap-14">
       <aside class="h-fit lg:sticky lg:top-28 lg:max-h-[calc(100svh-8rem)] lg:overflow-y-auto lg:overscroll-contain lg:pr-2 lg:pb-4">
+        <label for="publication-search" class="text-sm font-bold text-ink">{t.publications.search}</label>
+        <input id="publication-search" type="search" data-search-input placeholder={t.publications.searchPlaceholder} autocomplete="off" class="mt-3 mb-8 w-full rounded-full border border-line-strong bg-white px-4 py-2 text-sm text-ink placeholder:text-muted focus:border-brand-azure focus:outline-none focus:ring-2 focus:ring-brand-azure/30" />
         <div class="flex items-center gap-2 text-sm font-bold text-ink">
           <BookOpen className="h-4 w-4 text-link" /> {t.publications.browseByYear}
         </div>
@@ -70,8 +72,6 @@ const filterClass =
             <a href={`#year-${year}`} data-year-link={year} class="w-fit rounded-full border border-line px-3 py-1.5 font-mono text-xs font-bold text-body transition hover:border-brand-azure hover:bg-brand-azure-tint hover:text-link-hover">{year}</a>
           ))}
         </nav>
-        <label for="publication-search" class="text-sm font-bold text-ink">{t.publications.search}</label>
-        <input id="publication-search" type="search" data-search-input placeholder={t.publications.searchPlaceholder} autocomplete="off" class="mt-3 mb-8 w-full rounded-full border border-line-strong bg-white px-4 py-2 text-sm text-ink placeholder:text-muted focus:border-brand-azure focus:outline-none focus:ring-2 focus:ring-brand-azure/30" />
         <div class="text-sm font-bold text-ink">{t.publications.filterByArea}</div>
         <div class="mt-4 mb-8 flex flex-wrap gap-2 lg:flex-col" role="group" aria-label={t.publications.filterByArea}>
           <button type="button" data-area="all" aria-pressed="true" class={filterClass}>{t.publications.all}</button>
