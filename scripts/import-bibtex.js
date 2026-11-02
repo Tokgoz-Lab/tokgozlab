@@ -59,6 +59,12 @@ function importBibtex() {
       return;
     }
 
+    // Lab policy: only papers co-authored by the PI. Members' pre-lab work is not listed.
+    if (!/tokg(ö|o|\{\\"o\}|\\"o)z/i.test(tags.author || '')) {
+      console.warn(`Skipping entry ${entry.citationKey}: Korkut Kaan Tokgöz is not an author.`);
+      return;
+    }
+
     const entryType = (entry.entryType || '').toLowerCase();
     const isBook = entryType === 'book';
     const OUTPUT_DIR = isBook ? BOOKS_DIR : PUBLICATIONS_DIR;
